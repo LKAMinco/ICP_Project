@@ -20,6 +20,7 @@
  */ 
 class Entity {
     private:
+        std::string *name;
         std::vector<Attribute*> *attributes;
         std::vector<Method*> *methods;
     public:
@@ -51,6 +52,12 @@ class Entity {
          * @brief removes method from methods (method array)
          */
         void RemoveMethod(Method *met);
+        /**
+         * @name Get Name
+         * @brief returns name of entity
+         * @return string
+         */
+        std::string getName();
 };
 
 #endif

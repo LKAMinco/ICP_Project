@@ -9,11 +9,13 @@
 #include <entity.h>
 
 Entity::Entity(){
+    name = new std::string;
     attributes = new std::vector<Attribute*>();
     methods = new std::vector<Method*>();
 }
 
 Entity::~Entity(){
+    delete name;
     delete[] attributes;
     delete[] methods;
 }
@@ -58,4 +60,8 @@ void Entity::RemoveMethod(Method *met){
         delete (*methods)[index];
         methods->erase(methods->begin() + index);
     }
+}
+
+std::string Entity::getName(){
+    return *name;
 }
