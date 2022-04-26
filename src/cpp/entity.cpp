@@ -32,9 +32,11 @@ void Entity::RemoveAttribute(Attribute *attrib){
             break;
         }
     }
-    //if finds attribute, removes it
-    if(index != -1)
+    //if finds attribute, calls its destructor and removes it from vector
+    if(index != -1){
+        delete (*attributes)[index];
         attributes->erase(attributes->begin() + index);
+    }
 }
 
 void Entity::addMethod(Method *met){
@@ -51,7 +53,9 @@ void Entity::RemoveMethod(Method *met){
             break;
         }
     }
-    //if finds method, removes it
-    if(index != -1)
+    //if finds method, calls its destructor and removes it from vector
+    if(index != -1){
+        delete (*methods)[index];
         methods->erase(methods->begin() + index);
+    }
 }
