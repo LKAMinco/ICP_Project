@@ -6,7 +6,7 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#include <erconnect.h>
+#include "erconnect.h"
 
 Erconnect::Erconnect(Entity *start, Entity *end){
     startPoint = start;

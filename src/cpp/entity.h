@@ -10,8 +10,8 @@
 #define ENTITY_H
 
 #include <string>
-#include <attribute.h>
-#include <method.h>
+#include "attribute.h"
+#include "method.h"
 #include <vector>
 
 /**

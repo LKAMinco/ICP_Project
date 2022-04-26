@@ -6,7 +6,7 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#include <entity.h>
+#include "entity.h"
 
 Entity::Entity(){
     name = new std::string;

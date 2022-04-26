@@ -9,7 +9,7 @@
 #ifndef ERCONNECT_H
 #define ERCONNECT_H
 
-#include <entity.h>
+#include "entity.h"
 
 /**
  * @class Erconnect

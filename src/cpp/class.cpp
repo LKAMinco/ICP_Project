@@ -6,7 +6,7 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#include <class.h>
+#include "class.h"
 
 CD::CD(){
     entities = new std::vector<Entity*>();

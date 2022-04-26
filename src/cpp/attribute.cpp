@@ -6,7 +6,7 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#include <attribute.h>
+#include "attribute.h"
 
 Attribute::Attribute(){
     modifier = new std::string;

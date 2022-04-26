@@ -6,10 +6,10 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#ifndef ERDIAGRAM_H
-#define ERDIAGRAM_H
+#ifndef CDIAGRAM_H
+#define CDIAGRAM_H
 
-#include <erconnect.h>
+#include "erconnect.h"
 
 /**
  * @class CD

@@ -6,7 +6,7 @@
  * @author Milan Hrabovsky (xhrabo15)
  */
 
-#include <method.h>
+#include "method.h"
 
 Method::Method(){
     name = new std::string;
