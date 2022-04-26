@@ -32,6 +32,12 @@ class Method {
          * @brief updates value in name string
          */
         void updateName(std::string newName);
+        /**
+         * @name Get Name
+         * @brief returns name of method
+         * @return string
+         */
+        std::string getName();
 };
 
 #endif

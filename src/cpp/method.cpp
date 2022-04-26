@@ -19,3 +19,7 @@ Method::~Method(){
 void Method::updateName(std::string newName){
     *name = newName;
 }
+
+std::string Method::getName(){
+    return *name;
+}
