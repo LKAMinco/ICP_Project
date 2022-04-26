@@ -16,7 +16,7 @@
 
 /**
  * @class Entity
- * @brief class for entities in ER entities
+ * @brief class for entities in ER diagram
  */ 
 class Entity {
     private:

@@ -13,7 +13,7 @@
 
 /**
  * @class Erconnect
- * @brief class for attributes in ER entities
+ * @brief class for connection lines in ER diagram
  */ 
 class Erconnect {
     private:
