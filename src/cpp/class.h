@@ -17,17 +17,9 @@
  */ 
 class CD {
     private:
-        std::vector<Entity*> *entities;
-        std::vector<Erconnect*> *connections;
+        std::vector<Entity*> entities;
+        std::vector<Erconnect*> connections;
     public:
-        /**
-         * @name Constructor
-         */
-        CD();
-        /**
-         * @name Destructor
-         */
-        ~CD();
         /**
          * @name Add Attribute
          * @brief adds attribute to attributes (attribute array)

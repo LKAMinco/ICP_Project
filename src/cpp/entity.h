@@ -20,18 +20,10 @@
  */ 
 class Entity {
     private:
-        std::string *name;
-        std::vector<Attribute*> *attributes;
-        std::vector<Method*> *methods;
+        std::string name;
+        std::vector<Attribute*> attributes;
+        std::vector<Method*> methods;
     public:
-        /**
-         * @name Constructor
-         */
-        Entity();
-        /**
-         * @name Destructor
-         */
-        ~Entity();
         /**
          * @name Add Attribute
          * @brief adds attribute to attributes (attribute array)

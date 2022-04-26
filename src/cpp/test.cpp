@@ -11,16 +11,21 @@ int main(){
     diagram->addConnection(con1);
     Attribute *attr1 = new Attribute;
     Attribute *attr2 = new Attribute;
-    attr1->updateType("var");
+    attr1->updateName("var");
     attr2->updateName("test");
     ent1->addAttribute(attr1);
     ent1->addAttribute(attr2);
     Method *meth1 = new Method;
     Method *meth2 = new Method;
+    meth1->updateName("var");
+    meth2->updateName("test");
     ent1->addMethod(meth1);
-    //ent1->addMethod(meth1);
     ent1->addMethod(meth2);
     ent1->RemoveMethod(meth1);
+    ent1->RemoveMethod(meth2);
     ent1->RemoveAttribute(attr1);
+    ent1->RemoveAttribute(attr2);
     diagram->RemoveEntity(ent1);
+    delete diagram;
+    delete con1;
 }

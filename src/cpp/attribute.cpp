@@ -8,30 +8,18 @@
 
 #include "attribute.h"
 
-Attribute::Attribute(){
-    modifier = new std::string;
-    name = new std::string;
-    type = new std::string;
-}
-
-Attribute::~Attribute(){
-    delete modifier;
-    delete name;
-    delete type;
-}
-
 void Attribute::updateModifier(std::string newMod){
-    *modifier = newMod;
+    modifier = newMod;
 }
 
 void Attribute::updateName(std::string newName){
-    *name = newName;
+    name = newName;
 }
 
 void Attribute::updateType(std::string newType){
-    *name = newType;
+    name = newType;
 }
 
 std::string Attribute::getName(){
-    return *name;
+    return name;
 }

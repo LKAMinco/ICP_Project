@@ -8,37 +8,27 @@
 
 #include "class.h"
 
-CD::CD(){
-    entities = new std::vector<Entity*>();
-    connections = new std::vector<Erconnect*>();
-}
-
-CD::~CD(){
-    delete[] entities;
-    delete[] connections;
-}
-
 void CD::addEntity(Entity *en){
-    entities->push_back(en);
+    entities.push_back(en);
 }
 
 void CD::RemoveEntity(Entity *en){
     int index = -1;
     std::string name = en->getName();
-    for(int i = 0; i < entities->size(); i++){
+    for(int i = 0; i < entities.size(); i++){
         //compares name of attribute in vector with attrib
-        if ((*entities)[i]->getName() == name){
+        if (entities[i]->getName() == name){
             index = i;
             break;
         }
     }
     //if finds attribute, calls its destructor and removes it from vector
     if(index != -1){
-        delete (*entities)[index];
-        entities->erase(entities->begin() + index);
+        delete entities[index];
+        entities.erase(entities.begin() + index);
     }
 }
 
 void CD::addConnection(Erconnect *connection){
-    connections->push_back(connection);
+    connections.push_back(connection);
 }

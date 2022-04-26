@@ -17,18 +17,10 @@
  */ 
 class Attribute {
     private:
-        std::string *modifier; // +, -, #, ~
-        std::string *name;
-        std::string *type;
+        std::string modifier; // +, -, #, ~
+        std::string name;
+        std::string type;
     public:
-        /**
-         * @name Constructor
-         */
-        Attribute();
-        /**
-         * @name Destructor
-         */
-        ~Attribute();
         /**
          * @name Update Modifier
          * @brief updates value in modifier string

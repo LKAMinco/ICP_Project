@@ -17,16 +17,8 @@
  */ 
 class Method {
     private:
-        std::string *name;
+        std::string name;
     public:
-        /**
-         * @name Constructor
-         */
-        Method();
-        /**
-         * @name Destructor
-         */
-        ~Method();
         /**
          * @name Update Name
          * @brief updates value in name string

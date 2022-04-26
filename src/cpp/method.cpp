@@ -8,18 +8,10 @@
 
 #include "method.h"
 
-Method::Method(){
-    name = new std::string;
-}
-
-Method::~Method(){
-    delete name;
-}
-
 void Method::updateName(std::string newName){
-    *name = newName;
+    name = newName;
 }
 
 std::string Method::getName(){
-    return *name;
+    return name;
 }
