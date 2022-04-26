@@ -44,6 +44,12 @@ class Attribute {
          * @brief updates value in type string
          */
         void updateType(std::string newType);
+        /**
+         * @name Get Name
+         * @brief returns name of attribute
+         * @return string
+         */
+        std::string getName();
 };
 
 #endif

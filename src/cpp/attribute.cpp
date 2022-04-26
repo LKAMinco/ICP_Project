@@ -31,3 +31,7 @@ void Attribute::updateName(std::string newName){
 void Attribute::updateType(std::string newType){
     *name = newType;
 }
+
+std::string Attribute::getName(){
+    return *name;
+}
