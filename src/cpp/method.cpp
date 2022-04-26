@@ -15,3 +15,7 @@ Method::Method(){
 Method::~Method(){
     delete name;
 }
+
+void Method::updateName(std::string newName){
+    *name = newName;
+}

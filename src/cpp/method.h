@@ -13,20 +13,25 @@
 
 /**
  * @class Method
- * @brief class for methods in entities
+ * @brief class for methods in ER entities
  */ 
 class Method {
     private:
         std::string *name;
     public:
         /**
-         * @name Constructor for Method class
+         * @name Constructor
          */
         Method();
         /**
-         * @name Destructor for Method class
+         * @name Destructor
          */
         ~Method();
+        /**
+         * @name Update Name
+         * @brief updates value in name string
+         */
+        void updateName(std::string newName);
 };
 
 #endif
