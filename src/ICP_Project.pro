@@ -13,10 +13,20 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
-    UmlEditor.cpp
+    UmlEditor.cpp \
+    cpp/attribute.cpp \
+    cpp/class.cpp \
+    cpp/entity.cpp \
+    cpp/erconnect.cpp \
+    cpp/method.cpp
 
 HEADERS += \
-    UmlEditor.h
+    UmlEditor.h \
+    cpp/attribute.h \
+    cpp/class.h \
+    cpp/entity.h \
+    cpp/erconnect.h \
+    cpp/method.h
 
 FORMS += \
     UmlEditor.ui
