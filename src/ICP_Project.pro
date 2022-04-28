@@ -12,6 +12,7 @@ TEMPLATE = app
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    classentity.cpp \
     main.cpp \
     UmlEditor.cpp \
     cpp/attribute.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     UmlEditor.h \
+    classentity.h \
     cpp/attribute.h \
     cpp/class.h \
     cpp/entity.h \
@@ -29,7 +31,8 @@ HEADERS += \
     cpp/method.h
 
 FORMS += \
-    UmlEditor.ui
+    UmlEditor.ui \
+    classentity.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
