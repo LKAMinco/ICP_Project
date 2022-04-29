@@ -19,7 +19,8 @@ SOURCES += \
     cpp/class.cpp \
     cpp/entity.cpp \
     cpp/erconnect.cpp \
-    cpp/method.cpp
+    cpp/method.cpp \
+    scene.cpp
 
 HEADERS += \
     UmlEditor.h \
@@ -28,7 +29,8 @@ HEADERS += \
     cpp/class.h \
     cpp/entity.h \
     cpp/erconnect.h \
-    cpp/method.h
+    cpp/method.h \
+    scene.h
 
 FORMS += \
     UmlEditor.ui \

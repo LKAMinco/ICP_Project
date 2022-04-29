@@ -1,5 +1,7 @@
 #include "UmlEditor.h"
 #include "ui_UmlEditor.h"
+#include "classentity.h"
+#include "scene.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    auto *scene = new QGraphicsScene(ui->graphicsView);
+    auto *scene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
 
 }

@@ -2,6 +2,7 @@
 #define CLASSENTITY_H
 
 #include <QFrame>
+#include <QGraphicsSceneMouseEvent>
 
 namespace Ui {
 class ClassEntity;
