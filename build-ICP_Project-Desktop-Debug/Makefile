@@ -420,7 +420,8 @@ compiler_uic_make_all: ui_UmlEditor.h ui_classentity.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_UmlEditor.h ui_classentity.h
 ui_UmlEditor.h: ../src/UmlEditor.ui \
-		/usr/lib/qt5/bin/uic
+		/usr/lib/qt5/bin/uic \
+		../src/classentity.h
 	/usr/lib/qt5/bin/uic ../src/UmlEditor.ui -o ui_UmlEditor.h
 
 ui_classentity.h: ../src/classentity.ui \

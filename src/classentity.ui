@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>208</width>
-    <height>208</height>
+    <height>222</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -49,7 +49,7 @@
     <string>RmAttrib</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="title">
    <property name="geometry">
     <rect>
      <x>4</x>
@@ -118,7 +118,7 @@
     <string>RmMethod</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="method_1">
    <property name="geometry">
     <rect>
      <x>4</x>
@@ -131,7 +131,7 @@
     <string> - method()</string>
    </property>
    <property name="frame">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="clearButtonEnabled">
     <bool>false</bool>
@@ -217,10 +217,10 @@
   </widget>
   <zorder>line_2</zorder>
   <zorder>remove_attrib</zorder>
-  <zorder>lineEdit</zorder>
+  <zorder>title</zorder>
   <zorder>add_attrib</zorder>
   <zorder>remove_method</zorder>
-  <zorder>lineEdit_2</zorder>
+  <zorder>method_1</zorder>
   <zorder>line</zorder>
   <zorder>add_method</zorder>
  </widget>
