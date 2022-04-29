@@ -16,8 +16,7 @@ public:
     void spawnItem();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
 
 };

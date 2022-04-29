@@ -8,13 +8,22 @@ ClassEntity::ClassEntity(QWidget *parent) :
 {
     ui->setupUi(this);
     this->move(QCursor::pos().x(),QCursor::pos().y());
-    qDebug() << "mouse X" << QCursor::pos().x();
-    qDebug() << "mouse Y" << QCursor::pos().y();
-    qDebug() << "entity X" << this->pos().x();
-    qDebug() << "entity Y" << this->pos().y();
+    this->setMouseTracking(true);
 }
+
 
 ClassEntity::~ClassEntity()
 {
     delete ui;
+}
+
+void ClassEntity::mousePressEvent(QMouseEvent *event){
+    offset = event->pos();
+}
+
+void ClassEntity::mouseMoveEvent(QMouseEvent *event){
+    if(event->buttons() == Qt::LeftButton)
+    {
+        this->move(mapToParent(event->pos() - offset));
+    }
 }

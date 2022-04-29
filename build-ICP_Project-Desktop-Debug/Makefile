@@ -408,6 +408,7 @@ moc_classentity.cpp: ../src/classentity.h \
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/classentity.h -o moc_classentity.cpp
 
 moc_scene.cpp: ../src/scene.h \
+		../src/classentity.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/scene.h -o moc_scene.cpp
@@ -474,7 +475,8 @@ erconnect.o: ../src/cpp/erconnect.cpp ../src/cpp/erconnect.h \
 method.o: ../src/cpp/method.cpp ../src/cpp/method.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o method.o ../src/cpp/method.cpp
 
-scene.o: ../src/scene.cpp ../src/scene.h
+scene.o: ../src/scene.cpp ../src/scene.h \
+		../src/classentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scene.o ../src/scene.cpp
 
 moc_UmlEditor.o: moc_UmlEditor.cpp 
