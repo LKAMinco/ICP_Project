@@ -13,7 +13,6 @@ TEMPLATE = app
 
 SOURCES += \
     classentity.cpp \
-    clickmenu.cpp \
     main.cpp \
     UmlEditor.cpp \
     cpp/attribute.cpp \
@@ -26,7 +25,6 @@ SOURCES += \
 HEADERS += \
     UmlEditor.h \
     classentity.h \
-    clickmenu.h \
     cpp/attribute.h \
     cpp/class.h \
     cpp/entity.h \
@@ -36,8 +34,7 @@ HEADERS += \
 
 FORMS += \
     UmlEditor.ui \
-    classentity.ui \
-    clickmenu.ui
+    classentity.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include "classentity.h"
+#include <QDebug>
 
 class Scene : public QGraphicsScene
 {
@@ -13,10 +14,9 @@ public:
 
     std::vector<QGraphicsProxyWidget*> entities;
 
-    void spawnItem();
+public slots:
+    void SpawnClassEntity(bool checked);
 
-protected:
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
 
 };

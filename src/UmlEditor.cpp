@@ -1,7 +1,7 @@
 #include "UmlEditor.h"
 #include "ui_UmlEditor.h"
 #include "classentity.h"
-#include "scene.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,12 +9,24 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    auto *scene = new Scene(ui->graphicsView);
+    scene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
+{
+    if(ui->graphicsView->itemAt(pos))
+        return;
+    QMenu menu(this);
+    spawnClass = menu.addAction("Create Class Entity");
+    connect(spawnClass, &QAction::triggered, scene, &Scene::SpawnClassEntity);
+    menu.addAction("Create Connection");
+    menu.exec(ui->graphicsView->mapToGlobal(pos));
 }

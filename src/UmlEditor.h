@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "scene.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,7 +17,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_graphicsView_customContextMenuRequested(const QPoint &pos);
+
 private:
     Ui::MainWindow *ui;
+    QAction *spawnClass;
+    Scene *scene;
 };
 #endif // MAINWINDOW_H
