@@ -63,6 +63,8 @@ void Scene::RemoveClassEntity(bool checked){
     if(focusList.size() != 0){
         for(int i = 0; i < connections.size(); i++){
             if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
+                if(lastLine == connections[i])
+                    lastLine = nullptr;
                 auto *delItem = connections[i];
                 connections.erase(connections.begin() + i);
                 delete delItem;

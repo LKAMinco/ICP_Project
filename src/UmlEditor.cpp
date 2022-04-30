@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->graphicsView->setFixedSize(1920,1080);
     scene->setSceneRect(0,0,1920,1080);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
     menu = new QMenu(this);
     spawnClass = menu->addAction("Create Class Entity");
