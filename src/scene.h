@@ -16,10 +16,13 @@ public:
 
     std::vector<QGraphicsProxyWidget*> entities;
     std::vector<Line*> connections;
+    Line *lastLine;
 
 public slots:
     void SpawnClassEntity(bool checked);
     void SpawnConnectionLine(bool checked);
+    void RemoveClassEntity(bool checked);
+    void RemoveConnectionLine(bool checked);
 
 private:
     std::vector<QWidget*> focusList;

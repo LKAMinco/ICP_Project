@@ -1,4 +1,5 @@
 #include "line.h"
+#include "classentity.h"
 
 Line::Line(QWidget *parent)
 {
@@ -21,6 +22,6 @@ void Line::setPosition(){
 
 void Line::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(event->buttons() == Qt::RightButton){
-        qDebug() << "line";
+        qobject_cast<ClassEntity*>(start)->curScene->lastLine = this;
     }
 }

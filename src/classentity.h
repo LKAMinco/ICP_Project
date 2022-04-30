@@ -18,6 +18,7 @@ public:
     explicit ClassEntity(QWidget *parent = nullptr);
     ~ClassEntity();
     void updateScene(Scene *scene);
+    Scene *curScene;
 protected:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
@@ -25,7 +26,6 @@ protected:
 private:
     Ui::ClassEntity *ui;
     QPoint offset;
-    Scene *curScene;
 };
 
 #endif // CLASSENTITY_H

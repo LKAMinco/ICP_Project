@@ -24,6 +24,8 @@ private:
     Ui::MainWindow *ui;
     QAction *spawnClass;
     QAction *spawnConnect;
+    QAction *removeClass;
+    QAction *removeConnect;
     Scene *scene;
     QMenu *menu;
 };
