@@ -62,10 +62,11 @@ void Scene::RemoveConnectionLine(bool checked){
 void Scene::RemoveClassEntity(bool checked){
     if(focusList.size() != 0){
         for(int i = 0; i < connections.size(); i++){
-            if (connections[i]->start == focusList[1] || connections[i]->end == focusList[1]){
+            if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
                 auto *delItem = connections[i];
                 connections.erase(connections.begin() + i);
                 delete delItem;
+                i--;
             }
         }
 
@@ -75,7 +76,6 @@ void Scene::RemoveClassEntity(bool checked){
                 auto *delItem = focusList[focusList.size() - 1];
                 focusList.erase(focusList.begin() + focusList.size() - 1);
                 delete delItem;
-                //qDebug() << focusList.size();
             }
         }
     }

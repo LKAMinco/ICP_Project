@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->graphicsView->setFixedSize(1920,1080);
+    scene->setSceneRect(0,0,1920,1080);
 
     menu = new QMenu(this);
     spawnClass = menu->addAction("Create Class Entity");
