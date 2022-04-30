@@ -29,7 +29,7 @@ void ClassEntity::on_add_method_clicked(){
     vis_box->addItem(QString());
     vis_box->addItem(QString());
     vis_box->setObjectName(QString::fromStdString("visBox_"+line_name));
-    vis_box->setGeometry(QRect(4, current_height, 50, 20));
+    vis_box->setGeometry(QRect(4, current_height, 40, 20));
 
     vis_box->setItemText(0, QApplication::translate("MainWindow", "+", nullptr));
     vis_box->setItemText(1, QApplication::translate("MainWindow", "-", nullptr));
@@ -39,13 +39,13 @@ void ClassEntity::on_add_method_clicked(){
 
     line_edit = new QLineEdit(this);
     line_edit->setObjectName(QString::fromStdString(line_name));
-    line_edit->setGeometry(QRect(54, current_height, 130, 20));
+    line_edit->setGeometry(QRect(44, current_height, 210, 20));
     line_edit->setFrame(true);
     line_edit->show();
 
     push_button = new QPushButton(this);
     push_button->setObjectName(QString::fromStdString("btn_"+line_name));
-    push_button->setGeometry(QRect(184, current_height, 20, 20));
+    push_button->setGeometry(QRect(254, current_height, 20, 20));
     push_button->setStyleSheet(QStringLiteral("background-color: rgb(176, 28, 31);"));
     push_button->setText(QApplication::translate("ClassEntity", "X", nullptr));
     push_button->show();
@@ -75,13 +75,12 @@ void ClassEntity::on_remove_method_clicked()
             current_height > 202 ?this->resize(208, current_height+24):this->resize(208, 222);
 
         }
-    qDebug() << current_height;
     std::sort(entity_lines.begin(), entity_lines.end(), [](auto && l, auto && r) { return l->entity_height  < r->entity_height; });
-        qDebug() << entity_lines;
 }
 
 void ClassEntity::on_add_attrib_clicked()
 {
+    int height;
     current_height += 20;
     if (current_height + 20 - 4 > 222){
         this->resize(278, current_height+24);
@@ -93,14 +92,24 @@ void ClassEntity::on_add_attrib_clicked()
     QComboBox *type_box;
     QPushButton *push_button;
     EntityLine *new_line = new EntityLine;
-
+    EntityLine *tmp = new EntityLine;
+    entity_lines.push_back(tmp);
+    for(int i = entity_lines.size()-2; i > index_of_last_attrib; i--){
+        entity_lines[i]->entity_height +=20;
+        entity_lines[i]->line_edit->move(44,entity_lines[i]->entity_height);
+        entity_lines[i]->box_visiblity->move(4,entity_lines[i]->entity_height);
+        entity_lines[i]->btn->move(254,entity_lines[i]->entity_height);
+        entity_lines[i+1] = entity_lines[i];
+    }
+    index_of_last_attrib == -1 ? height = 74: height = entity_lines[index_of_last_attrib]->entity_height+20;
+    index_of_last_attrib++;
     vis_box = new QComboBox(this);
     vis_box->addItem(QString());
     vis_box->addItem(QString());
     vis_box->addItem(QString());
     vis_box->addItem(QString());
     vis_box->setObjectName(QString::fromStdString("visBox_"+line_name));
-    vis_box->setGeometry(QRect(4, current_height, 50, 20));
+    vis_box->setGeometry(QRect(4, height, 40, 20));
 
     vis_box->setItemText(0, QApplication::translate("MainWindow", PUBLIC, nullptr));
     vis_box->setItemText(1, QApplication::translate("MainWindow", PRIVATE, nullptr));
@@ -111,7 +120,7 @@ void ClassEntity::on_add_attrib_clicked()
 
     line_edit = new QLineEdit(this);
     line_edit->setObjectName(QString::fromStdString(line_name));
-    line_edit->setGeometry(QRect(54, current_height, 130, 20));
+    line_edit->setGeometry(QRect(44, height, 140, 20));
     line_edit->setFrame(true);
     line_edit->show();
 
@@ -122,7 +131,7 @@ void ClassEntity::on_add_attrib_clicked()
     type_box->addItem(QString());
     type_box->addItem(QString());
     type_box->setObjectName(QString::fromStdString("typeBox_"+line_name));
-    type_box->setGeometry(QRect(204, current_height, 70, 20));
+    type_box->setGeometry(QRect(184, height, 70, 20));
 
     type_box->setItemText(0, QApplication::translate("MainWindow", "bool", nullptr));
     type_box->setItemText(1, QApplication::translate("MainWindow", "int", nullptr));
@@ -134,7 +143,7 @@ void ClassEntity::on_add_attrib_clicked()
 
     push_button = new QPushButton(this);
     push_button->setObjectName(QString::fromStdString("btn_"+line_name));
-    push_button->setGeometry(QRect(184, current_height, 20, 20));
+    push_button->setGeometry(QRect(254, height, 20, 20));
     push_button->setStyleSheet(QStringLiteral("background-color: rgb(176, 28, 31);"));
     push_button->setText(QApplication::translate("ClassEntity", "X", nullptr));
     push_button->show();
@@ -145,21 +154,20 @@ void ClassEntity::on_add_attrib_clicked()
     new_line->window_name = line_name;
     new_line->btn = push_button;
     new_line->is_attrib = true;
-    new_line->entity_height = current_height;
+    new_line->entity_height = height;
 
     connect(line_edit,&QLineEdit::textChanged,this,&ClassEntity::updateValue);
     connect(vis_box,&QComboBox::currentTextChanged,this,&ClassEntity::updateValue);
     connect(type_box,&QComboBox::currentTextChanged,this,&ClassEntity::updateValue);
     connect(push_button,&QPushButton::clicked,this,&ClassEntity::removeLine);
-    //connect(pushButton,&QPushButton::clicked,pushButton,&QPushButton::close);
-    entity_lines.push_back(new_line);
+    entity_lines[index_of_last_attrib] = new_line;
     current_num_of_lines++;
 }
 
 void ClassEntity::updateValue(const QString &text){ //TODO premenovat na update entity values a pridat update hodnôt v poli
     QObject* obj = sender();
     qDebug() << text;
-
+    //TODO remove
     /*for(unsigned int i = 0; i < entity_lines.size();i++){
         entity_lines[i]->line_edit->setStyleSheet(QStringLiteral("background-color: rgb(38, 0, 255);"));
     }*/
@@ -177,7 +185,6 @@ void ClassEntity::removeLine(){
     for(unsigned int i = 0; i < entity_lines.size();i++){
         if(result == entity_lines[i]->window_name){
             index = i;
-
             tmp = entity_lines[index];
             for(unsigned int i = index; i < entity_lines.size()-1; i++){
                 entity_lines[i] = entity_lines[i+1];
@@ -190,11 +197,12 @@ void ClassEntity::removeLine(){
         entity_lines.back() = tmp;
         delete entity_lines.back()->line_edit;
         delete entity_lines.back()->box_visiblity;
-        if(entity_lines.back()->is_attrib)
+        if(entity_lines.back()->is_attrib){
             delete entity_lines.back()->box_type;
+            index_of_last_attrib--;
+        }
         //delete entity_lines.back()->btn;
         entity_lines.pop_back();
-        qDebug() << "aaaaaaaaaaaaaaaaaaaa";
         for(unsigned int i = index; i < entity_lines.size();i++){
             entity_lines[i]->entity_height -= 20;
             entity_lines[i]->line_edit->move(54,entity_lines[i]->entity_height);
@@ -204,15 +212,9 @@ void ClassEntity::removeLine(){
             if(entity_lines[i]->btn != nullptr)
                 entity_lines[i]->btn->move(184,entity_lines[i]->entity_height);
         }
-        qDebug() << "bbbbbbbbbbbb";
         current_num_of_lines--;
         current_height == 54 ? current_height = 54:current_height-=20;
         current_height > 202 ?this->resize(278, current_height+24):this->resize(278, 222);
-
-        qDebug () << "size:" << entity_lines.size();
-        for(unsigned int i = 0; i < entity_lines.size();i++){
-            qDebug() <<entity_lines[i]->entity_height;
-        }
     }
     delete tmp;
     delete obj;
