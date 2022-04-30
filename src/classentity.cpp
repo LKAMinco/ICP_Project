@@ -25,10 +25,10 @@ void ClassEntity::mousePressEvent(QMouseEvent *event){
 }
 
 void ClassEntity::mouseMoveEvent(QMouseEvent *event){
-    //offset = event->pos();
     if(event->buttons() == Qt::LeftButton)
     {
         this->move(mapToParent(event->pos() - offset));
+        curScene->updateConnections(ui->line->parentWidget());
     }
 }
 

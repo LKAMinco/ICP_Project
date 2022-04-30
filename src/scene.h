@@ -3,6 +3,8 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsProxyWidget>
+#include "line.h"
 
 class Scene : public QGraphicsScene
 {
@@ -10,9 +12,10 @@ class Scene : public QGraphicsScene
 public:
     explicit Scene(QObject *parent = nullptr);
     void updateFocusList(QWidget *item);
+    void updateConnections(QWidget *item);
 
     std::vector<QGraphicsProxyWidget*> entities;
-    std::vector<QGraphicsProxyWidget*> connections;
+    std::vector<Line*> connections;
 
 public slots:
     void SpawnClassEntity(bool checked);

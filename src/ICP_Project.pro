@@ -13,7 +13,7 @@ TEMPLATE = app
 
 SOURCES += \
     classentity.cpp \
-    classline.cpp \
+    line.cpp \
     main.cpp \
     UmlEditor.cpp \
     cpp/attribute.cpp \
@@ -26,12 +26,12 @@ SOURCES += \
 HEADERS += \
     UmlEditor.h \
     classentity.h \
-    classline.h \
     cpp/attribute.h \
     cpp/class.h \
     cpp/entity.h \
     cpp/erconnect.h \
     cpp/method.h \
+    line.h \
     scene.h
 
 FORMS += \
