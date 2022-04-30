@@ -23,6 +23,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QAction *spawnClass;
+    QAction *spawnConnect;
     Scene *scene;
+    QMenu *menu;
 };
 #endif // MAINWINDOW_H

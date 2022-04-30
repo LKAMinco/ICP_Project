@@ -4,6 +4,7 @@
 #include <QFrame>
 #include <QGraphicsSceneMouseEvent>
 #include <QMouseEvent>
+#include "scene.h"
 
 namespace Ui {
 class ClassEntity;
@@ -16,6 +17,7 @@ class ClassEntity : public QFrame
 public:
     explicit ClassEntity(QWidget *parent = nullptr);
     ~ClassEntity();
+    void updateScene(Scene *scene);
 protected:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
@@ -23,6 +25,7 @@ protected:
 private:
     Ui::ClassEntity *ui;
     QPoint offset;
+    Scene *curScene;
 };
 
 #endif // CLASSENTITY_H

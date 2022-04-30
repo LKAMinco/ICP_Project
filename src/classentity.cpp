@@ -19,11 +19,19 @@ ClassEntity::~ClassEntity()
 
 void ClassEntity::mousePressEvent(QMouseEvent *event){
     offset = event->pos();
+    if(event->buttons() == Qt::RightButton){
+        curScene->updateFocusList(ui->line->parentWidget());
+    }
 }
 
 void ClassEntity::mouseMoveEvent(QMouseEvent *event){
+    //offset = event->pos();
     if(event->buttons() == Qt::LeftButton)
     {
         this->move(mapToParent(event->pos() - offset));
     }
+}
+
+void ClassEntity::updateScene(Scene *scene){
+    curScene = scene;
 }
