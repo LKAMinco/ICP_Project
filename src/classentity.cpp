@@ -66,16 +66,15 @@ void ClassEntity::on_add_method_clicked(){
 }
 
 void ClassEntity::on_remove_method_clicked()
-{       if(current_num_of_lines != 0){
-            delete entity_lines[current_num_of_lines-1]->box_visiblity;
-            delete entity_lines[current_num_of_lines-1]->line_edit;
-            entity_lines.pop_back();
-            current_num_of_lines--;
-            current_height == 74 ? current_height = 74:current_height-=20;
-            current_height > 202 ?this->resize(208, current_height+24):this->resize(208, 222);
+{
+    QString s1 =
+        QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen",
+            "Uml editor files (*.json)");
 
-        }
-    std::sort(entity_lines.begin(), entity_lines.end(), [](auto && l, auto && r) { return l->entity_height  < r->entity_height; });
+    /*QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                               "Untitled",
+                               tr("Uml editor files (*.json)"));*/
+    qDebug() << s1;
 }
 
 void ClassEntity::on_add_attrib_clicked()

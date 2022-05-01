@@ -20,6 +20,7 @@
 #include <QMouseEvent>
 #include <QPushButton>
 #include <regex>
+#include <QFileDialog>
 
 class EntityLine: public QFrame{
     Q_OBJECT
