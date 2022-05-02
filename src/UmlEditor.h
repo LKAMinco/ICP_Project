@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "scene.h"
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +21,12 @@ public:
 private slots:
     void on_graphicsView_customContextMenuRequested(const QPoint &pos);
 
+    void on_actionSave_triggered();
+
+    void on_actionSave_as_triggered();
+
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
     QAction *spawnClass;
@@ -28,5 +35,7 @@ private:
     QAction *removeConnect;
     Scene *scene;
     QMenu *menu;
+    QString file_name = "";
+    QString file_path = "";
 };
 #endif // MAINWINDOW_H
