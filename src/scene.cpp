@@ -43,7 +43,7 @@ void Scene::SpawnConnectionLine(bool checked){
         QGraphicsPolygonItem *generP = addPolygon(gener, QPen(Qt::black, 2), brush);
 
         //sets all pointers in line object
-        item->setPoints(focusList[0], focusList[1]);
+        item->setPoints(dynamic_cast<ClassEntity*>(focusList[0]), dynamic_cast<ClassEntity*>(focusList[1]));
         item->setMarkers(aggregP, composP, generP);
         this->addItem(item);
         item->setPosition();

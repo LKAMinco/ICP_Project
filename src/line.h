@@ -10,6 +10,8 @@
 #include <QPainter>
 #include <QGraphicsPolygonItem>
 
+
+class ClassEntity;
 /*
  * @class Line
  * @brief class for lines in class diagram
@@ -31,7 +33,7 @@ public:
      * @param first -> start point for line
      * @param last -> end point for line
     */
-    void setPoints(QWidget *first, QWidget *last);
+    void setPoints(ClassEntity *first, ClassEntity *last);
     /*
      * @name setMarkers
      * @brief sets pointers to 3 markers
@@ -62,17 +64,17 @@ public:
     */
     void deleteMarkers();
 
-    QWidget *start;
-    QWidget *end;
+    ClassEntity *start;
+    ClassEntity *end;
     QGraphicsPolygonItem *aggreg, *compos, *gener;
     //position points for line
     int x1, x2, y1, y2;
+    int type; //type of line
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    int type; //type of line
     int offset;
     int curOffset;
     int lineOffset;

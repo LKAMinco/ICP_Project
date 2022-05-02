@@ -19,7 +19,7 @@ Line::~Line(){
 }
 
 //Function sets start and end point of line
-void Line::setPoints(QWidget *first, QWidget *last){
+void Line::setPoints(ClassEntity *first, ClassEntity *last){
     start = first;
     end = last;
 }
