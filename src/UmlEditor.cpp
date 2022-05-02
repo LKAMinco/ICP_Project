@@ -87,20 +87,34 @@ QString MainWindow::genJson(){
     QJsonObject windows;
     QJsonObject connections;
     for(auto* item : classScene->entities){
-        //qobject_cast<ClassEntity*>(item)->entity_lines;
+        for(auto * item2 : item->entity_lines){
+            if(item2->box_type != nullptr){
+                arr2.append((QJsonObject({
+                {"visBox_value",item2->box_visiblity->currentText()},
+                {"lineEdit_value",item2->line_edit->text()},
+                {"boxType_value",item2->box_type->currentText()}
+                                         })));
+            }
+            else
+            {
+                arr2.append((QJsonObject({
+                {"visBox_value",item2->box_visiblity->currentText()},
+                {"lineEdit_value",item2->line_edit->text()},
+                                          })));
+            }
+        }
         arr.append(QJsonObject({
-                    {"pos_x", item->pos().x()},
-                    {"pos_y",item->pos().y()},
-                    {"height",item->geometry().height()},
-                    {"width",item->geometry().width()}
+                    {"class_name",item->class_title->text()},
+                    {"g_x", item->pos().x()},
+                    {"g_y",item->pos().y()},
+                    {"g_h",item->geometry().height()},
+                    {"g_w",item->geometry().width()},
+                    {"index_of_last_attrib", item->index_of_last_attrib},
+                    {"lines", arr2}
                     }));
     }
-    /*windows.insert("window", arr);
-    windows.insert("window2", brr);*/
-    //connections.insert("connection",brr);
     QJsonObject main_obj;
     main_obj.insert("windows", arr);
-    //main_obj.insert("connection", connections);
     doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }

@@ -6,6 +6,8 @@ ClassEntity::ClassEntity(QWidget *parent) :QFrame(parent),ui(new Ui::ClassEntity
     ui->setupUi(this);
     this->move(QCursor::pos().x(),QCursor::pos().y());
     this->setMouseTracking(true);
+    class_title = ui->title;
+    connect(class_title,&QLineEdit::textEdited,this,&ClassEntity::updateValue);
 }
 
 

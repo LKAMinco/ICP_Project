@@ -70,6 +70,7 @@ public:
     Scene *curScene;
     std::vector<EntityLine*> entity_lines;
     int index_of_last_attrib = -1;
+    QLineEdit* class_title;
 
 protected:
     virtual void mousePressEvent(QMouseEvent *event);
