@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "scene.h"
+#include "seqscene.h"
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -61,7 +62,10 @@ private:
     QAction *changeLine;
     QAction *removeClass;
     QAction *removeConnect;
-    Scene *scene;
+
+    Scene *classScene;
+    std::vector <seqScene*> seqList;
+
     QMenu *menu;
     QString file_name = "";
     QString file_path = "";

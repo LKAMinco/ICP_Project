@@ -21,7 +21,8 @@ SOURCES += \
     cpp/entity.cpp \
     cpp/erconnect.cpp \
     cpp/method.cpp \
-    scene.cpp
+    scene.cpp \
+    seqscene.cpp
 
 HEADERS += \
     UmlEditor.h \
@@ -32,7 +33,8 @@ HEADERS += \
     cpp/erconnect.h \
     cpp/method.h \
     line.h \
-    scene.h
+    scene.h \
+    seqscene.h
 
 FORMS += \
     UmlEditor.ui \

@@ -14,10 +14,11 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 //Creates new entity and stores its pointer in entities vector
 void Scene::SpawnClassEntity(bool checked){
     ClassEntity *element = new ClassEntity();
-    element->updateScene(this);;
+    element->updateScene(this);
     QGraphicsProxyWidget *item = addWidget(element);
     item->setZValue(1);
-    entities.push_back(item);
+    item->setParent(this);
+    entities.push_back(element);
 }
 
 //Creates new connection and its markers

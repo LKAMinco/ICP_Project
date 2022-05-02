@@ -1,5 +1,6 @@
 #include "classentity.h"
 #include "ui_classentity.h"
+#include "UmlEditor.h"
 
 ClassEntity::ClassEntity(QWidget *parent) :QFrame(parent),ui(new Ui::ClassEntity){
     ui->setupUi(this);

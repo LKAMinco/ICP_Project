@@ -7,6 +7,8 @@
 #include "line.h"
 #include <QGraphicsPolygonItem>
 
+class ClassEntity;
+
 /*
  * @class Scene
  * @brief class for class diagram scene
@@ -32,7 +34,7 @@ public:
     */
     void updateConnections(QWidget *item);
 
-    std::vector<QGraphicsProxyWidget*> entities;
+    std::vector<ClassEntity*> entities;
     std::vector<Line*> connections;
     Line *lastLine;
 

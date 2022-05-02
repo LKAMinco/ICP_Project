@@ -13,25 +13,27 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);*/
 
     //creates new graphics scene and sets its size
-    scene = new Scene(ui->graphicsView);
-    ui->graphicsView->setScene(scene);
+    classScene = new Scene(ui->graphicsView);
+    ui->graphicsView->setScene(classScene);
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->graphicsView->setFixedSize(1920,1080);
-    scene->setSceneRect(0,0,1920,1080);
+    classScene->setSceneRect(0,0,1920,1080);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
     //creates context menu for class diagram
     menu = new QMenu(this);
     spawnClass = menu->addAction("Create Class Entity");
-    connect(spawnClass, &QAction::triggered, scene, &Scene::SpawnClassEntity);
+    connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnClassEntity);
     spawnConnect = menu->addAction("Create Connection");
-    connect(spawnConnect, &QAction::triggered, scene, &Scene::SpawnConnectionLine);
+    connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
     changeLine = menu->addAction("Change Connection");
-    connect(changeLine, &QAction::triggered, scene, &Scene::ChangeConnectionLine);
+    connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
     removeClass = menu->addAction("Remove Class Entity");
-    connect(removeClass, &QAction::triggered, scene, &Scene::RemoveClassEntity);
+    connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveClassEntity);
     removeConnect = menu->addAction("Remove Connection");
-    connect(removeConnect, &QAction::triggered, scene, &Scene::RemoveConnectionLine);
+    connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
+
+    seqList.clear();
 
 }
 
@@ -84,7 +86,7 @@ QString MainWindow::genJson(){
     QJsonArray arr,arr2;
     QJsonObject windows;
     QJsonObject connections;
-    for(auto* item : scene->entities){
+    for(auto* item : classScene->entities){
         //qobject_cast<ClassEntity*>(item)->entity_lines;
         arr.append(QJsonObject({
                     {"pos_x", item->pos().x()},
@@ -106,6 +108,10 @@ QString MainWindow::genJson(){
 void MainWindow::on_actionAdd_triggered()
 {
     //TODO add sequence diagram
+    seqScene *diagram = new seqScene(ui->graphicsView);
+    diagram->setSceneRect(0,0,1920,1080);
+    seqList.push_back(diagram);
+    qDebug() << "test";
 }
 
 void MainWindow::on_actionRemove_triggered()
@@ -115,10 +121,24 @@ void MainWindow::on_actionRemove_triggered()
 
 void MainWindow::on_actionSeq1_triggered()
 {
+    //TODO switch to seq1
+    if(seqList.size() != 0)
+        ui->graphicsView->setScene(seqList[0]);
 
+    disconnect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnClassEntity);
+    disconnect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
+    disconnect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
+    disconnect(removeClass, &QAction::triggered, classScene, &Scene::RemoveClassEntity);
+    disconnect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
 }
 
 void MainWindow::on_actionClass_triggered()
 {
-
+    //TODO switch to class
+    ui->graphicsView->setScene(classScene);
+    connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnClassEntity);
+    connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
+    connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
+    connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveClassEntity);
+    connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
 }
