@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->actionOpen,&QAction::toggled,this,&MainWindow::on_actionOpen_triggered);
+    /*auto *scene = new Scene(ui->graphicsView);
+    ui->graphicsView->setScene(scene);*/
 
     //creates new graphics scene and sets its size
     scene = new Scene(ui->graphicsView);

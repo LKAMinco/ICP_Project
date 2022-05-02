@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>208</width>
-    <height>208</height>
+    <width>278</width>
+    <height>222</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -20,7 +20,7 @@
    <string>Frame</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(239, 239, 239);</string>
+   <string notr="true"/>
   </property>
   <property name="frameShape">
    <enum>QFrame::NoFrame</enum>
@@ -28,33 +28,12 @@
   <property name="lineWidth">
    <number>1</number>
   </property>
-  <widget class="QPushButton" name="remove_attrib">
-   <property name="geometry">
-    <rect>
-     <x>154</x>
-     <y>4</y>
-     <width>50</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>6</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(176, 28, 31);</string>
-   </property>
-   <property name="text">
-    <string>RmAttrib</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="title">
    <property name="geometry">
     <rect>
      <x>4</x>
      <y>34</y>
-     <width>200</width>
+     <width>270</width>
      <height>30</height>
     </rect>
    </property>
@@ -62,6 +41,9 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(239, 239, 239);</string>
    </property>
    <property name="text">
     <string>Claas Name</string>
@@ -76,7 +58,7 @@
   <widget class="QPushButton" name="add_attrib">
    <property name="geometry">
     <rect>
-     <x>104</x>
+     <x>54</x>
      <y>4</y>
      <width>50</width>
      <height>24</height>
@@ -100,7 +82,7 @@
   <widget class="QPushButton" name="remove_method">
    <property name="geometry">
     <rect>
-     <x>54</x>
+     <x>104</x>
      <y>4</y>
      <width>50</width>
      <height>24</height>
@@ -118,25 +100,6 @@
     <string>RmMethod</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>4</x>
-     <y>74</y>
-     <width>200</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string> - method()</string>
-   </property>
-   <property name="frame">
-    <bool>false</bool>
-   </property>
-   <property name="clearButtonEnabled">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="enabled">
     <bool>true</bool>
@@ -145,7 +108,7 @@
     <rect>
      <x>4</x>
      <y>64</y>
-     <width>200</width>
+     <width>270</width>
      <height>10</height>
     </rect>
    </property>
@@ -193,7 +156,7 @@
     <rect>
      <x>4</x>
      <y>24</y>
-     <width>200</width>
+     <width>270</width>
      <height>10</height>
     </rect>
    </property>
@@ -215,13 +178,11 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
+  <zorder>title</zorder>
   <zorder>line_2</zorder>
-  <zorder>remove_attrib</zorder>
-  <zorder>lineEdit</zorder>
+  <zorder>line</zorder>
   <zorder>add_attrib</zorder>
   <zorder>remove_method</zorder>
-  <zorder>lineEdit_2</zorder>
-  <zorder>line</zorder>
   <zorder>add_method</zorder>
  </widget>
  <resources/>
