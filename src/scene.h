@@ -7,12 +7,29 @@
 #include "line.h"
 #include <QGraphicsPolygonItem>
 
+/*
+ * @class Scene
+ * @brief class for class diagram scene
+*/
 class Scene : public QGraphicsScene
 {
     Q_OBJECT
 public:
+    /*
+     * @name Scene constructor
+    */
     explicit Scene(QObject *parent = nullptr);
+    /*
+     * @name updateFocusList
+     * @brief updates vector of 2 last selected entities
+     * @param item -> pointer to last selected entity
+    */
     void updateFocusList(QWidget *item);
+    /*
+     * @name updateConnections
+     * @brief updates last selected connection pointer, updates selected connection's color
+     * @param item -> pointer to last selected connection
+    */
     void updateConnections(QWidget *item);
 
     std::vector<QGraphicsProxyWidget*> entities;
@@ -27,7 +44,7 @@ public slots:
     void RemoveConnectionLine(bool checked);
 
 private:
-    std::vector<QWidget*> focusList;
+    std::vector<QWidget*> focusList; //vector of 2 last selected entities
 
 };
 

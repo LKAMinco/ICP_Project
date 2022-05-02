@@ -17,6 +17,7 @@ ClassEntity::~ClassEntity()
     delete ui;
 }
 
+//Function catches mouse press event -> entity select and mouse offset
 void ClassEntity::mousePressEvent(QMouseEvent *event){
     offset = event->pos();
     if(event->buttons() == Qt::RightButton){
@@ -24,6 +25,7 @@ void ClassEntity::mousePressEvent(QMouseEvent *event){
     }
 }
 
+//Function catches mouse move event -> changes position of entity
 void ClassEntity::mouseMoveEvent(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton)
     {
@@ -32,6 +34,7 @@ void ClassEntity::mouseMoveEvent(QMouseEvent *event){
     }
 }
 
+//Function updates pointer to current scene
 void ClassEntity::updateScene(Scene *scene){
     curScene = scene;
 }
