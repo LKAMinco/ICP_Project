@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(spawnClass, &QAction::triggered, scene, &Scene::SpawnClassEntity);
     spawnConnect = menu->addAction("Create Connection");
     connect(spawnConnect, &QAction::triggered, scene, &Scene::SpawnConnectionLine);
+    changeLine = menu->addAction("Change Connection");
+    connect(changeLine, &QAction::triggered, scene, &Scene::ChangeConnectionLine);
     removeClass = menu->addAction("Remove Class Entity");
     connect(removeClass, &QAction::triggered, scene, &Scene::RemoveClassEntity);
     removeConnect = menu->addAction("Remove Connection");

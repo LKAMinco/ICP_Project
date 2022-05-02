@@ -24,8 +24,20 @@ void Scene::SpawnConnectionLine(bool checked){
         if (focusList[0] == focusList[1])
             return;
 
+        QBrush brush;
+        brush.setColor(Qt::white);
+
         Line *item = new Line();
+        QPolygonF aggreg, compos, gener;
+        aggreg << QPoint(12, 0) << QPoint(0, 12) << QPoint(-12, 0) << QPoint(0, -12);
+        QGraphicsPolygonItem *aggregP = addPolygon(aggreg, QPen(Qt::black, 2), brush);
+        compos << QPoint(12, 0) << QPoint(0, 12) << QPoint(-12, 0) << QPoint(0, -12);
+        QGraphicsPolygonItem *composP = addPolygon(compos, QPen(Qt::black, 2), QBrush(Qt::black));
+        gener << QPoint(12, 0) << QPoint(0, 12) << QPoint(0, -12);
+        QGraphicsPolygonItem *generP = addPolygon(gener, QPen(Qt::black, 2), brush);
+
         item->setPoints(focusList[0], focusList[1]);
+        item->setMarkers(aggregP, composP, generP);
         this->addItem(item);
         item->setPosition();
         connections.push_back(item);
@@ -45,6 +57,12 @@ void Scene::updateConnections(QWidget *item){
     for(int i = 0; i < connections.size(); i++){
         if (connections[i]->start == item || connections[i]->end == item)
             connections[i]->setPosition();
+    }
+}
+
+void Scene::ChangeConnectionLine(bool checked){
+    if (lastLine != nullptr){
+        lastLine->changeType();
     }
 }
 

@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsProxyWidget>
 #include "line.h"
+#include <QGraphicsPolygonItem>
 
 class Scene : public QGraphicsScene
 {
@@ -21,6 +22,7 @@ public:
 public slots:
     void SpawnClassEntity(bool checked);
     void SpawnConnectionLine(bool checked);
+    void ChangeConnectionLine(bool checked);
     void RemoveClassEntity(bool checked);
     void RemoveConnectionLine(bool checked);
 
