@@ -50,9 +50,20 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::on_actionSave_as_triggered()
 {
+    std::regex e ("(\\..+)");
+    std::string result;
     QString file_path = QFileDialog::getSaveFileName(this, tr("Save File"),"Untitled",tr("Uml editor files (*.json)"));
-        QFileInfo info(file_path);
-        file_name = info.fileName();
+    std::string string = file_path.toStdString();
+    std::regex_replace (std::back_inserter(result), string.begin(), string.end(), e, "$2");
+    result.append(".json");
+    file_path = QString::fromStdString(result);
+    QFileInfo info(file_path);
+    file_name = info.fileName();
+    qDebug() << file_path << "aaaaaaaaaa" << file_name;
+    QFile file(file_path);
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+    out << genJson();
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -60,4 +71,21 @@ void MainWindow::on_actionOpen_triggered()
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen","Uml editor files (*.json)");
     QFileInfo info(file_path);
     file_name = info.fileName();
+}
+
+QString MainWindow::genJson(){
+    QJsonDocument doc;
+    QJsonArray arr;
+
+    for(auto* item : scene->entities){
+        arr.append(QJsonObject({
+                    {"pos_x", item->pos().x()},
+                    {"pos_y",item->pos().y()},
+                    {"height",item->geometry().height()},
+                    {"width",item->geometry().width()}
+                    }));
+        QJsonObject obj{{"items",arr}};
+        doc.setObject(obj);
+    }
+    return doc.toJson(QJsonDocument::Indented);
 }

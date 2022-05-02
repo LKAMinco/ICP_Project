@@ -4,6 +4,13 @@
 #include <QMainWindow>
 #include "scene.h"
 #include <QFileDialog>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QFile>
+#include <QTextStream>
+#include <regex>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +33,8 @@ private slots:
     void on_actionSave_as_triggered();
 
     void on_actionOpen_triggered();
+
+    QString genJson();
 
 private:
     Ui::MainWindow *ui;
