@@ -62,9 +62,11 @@ SOURCES       = ../src/classentity.cpp \
 		../src/cpp/erconnect.cpp \
 		../src/cpp/method.cpp \
 		../src/scene.cpp \
+		../src/seqentity.cpp \
 		../src/seqscene.cpp moc_UmlEditor.cpp \
 		moc_classentity.cpp \
 		moc_scene.cpp \
+		moc_seqentity.cpp \
 		moc_seqscene.cpp
 OBJECTS       = classentity.o \
 		line.o \
@@ -76,10 +78,12 @@ OBJECTS       = classentity.o \
 		erconnect.o \
 		method.o \
 		scene.o \
+		seqentity.o \
 		seqscene.o \
 		moc_UmlEditor.o \
 		moc_classentity.o \
 		moc_scene.o \
+		moc_seqentity.o \
 		moc_seqscene.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -170,6 +174,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/cpp/method.h \
 		../src/line.h \
 		../src/scene.h \
+		../src/seqentity.h \
 		../src/seqscene.h ../src/classentity.cpp \
 		../src/line.cpp \
 		../src/main.cpp \
@@ -180,6 +185,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/cpp/erconnect.cpp \
 		../src/cpp/method.cpp \
 		../src/scene.cpp \
+		../src/seqentity.cpp \
 		../src/seqscene.cpp
 QMAKE_TARGET  = umleditor
 DESTDIR       = 
@@ -189,7 +195,7 @@ TARGET        = umleditor
 first: all
 ####### Build rules
 
-umleditor: ui_UmlEditor.h ui_classentity.h $(OBJECTS)  
+umleditor: ui_UmlEditor.h ui_classentity.h ui_seqentity.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../src/ICP_Project.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -370,9 +376,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/UmlEditor.h ../src/classentity.h ../src/cpp/attribute.h ../src/cpp/class.h ../src/cpp/entity.h ../src/cpp/erconnect.h ../src/cpp/method.h ../src/line.h ../src/scene.h ../src/seqscene.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/classentity.cpp ../src/line.cpp ../src/main.cpp ../src/UmlEditor.cpp ../src/cpp/attribute.cpp ../src/cpp/class.cpp ../src/cpp/entity.cpp ../src/cpp/erconnect.cpp ../src/cpp/method.cpp ../src/scene.cpp ../src/seqscene.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/UmlEditor.ui ../src/classentity.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/UmlEditor.h ../src/classentity.h ../src/cpp/attribute.h ../src/cpp/class.h ../src/cpp/entity.h ../src/cpp/erconnect.h ../src/cpp/method.h ../src/line.h ../src/scene.h ../src/seqentity.h ../src/seqscene.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/classentity.cpp ../src/line.cpp ../src/main.cpp ../src/UmlEditor.cpp ../src/cpp/attribute.cpp ../src/cpp/class.cpp ../src/cpp/entity.cpp ../src/cpp/erconnect.cpp ../src/cpp/method.cpp ../src/scene.cpp ../src/seqentity.cpp ../src/seqscene.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/UmlEditor.ui ../src/classentity.ui ../src/seqentity.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -404,13 +410,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_UmlEditor.cpp moc_classentity.cpp moc_scene.cpp moc_seqscene.cpp
+compiler_moc_header_make_all: moc_UmlEditor.cpp moc_classentity.cpp moc_scene.cpp moc_seqentity.cpp moc_seqscene.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_UmlEditor.cpp moc_classentity.cpp moc_scene.cpp moc_seqscene.cpp
+	-$(DEL_FILE) moc_UmlEditor.cpp moc_classentity.cpp moc_scene.cpp moc_seqentity.cpp moc_seqscene.cpp
 moc_UmlEditor.cpp: ../src/UmlEditor.h \
 		../src/scene.h \
 		../src/line.h \
 		../src/seqscene.h \
+		../src/seqentity.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/UmlEditor.h -o moc_UmlEditor.cpp
@@ -428,7 +435,13 @@ moc_scene.cpp: ../src/scene.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/scene.h -o moc_scene.cpp
 
+moc_seqentity.cpp: ../src/seqentity.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/seqentity.h -o moc_seqentity.cpp
+
 moc_seqscene.cpp: ../src/seqscene.h \
+		../src/seqentity.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/ICP_Project/build-ICP_Project-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/ICP_Project/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/seqscene.h -o moc_seqscene.cpp
@@ -437,9 +450,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_UmlEditor.h ui_classentity.h
+compiler_uic_make_all: ui_UmlEditor.h ui_classentity.h ui_seqentity.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_UmlEditor.h ui_classentity.h
+	-$(DEL_FILE) ui_UmlEditor.h ui_classentity.h ui_seqentity.h
 ui_UmlEditor.h: ../src/UmlEditor.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../src/UmlEditor.ui -o ui_UmlEditor.h
@@ -447,6 +460,10 @@ ui_UmlEditor.h: ../src/UmlEditor.ui \
 ui_classentity.h: ../src/classentity.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../src/classentity.ui -o ui_classentity.h
+
+ui_seqentity.h: ../src/seqentity.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../src/seqentity.ui -o ui_seqentity.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -463,7 +480,8 @@ classentity.o: ../src/classentity.cpp ../src/classentity.h \
 		../src/line.h \
 		ui_classentity.h \
 		../src/UmlEditor.h \
-		../src/seqscene.h
+		../src/seqscene.h \
+		../src/seqentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o classentity.o ../src/classentity.cpp
 
 line.o: ../src/line.cpp ../src/line.h \
@@ -474,13 +492,15 @@ line.o: ../src/line.cpp ../src/line.h \
 main.o: ../src/main.cpp ../src/UmlEditor.h \
 		../src/scene.h \
 		../src/line.h \
-		../src/seqscene.h
+		../src/seqscene.h \
+		../src/seqentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 UmlEditor.o: ../src/UmlEditor.cpp ../src/UmlEditor.h \
 		../src/scene.h \
 		../src/line.h \
 		../src/seqscene.h \
+		../src/seqentity.h \
 		ui_UmlEditor.h \
 		../src/classentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UmlEditor.o ../src/UmlEditor.cpp
@@ -514,7 +534,12 @@ scene.o: ../src/scene.cpp ../src/scene.h \
 		../src/classentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scene.o ../src/scene.cpp
 
-seqscene.o: ../src/seqscene.cpp ../src/seqscene.h
+seqentity.o: ../src/seqentity.cpp ../src/seqentity.h \
+		ui_seqentity.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o seqentity.o ../src/seqentity.cpp
+
+seqscene.o: ../src/seqscene.cpp ../src/seqscene.h \
+		../src/seqentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o seqscene.o ../src/seqscene.cpp
 
 moc_UmlEditor.o: moc_UmlEditor.cpp 
@@ -525,6 +550,9 @@ moc_classentity.o: moc_classentity.cpp
 
 moc_scene.o: moc_scene.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_scene.o moc_scene.cpp
+
+moc_seqentity.o: moc_seqentity.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_seqentity.o moc_seqentity.cpp
 
 moc_seqscene.o: moc_seqscene.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_seqscene.o moc_seqscene.cpp
