@@ -53,6 +53,17 @@ void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
 
 void MainWindow::on_actionSave_triggered()
 {
+    if(!QString::compare(file_path, "", Qt::CaseSensitive)){
+        on_actionSave_as_triggered();
+    }
+    else
+    {
+        QFile file(file_path);
+        file.open(QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&file);
+        out << genJson();
+    }
+
 
 }
 
@@ -60,14 +71,13 @@ void MainWindow::on_actionSave_as_triggered()
 {
     std::regex e ("(\\..+)");
     std::string result;
-    QString file_path = QFileDialog::getSaveFileName(this, tr("Save File"),"Untitled",tr("Uml editor files (*.json)"));
+    file_path = QFileDialog::getSaveFileName(this, tr("Save File"),"Untitled",tr("Uml editor files (*.json)"));
     std::string string = file_path.toStdString();
     std::regex_replace (std::back_inserter(result), string.begin(), string.end(), e, "$2");
     result.append(".json");
     file_path = QString::fromStdString(result);
     QFileInfo info(file_path);
     file_name = info.fileName();
-    qDebug() << file_path << "aaaaaaaaaa" << file_name;
     QFile file(file_path);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
