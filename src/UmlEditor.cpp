@@ -41,3 +41,18 @@ void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
     menu->exec(ui->graphicsView->mapToGlobal(pos));
 }
 
+
+void MainWindow::on_actionSave_as_triggered()
+{
+
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+
+}
