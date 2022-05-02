@@ -54,7 +54,14 @@
     <addaction name="actionSave_as"/>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuSequence_diagram">
+    <property name="title">
+     <string>Sequence diagram</string>
+    </property>
+    <addaction name="actionAdd"/>
+   </widget>
    <addaction name="menuFiles"/>
+   <addaction name="menuSequence_diagram"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSave">
@@ -73,6 +80,11 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="text">
+    <string>Add</string>
    </property>
   </action>
  </widget>

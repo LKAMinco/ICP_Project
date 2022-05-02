@@ -84,6 +84,7 @@ QString MainWindow::genJson(){
     QJsonArray arr;
 
     for(auto* item : scene->entities){
+        //qobject_cast<ClassEntity*>(item)->entity_lines;
         arr.append(QJsonObject({
                     {"pos_x", item->pos().x()},
                     {"pos_y",item->pos().y()},
@@ -94,4 +95,14 @@ QString MainWindow::genJson(){
         doc.setObject(obj);
     }
     return doc.toJson(QJsonDocument::Indented);
+}
+
+void MainWindow::on_actionAdd_triggered()
+{
+    //TODO add sequence diagram
+}
+
+void MainWindow::on_actionRemove_triggered()
+{
+    //TODO remove sequence diagram
 }

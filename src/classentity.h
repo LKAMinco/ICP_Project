@@ -68,6 +68,9 @@ public:
     */
     void updateScene(Scene *scene);
     Scene *curScene;
+    std::vector<EntityLine*> entity_lines;
+    int index_of_last_attrib = -1;
+
 protected:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
@@ -89,9 +92,7 @@ private:
     unsigned int current_height = 54;
     unsigned int num_of_lines = 0;
     unsigned int current_num_of_lines = 0;
-    std::vector<EntityLine*> entity_lines;
     std::string line_name = "";
-    int index_of_last_attrib = -1;
     QWidget *last_focus;
 
     void updateOrder();
