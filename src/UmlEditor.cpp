@@ -81,8 +81,9 @@ void MainWindow::on_actionOpen_triggered()
 
 QString MainWindow::genJson(){
     QJsonDocument doc;
-    QJsonArray arr;
-
+    QJsonArray arr,arr2;
+    QJsonObject windows;
+    QJsonObject connections;
     for(auto* item : scene->entities){
         //qobject_cast<ClassEntity*>(item)->entity_lines;
         arr.append(QJsonObject({
@@ -91,9 +92,14 @@ QString MainWindow::genJson(){
                     {"height",item->geometry().height()},
                     {"width",item->geometry().width()}
                     }));
-        QJsonObject obj{{"items",arr}};
-        doc.setObject(obj);
     }
+    /*windows.insert("window", arr);
+    windows.insert("window2", brr);*/
+    //connections.insert("connection",brr);
+    QJsonObject main_obj;
+    main_obj.insert("windows", arr);
+    //main_obj.insert("connection", connections);
+    doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }
 
@@ -105,4 +111,14 @@ void MainWindow::on_actionAdd_triggered()
 void MainWindow::on_actionRemove_triggered()
 {
     //TODO remove sequence diagram
+}
+
+void MainWindow::on_actionSeq1_triggered()
+{
+
+}
+
+void MainWindow::on_actionClass_triggered()
+{
+
 }

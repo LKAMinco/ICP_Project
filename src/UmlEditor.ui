@@ -59,6 +59,9 @@
      <string>Sequence diagram</string>
     </property>
     <addaction name="actionAdd"/>
+    <addaction name="actionRemove"/>
+    <addaction name="actionSeq1"/>
+    <addaction name="actionClass"/>
    </widget>
    <addaction name="menuFiles"/>
    <addaction name="menuSequence_diagram"/>
@@ -85,6 +88,21 @@
   <action name="actionAdd">
    <property name="text">
     <string>Add</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionSeq1">
+   <property name="text">
+    <string>Seq1</string>
+   </property>
+  </action>
+  <action name="actionClass">
+   <property name="text">
+    <string>Class</string>
    </property>
   </action>
  </widget>

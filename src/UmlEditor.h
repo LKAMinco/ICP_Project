@@ -45,6 +45,14 @@ private slots:
 
     QString genJson();
 
+    void on_actionAdd_triggered();
+
+    void on_actionRemove_triggered();
+
+    void on_actionSeq1_triggered();
+
+    void on_actionClass_triggered();
+
 private:
     Ui::MainWindow *ui;
     //buttons in context menu for class diagram
