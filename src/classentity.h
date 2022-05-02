@@ -10,13 +10,28 @@ namespace Ui {
 class ClassEntity;
 }
 
+/*
+ * @class ClassEntity
+ * @brief class for entities in class diagram
+*/
 class ClassEntity : public QFrame
 {
     Q_OBJECT
 
 public:
+    /*
+     * @name ClassEntity constructor
+    */
     explicit ClassEntity(QWidget *parent = nullptr);
+    /*
+     * @name ClassEntity destructor
+    */
     ~ClassEntity();
+    /*
+     * @name updateScene
+     * @brief sets pointer to active scene
+     * @param active class diagram scene
+    */
     void updateScene(Scene *scene);
     Scene *curScene;
 protected:

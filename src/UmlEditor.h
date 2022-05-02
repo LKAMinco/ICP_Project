@@ -9,13 +9,22 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+/*
+ * @class MainWindow
+ * @brief class for app's main window
+*/
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-
+    /*
+     * @name MainWindow constructor
+    */
     MainWindow(QWidget *parent = nullptr);
+    /*
+     * @name MainWindow destructor
+    */
     ~MainWindow();
 
 private slots:
@@ -29,6 +38,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    //buttons in context menu for class diagram
     QAction *spawnClass;
     QAction *spawnConnect;
     QAction *changeLine;

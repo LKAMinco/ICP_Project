@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //creates new graphics scene and sets its size
     scene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setSceneRect(0,0,1920,1080);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    //creates context menu for class diagram
     menu = new QMenu(this);
     spawnClass = menu->addAction("Create Class Entity");
     connect(spawnClass, &QAction::triggered, scene, &Scene::SpawnClassEntity);
@@ -35,6 +37,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//Spawns context menu on mouse's location
 void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
 {
     if(ui->graphicsView->itemAt(pos)){

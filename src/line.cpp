@@ -16,18 +16,21 @@ Line::Line(QWidget *parent)
 }
 
 Line::~Line(){
-    delete aggreg;
-    delete compos;
-    delete gener;
 }
 
+//Function sets start and end point of line
 void Line::setPoints(QWidget *first, QWidget *last){
     start = first;
     end = last;
 }
 
+//Function updates position of line and its markers
 void Line::setPosition(){
+    //compares on which axis are entities more distant
     if(abs(start->pos().x() - end->pos().x()) > abs(start->pos().y() - end->pos().y())){
+       //if x axis distance is greater
+       //markers will be either on left or right side of the entity
+       //checks if start position is position closer to the beginnig of the scene
        if(start->pos().x() - end->pos().x() < 0){
            x1 = start->pos().x() + start->width();
            x2 = end->pos().x() - lineOffset;
@@ -47,7 +50,10 @@ void Line::setPosition(){
        compos->setPos(x2 - curOffset,y2);
        gener->setPos(x2 - curOffset,y2);
     }
+    //if y axis distance is greater
+    //markers will be either on top or bottom of the entity
     else{
+        //checks if start entity is higher in the scene
         if(start->pos().y() - end->pos().y() < 0){
             y1 = start->pos().y() + start->height();
             y2 = end->pos().y() - lineOffset;
@@ -75,6 +81,7 @@ void Line::setPosition(){
     gener->setRotation(rotate);
 }
 
+//Function sets pointers to markers
 void Line::setMarkers(QGraphicsPolygonItem *ag, QGraphicsPolygonItem *co, QGraphicsPolygonItem *ge){
     aggreg = ag;
     compos = co;
@@ -85,6 +92,7 @@ void Line::setMarkers(QGraphicsPolygonItem *ag, QGraphicsPolygonItem *co, QGraph
     gener->setVisible(false);
 }
 
+//Function changes type of line, updates visibility of markers and offsets
 void Line::changeType(){
     type = (type + 1)%4;
     switch(type){
@@ -122,6 +130,7 @@ void Line::changeType(){
     setPosition();
 }
 
+//Function changes color of the line and its markers
 void Line::changeColor(Qt::GlobalColor color){
     this->setPen(QPen(color, 2));
     compos->setPen(QPen(color, 2));
@@ -130,6 +139,15 @@ void Line::changeColor(Qt::GlobalColor color){
     gener->setPen(QPen(color, 2));
 }
 
+//Function removes all markers
+//Cannot be in destructor -> caused segfault upon closing the app
+void Line::deleteMarkers(){
+    delete compos;
+    delete aggreg;
+    delete gener;
+}
+
+//Function handles mouse press event -> selects entity
 void Line::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(event->buttons() == Qt::RightButton){
         if (qobject_cast<ClassEntity*>(start)->curScene->lastLine != nullptr)
