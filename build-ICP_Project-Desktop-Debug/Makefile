@@ -452,7 +452,9 @@ classentity.o: ../src/classentity.cpp ../src/classentity.h \
 		ui_classentity.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o classentity.o ../src/classentity.cpp
 
-line.o: ../src/line.cpp ../src/line.h
+line.o: ../src/line.cpp ../src/line.h \
+		../src/classentity.h \
+		../src/scene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o line.o ../src/line.cpp
 
 main.o: ../src/main.cpp ../src/UmlEditor.h \

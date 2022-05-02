@@ -122,11 +122,19 @@ void Line::changeType(){
     setPosition();
 }
 
+void Line::changeColor(Qt::GlobalColor color){
+    this->setPen(QPen(color, 2));
+    compos->setPen(QPen(color, 2));
+    compos->setBrush(QBrush(color));
+    aggreg->setPen(QPen(color, 2));
+    gener->setPen(QPen(color, 2));
+}
+
 void Line::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(event->buttons() == Qt::RightButton){
         if (qobject_cast<ClassEntity*>(start)->curScene->lastLine != nullptr)
-            qobject_cast<ClassEntity*>(start)->curScene->lastLine->setPen(QPen(Qt::black, 2));
-        this->setPen(QPen(Qt::red, 2));
+            qobject_cast<ClassEntity*>(start)->curScene->lastLine->changeColor(Qt::black);
+        this->changeColor(Qt::red);
         qobject_cast<ClassEntity*>(start)->curScene->lastLine = this;
     }
 }

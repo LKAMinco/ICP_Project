@@ -19,6 +19,7 @@ public:
     void setMarkers(QGraphicsPolygonItem *ag, QGraphicsPolygonItem *co, QGraphicsPolygonItem *ge);
     void setPosition();
     void changeType();
+    void changeColor(Qt::GlobalColor color);
 
     QWidget *start;
     QWidget *end;
