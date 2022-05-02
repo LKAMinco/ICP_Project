@@ -14,6 +14,9 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 //Creates new entity and stores its pointer in entities vector
 void Scene::SpawnClassEntity(bool checked){
     ClassEntity *element = new ClassEntity();
+    element->setFrameShape(QFrame::Box);
+    element->setFrameShadow(QFrame::Plain);
+    element->setLineWidth(4);
     element->updateScene(this);
     QGraphicsProxyWidget *item = addWidget(element);
     item->setZValue(1);
@@ -57,9 +60,12 @@ void Scene::SpawnConnectionLine(bool checked){
 
 //Function updates last selected entities
 void Scene::updateFocusList(QWidget *item){
+    item->setStyleSheet("QFrame { border: 4px solid red }");
     focusList.push_back(item);
-    if (focusList.size() > 2)
+    if (focusList.size() > 2){
+        focusList[0]->setStyleSheet("QFrame { border: 4px solid black }");
         focusList.erase(focusList.begin());
+    }
 }
 
 //Function updates last selected connection line
