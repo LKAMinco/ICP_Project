@@ -168,8 +168,12 @@ QString MainWindow::genJson(){
     QJsonObject connections;
     for(auto* item : classScene->entities){
         QJsonArray arr2;
+        qDebug() << item->class_title->text();
+        //qDebug () << item->entity_lines << "\n\n";
+        int i = -1;
         for(auto * item2 : item->entity_lines){
-            if(item2->box_type != nullptr){
+            i++;
+            if(i <= item->index_of_last_attrib){
                 arr2.append((QJsonObject({
                     {"visBox_value",item2->box_visiblity->currentText()},
                     {"lineEdit_value",item2->line_edit->text()},
