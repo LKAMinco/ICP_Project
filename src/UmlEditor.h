@@ -56,6 +56,8 @@ private slots:
 
     void on_actionClass_triggered();
 
+    void on_actionNew_triggered();
+
 private:
     Ui::MainWindow *ui;
     //buttons in context menu for class diagram
