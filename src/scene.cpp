@@ -60,13 +60,13 @@ void Scene::SpawnConnectionLine(bool checked){
 
 //Function updates last selected entities
 void Scene::updateFocusList(QWidget *item){
-    item->setStyleSheet("QFrame { border: 4px solid red }");
+    item->setStyleSheet("QFrame { border: 4px solid lightgreen }");
     focusList.push_back(item);
     if (focusList.size() > 2){
         focusList[0]->setStyleSheet("QFrame { border: 4px solid black }");
         focusList.erase(focusList.begin());
     }
-    focusList[0]->setStyleSheet("QFrame { border: 4px solid lightgreen }");
+    focusList[0]->setStyleSheet("QFrame { border: 4px solid red }");
 }
 
 //Function updates last selected connection line
