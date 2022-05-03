@@ -20,10 +20,13 @@ public:
      * @param item -> pointer to last selected entity
     */
     void updateFocusList(QWidget *item);
+    void updateConnections(QWidget *item);
 
     std::vector<SeqEntity*> entities;
     std::vector<QWidget*> focusList;
     std::vector<SeqLine*> connections;
+
+    SeqLine *lastLine;
 
 public slots:
     void SpawnEntity(bool checked);

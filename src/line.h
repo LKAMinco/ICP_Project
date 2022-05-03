@@ -18,6 +18,7 @@ class ClassEntity;
 */
 class Line : public QGraphicsLineItem, public QWidget
 {
+    //Q_OBJECT
 public:
     /*
      * @name Line constructor

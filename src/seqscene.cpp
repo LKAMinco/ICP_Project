@@ -27,7 +27,7 @@ void seqScene::SpawnConnectionLine(bool checked){
         item->setPoints(dynamic_cast<SeqEntity*>(focusList[0]), dynamic_cast<SeqEntity*>(focusList[1]));
         //item->setMarkers(aggregP, composP, generP);
         this->addItem(item);
-        item->setPosition();
+        item->setPosition(false);
         //stores line in connections vector
         connections.push_back(item);
     }
@@ -64,4 +64,12 @@ void seqScene::updateFocusList(QWidget *item){
     focusList.push_back(item);
     if (focusList.size() > 2)
         focusList.erase(focusList.begin());
+}
+
+//Function updates last selected connection line
+void seqScene::updateConnections(QWidget *item){
+    for(int i = 0; i < connections.size(); i++){
+        if (connections[i]->start == item || connections[i]->end == item)
+            connections[i]->setPosition(true);
+    }
 }

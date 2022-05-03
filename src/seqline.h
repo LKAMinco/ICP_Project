@@ -1,13 +1,9 @@
 #ifndef SEQLINE_H
 #define SEQLINE_H
 
-#include <QObject>
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
-#include <QMouseEvent>
-#include <QGraphicsPolygonItem>
-#include <QPen>
 
 class SeqEntity;
 
@@ -17,7 +13,10 @@ public:
     /*
      * @name Line constructor
     */
-    SeqLine(QWidget *parent = nullptr);
+    explicit SeqLine(QWidget *parent = nullptr);
+    /*
+     * @name Line destructor
+    */
     ~SeqLine();
     /*
      * @name setPoints
@@ -37,8 +36,9 @@ public:
     /*
      * @name setPosition
      * @brief updates position of line and its markers
+     * @param move -> if setPosition was called by move event
     */
-    void setPosition();
+    void setPosition(bool move);
     /*
      * @name changeType
      * @brief changes type of line, displays correct marker and sets offsets

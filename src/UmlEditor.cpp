@@ -22,13 +22,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     //creates context menu for class diagram
     menu = new QMenu(this);
-    spawnClass = menu->addAction("Create Class Entity");
+    spawnClass = menu->addAction("Create Entity");
     connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     spawnConnect = menu->addAction("Create Connection");
     connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
     changeLine = menu->addAction("Change Connection");
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
-    removeClass = menu->addAction("Remove Class Entity");
+    removeClass = menu->addAction("Remove Entity");
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     removeConnect = menu->addAction("Remove Connection");
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);

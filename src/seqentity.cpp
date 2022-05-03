@@ -53,7 +53,7 @@ void SeqEntity::mouseMoveEvent(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton)
     {
         this->move(mapToParent(event->pos() - offset));
-        //curScene->updateConnections(ui->line->parentWidget());
+        curScene->updateConnections(ui->line->parentWidget());
     }
 }
 

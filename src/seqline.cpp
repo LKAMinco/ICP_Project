@@ -15,6 +15,10 @@ SeqLine::SeqLine(QWidget *parent){
     rotate = 0;
 }
 
+SeqLine::~SeqLine(){
+
+}
+
 void SeqLine::changeType(){
     qDebug() << "test";
 }
@@ -37,10 +41,43 @@ void SeqLine::setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGr
     blue2 = b2;
 }
 
-void SeqLine::setPosition(){
+void SeqLine::setPosition(bool move){
+    setPoints(start, end);
     x1 = start->pos().x();
-    y1 = start->pos().y();
     x2 = end->pos().x();
-    y2 = end->pos().y();
+    if(!move){
+        y1 = start->pos().y();
+        y2 = end->pos().y();
+    }
     this->setLine(x1, y1, x2, y2);
+}
+
+//Function handles mouse press event -> selects entity
+void SeqLine::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    if(event->buttons() == Qt::RightButton){
+        if (qobject_cast<SeqEntity*>(start)->curScene->lastLine != nullptr)
+            qobject_cast<SeqEntity*>(start)->curScene->lastLine->changeColor(Qt::black);
+        this->changeColor(Qt::red);
+        qobject_cast<SeqEntity*>(start)->curScene->lastLine = this;
+    }
+}
+
+void SeqLine::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+    if(event->buttons() == Qt::LeftButton)
+    {
+        int diff = y2-y1; //rework so it does work when moving objects
+        //needs to calculate relative position of mouse to start and end of higher located entity
+        y1 = event->pos().y();
+        y2 = event->pos().y() + diff;
+        setPosition(true);
+    }
+}
+
+//Function changes color of the line and its markers
+void SeqLine::changeColor(Qt::GlobalColor color){
+    this->setPen(QPen(color, 2));
+    //compos->setPen(QPen(color, 2));
+    //compos->setBrush(QBrush(color));
+    //aggreg->setPen(QPen(color, 2));
+    //gener->setPen(QPen(color, 2));
 }
