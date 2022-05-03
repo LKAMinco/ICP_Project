@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     seqList.clear();
     seqIndex = 0;
+    activeSeq = false;
 }
 
 MainWindow::~MainWindow()
@@ -226,19 +227,27 @@ void MainWindow::on_actionRemove_triggered()
 {
     //TODO remove sequence diagram
     if(seqList.size() != 0){
-        if (ui->graphicsView->scene() == seqList[seqIndex])
-            on_actionClass_triggered();
+        if (!activeSeq)
+            return;
         seqScene *tmp = seqList[seqIndex];
-        seqList.erase(seqList.begin());
+        seqList.erase(seqList.begin() + seqIndex);
         delete tmp;
+        if(seqList.size() == 0){
+            on_actionClass_triggered();
+        }
+        else{
+            seqIndex = 0;
+            on_actionSeq1_triggered();
+        }
     }
 }
 
 void MainWindow::on_actionSeq1_triggered()
 {
-    //TODO switch to seq1
-    if(seqList.size() != 0)
-        ui->graphicsView->setScene(seqList[seqIndex]);
+    //TODO switch to seq
+    if(seqList.size() == 0)
+        return;
+    ui->graphicsView->setScene(seqList[seqIndex]);
 
     disconnect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     disconnect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
@@ -251,6 +260,8 @@ void MainWindow::on_actionSeq1_triggered()
     connect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
     connect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
+
+    activeSeq = true;
 }
 
 void MainWindow::on_actionClass_triggered()
@@ -269,6 +280,8 @@ void MainWindow::on_actionClass_triggered()
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
+
+    activeSeq = false;
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -287,4 +300,37 @@ void MainWindow::on_actionNew_triggered()
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
     file_path = "";
+}
+
+void MainWindow::on_actionSwitch_Seq_Left_triggered()
+{
+    if((seqList.size() <= 1) || (!activeSeq))
+        return;
+    disconnect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
+    disconnect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
+    disconnect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
+    disconnect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
+    disconnect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
+
+    seqIndex--;
+    if(seqIndex < 0)
+        seqIndex = seqList.size() - 1;
+
+    on_actionSeq1_triggered();
+}
+
+void MainWindow::on_actionSwitch_Seq_Right_triggered()
+{
+    if((seqList.size() <= 1) || (!activeSeq))
+        return;
+    disconnect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
+    disconnect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
+    disconnect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
+    disconnect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
+    disconnect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
+
+    seqIndex++;
+    seqIndex = seqIndex % seqList.size();
+
+    on_actionSeq1_triggered();
 }

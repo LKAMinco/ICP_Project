@@ -36,6 +36,7 @@ public:
     ~MainWindow();
 
     int seqIndex;
+    bool activeSeq;
 
 private slots:
     void on_graphicsView_customContextMenuRequested(const QPoint &pos);
@@ -57,6 +58,10 @@ private slots:
     void on_actionClass_triggered();
 
     void on_actionNew_triggered();
+
+    void on_actionSwitch_Seq_Left_triggered();
+
+    void on_actionSwitch_Seq_Right_triggered();
 
 private:
     Ui::MainWindow *ui;
