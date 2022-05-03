@@ -2,10 +2,12 @@
 #include <QDebug>
 #include "seqentity.h"
 
+
 seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
 {
     entities.clear();
     focusList.clear();
+    connections.clear();
 }
 
 void seqScene::SpawnEntity(bool checked){
@@ -16,7 +18,19 @@ void seqScene::SpawnEntity(bool checked){
 }
 
 void seqScene::SpawnConnectionLine(bool checked){
-    qDebug() << "spawn connection";
+    //there must be two entities selected before you can create line
+    if (focusList.size() == 2){
+        if (focusList[0] == focusList[1])
+            return;
+        SeqLine *item = new SeqLine();
+        //sets all pointers in line object
+        item->setPoints(dynamic_cast<SeqEntity*>(focusList[0]), dynamic_cast<SeqEntity*>(focusList[1]));
+        //item->setMarkers(aggregP, composP, generP);
+        this->addItem(item);
+        item->setPosition();
+        //stores line in connections vector
+        connections.push_back(item);
+    }
 }
 
 void seqScene::ChangeConnectionLine(bool checked){
