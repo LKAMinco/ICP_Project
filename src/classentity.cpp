@@ -190,6 +190,8 @@ void ClassEntity::updateValue(const QString &text){ //TODO premenovat na update 
     /*for(unsigned int i = 0; i < entity_lines.size();i++){
         entity_lines[i]->line_edit->setStyleSheet(QStringLiteral("background-color: rgb(38, 0, 255);"));
     }*/
+
+    curScene->updateData(this->objectName(), text, obj->objectName());
 }
 
 

@@ -7,6 +7,8 @@
 #include "line.h"
 #include <QGraphicsPolygonItem>
 
+class ClassStorage;
+
 class ClassEntity;
 
 /*
@@ -34,11 +36,14 @@ public:
     */
     void updateConnections(QWidget *item);
 
+    void updateData(QString objName, QString contentName, QString elemName);
+
     std::vector<ClassEntity*> entities;
     std::vector<Line*> connections;
     Line *lastLine;
         //vector of 2 last selected entities
     std::vector<QWidget*> focusList;
+    ClassStorage *info;
 
 public slots:
     void SpawnEntity(bool checked);

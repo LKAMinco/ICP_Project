@@ -12,6 +12,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <regex>
+#include "classstorage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,6 +38,8 @@ public:
 
     int seqIndex;
     bool activeSeq;
+    ClassStorage *info;
+    std::vector <seqScene*> seqList;
 
 private slots:
     void on_graphicsView_customContextMenuRequested(const QPoint &pos);
@@ -73,7 +76,6 @@ private:
     QAction *removeConnect;
 
     Scene *classScene;
-    std::vector <seqScene*> seqList;
 
     QMenu *menu;
     QString file_path = "";

@@ -6,6 +6,8 @@
 #include <QMouseEvent>
 #include <seqscene.h>
 
+class ClassStorage;
+
 namespace Ui {
 class SeqEntity;
 }
@@ -20,6 +22,7 @@ public:
 
     void setColor(Qt::GlobalColor color);
     void updateScene(seqScene *scene);
+    void updateData(ClassStorage *info);
 
     seqScene *curScene;
     QFrame *line;

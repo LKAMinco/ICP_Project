@@ -36,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent)
     seqList.clear();
     seqIndex = 0;
     activeSeq = false;
+
+    info = new ClassStorage(this);
+    classScene->info = info;
 }
 
 MainWindow::~MainWindow()

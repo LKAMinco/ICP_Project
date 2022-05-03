@@ -1,6 +1,7 @@
 #include "seqentity.h"
 #include "ui_seqentity.h"
 #include "QDebug"
+#include "classstorage.h"
 
 SeqEntity::SeqEntity(QWidget *parent) :
     QFrame(parent),
@@ -16,7 +17,10 @@ SeqEntity::SeqEntity(QWidget *parent) :
     this->setMouseTracking(true);
 
     setColor(Qt::gray);
-
+    ui->comboBox->addItem("");
+    /*
+    ui->comboBox->addItem("asd");
+    ui->comboBox->setCurrentIndex(1);*/
 }
 
 SeqEntity::~SeqEntity()
@@ -67,4 +71,32 @@ void SeqEntity::setColor(Qt::GlobalColor color){
 
 void SeqEntity::updateScene(seqScene *scene){
     this->curScene = scene;
+}
+
+void SeqEntity::updateData(ClassStorage *info){
+    if(ui->comboBox->count() < info->entities.size() + 1){
+        ui->comboBox->addItem(info->entities.back()->content);
+    }
+    else if(ui->comboBox->count() == info->entities.size() + 1){
+        for(int i = 0; i < info->entities.size(); i++){
+            if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
+                ui->comboBox->setItemText(i + 1, info->entities[i]->content);
+                break;
+            }
+        }
+    }
+    else{
+        for(int i = 0; i < info->entities.size(); i++){
+            if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
+                if(ui->comboBox->currentIndex() == i + 1)
+                    ui->comboBox->setCurrentIndex(0);
+                ui->comboBox->removeItem(i + 1);
+            }
+        }
+        if(ui->comboBox->count() != info->entities.size() + 1){
+            if(ui->comboBox->currentIndex() == ui->comboBox->count() - 1)
+                ui->comboBox->setCurrentIndex(0);
+            ui->comboBox->removeItem(ui->comboBox->count() - 1);
+        }
+    }
 }

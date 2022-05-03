@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QLineEdit>
 #include "classentity.h"
+#include "classstorage.h"
 
 Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 {
@@ -13,6 +14,7 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 
 //Creates new entity and stores its pointer in entities vector
 void Scene::SpawnEntity(bool checked){
+    static int num = 0;
     ClassEntity *element = new ClassEntity();
     element->setFrameShape(QFrame::Box);
     element->setFrameShadow(QFrame::Plain);
@@ -22,6 +24,9 @@ void Scene::SpawnEntity(bool checked){
     item->setZValue(1);
     item->setParent(this);
     entities.push_back(element);
+    element->setObjectName("entity" + QString::number(num++));
+
+    info->CreateEntity(element->objectName());
 }
 
 //Creates new connection and its markers
@@ -115,6 +120,7 @@ void Scene::RemoveEntity(bool checked){
 
         for(int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
+                info->RemoveEntity(entities[i]->objectName());
                 entities.erase(entities.begin() + i);
             }
         }
@@ -122,4 +128,8 @@ void Scene::RemoveEntity(bool checked){
         focusList.clear();
         delete delItem;
     }
+}
+
+void Scene::updateData(QString objName, QString contentName, QString elemName){
+    info->UpdateEntity(objName, contentName, elemName);
 }
