@@ -100,10 +100,11 @@ void MainWindow::on_actionOpen_triggered()
 
 QString MainWindow::genJson(){
     QJsonDocument doc;
-    QJsonArray arr,arr2,arr3;
+    QJsonArray arr,arr3;
     QJsonObject windows;
     QJsonObject connections;
     for(auto* item : classScene->entities){
+        QJsonArray arr2;
         for(auto * item2 : item->entity_lines){
             if(item2->box_type != nullptr){
                 arr2.append((QJsonObject({
