@@ -66,6 +66,7 @@ void Scene::updateFocusList(QWidget *item){
         focusList[0]->setStyleSheet("QFrame { border: 4px solid black }");
         focusList.erase(focusList.begin());
     }
+    focusList[0]->setStyleSheet("QFrame { border: 4px solid lightgreen }");
 }
 
 //Function updates last selected connection line

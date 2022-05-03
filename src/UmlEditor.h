@@ -67,7 +67,6 @@ private:
     std::vector <seqScene*> seqList;
 
     QMenu *menu;
-    QString file_name = "";
     QString file_path = "";
 };
 #endif // MAINWINDOW_H

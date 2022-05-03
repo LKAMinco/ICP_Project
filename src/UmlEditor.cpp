@@ -76,8 +76,6 @@ void MainWindow::on_actionSave_as_triggered()
     std::regex_replace (std::back_inserter(result), string.begin(), string.end(), e, "$2");
     result.append(".json");
     file_path = QString::fromStdString(result);
-    QFileInfo info(file_path);
-    file_name = info.fileName();
     QFile file(file_path);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
@@ -87,8 +85,17 @@ void MainWindow::on_actionSave_as_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen","Uml editor files (*.json)");
-    QFileInfo info(file_path);
-    file_name = info.fileName();
+    QFile file(file_path);
+    file.open(QIODevice::ReadOnly|QIODevice::Text);
+    QByteArray data = file.readAll();
+    file.close();
+    QJsonParseError errorPtr;
+    QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
+    if (doc.isNull()) {
+        qDebug() << "Parse failed";
+    }
+    QJsonObject main_obj = doc.object();
+    qDebug() << main_obj;
 }
 
 QString MainWindow::genJson(){
