@@ -39,10 +39,10 @@ public:
     Line *lastLine;
 
 public slots:
-    void SpawnClassEntity(bool checked);
+    void SpawnEntity(bool checked);
     void SpawnConnectionLine(bool checked);
     void ChangeConnectionLine(bool checked);
-    void RemoveClassEntity(bool checked);
+    void RemoveEntity(bool checked);
     void RemoveConnectionLine(bool checked);
 
 private:

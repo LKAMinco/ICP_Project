@@ -12,7 +12,7 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 }
 
 //Creates new entity and stores its pointer in entities vector
-void Scene::SpawnClassEntity(bool checked){
+void Scene::SpawnEntity(bool checked){
     ClassEntity *element = new ClassEntity();
     element->setFrameShape(QFrame::Box);
     element->setFrameShadow(QFrame::Plain);
@@ -98,7 +98,7 @@ void Scene::RemoveConnectionLine(bool checked){
 }
 
 //Function removes entity from scene
-void Scene::RemoveClassEntity(bool checked){
+void Scene::RemoveEntity(bool checked){
     //entity must be selected before removal
     if(focusList.size() != 0){
         //function also removes all lines, that are connected to the entity, which is being removed
@@ -116,10 +116,10 @@ void Scene::RemoveClassEntity(bool checked){
         for(int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
                 entities.erase(entities.begin() + i);
-                auto *delItem = focusList[focusList.size() - 1];
-                focusList.erase(focusList.begin() + focusList.size() - 1);
-                delete delItem;
             }
         }
+        auto *delItem = focusList[focusList.size() - 1];
+        focusList.clear();
+        delete delItem;
     }
 }

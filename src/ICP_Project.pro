@@ -22,6 +22,7 @@ SOURCES += \
     cpp/erconnect.cpp \
     cpp/method.cpp \
     scene.cpp \
+    seqentity.cpp \
     seqscene.cpp
 
 HEADERS += \
@@ -34,11 +35,13 @@ HEADERS += \
     cpp/method.h \
     line.h \
     scene.h \
+    seqentity.h \
     seqscene.h
 
 FORMS += \
     UmlEditor.ui \
-    classentity.ui
+    classentity.ui \
+    seqentity.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

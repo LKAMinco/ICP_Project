@@ -35,6 +35,8 @@ public:
     */
     ~MainWindow();
 
+    int seqIndex;
+
 private slots:
     void on_graphicsView_customContextMenuRequested(const QPoint &pos);
 
