@@ -22,19 +22,37 @@ void seqScene::SpawnConnectionLine(bool checked){
     if (focusList.size() == 2){
         if (focusList[0] == focusList[1])
             return;
+
+        //creates three markers from polygons
+        QPolygonF full, arrow, blue;
+        full << QPoint(12, 0) << QPoint(0, 12) << QPoint(0, -12);
+        QGraphicsPolygonItem *fullP = addPolygon(full, QPen(Qt::black, 2), QBrush(Qt::black));
+        arrow << QPoint(12, 0) << QPoint(0, 12) << QPoint(12, 0) << QPoint(0, -12);
+        QGraphicsPolygonItem *arrowP = addPolygon(arrow, QPen(Qt::black, 2), QBrush(Qt::black));
+        blue << QPoint(-6, 24) << QPoint(6, 24) << QPoint(6, -24) << QPoint(-6, -24);
+        QGraphicsPolygonItem *blue1P = addPolygon(blue, QPen(Qt::blue, 2), QBrush(Qt::blue));
+        QGraphicsPolygonItem *blue2P = addPolygon(blue, QPen(Qt::blue, 2), QBrush(Qt::blue));
+
+        fullP->setZValue(2);
+        arrowP->setZValue(2);
+        blue1P->setZValue(1);
+        blue2P->setZValue(1);
+
         SeqLine *item = new SeqLine();
         //sets all pointers in line object
         item->setPoints(dynamic_cast<SeqEntity*>(focusList[0]), dynamic_cast<SeqEntity*>(focusList[1]));
-        //item->setMarkers(aggregP, composP, generP);
+        item->setMarkers(fullP, arrowP, blue1P, blue2P);
         this->addItem(item);
-        item->setPosition(false);
+        item->setPosition();
+
         //stores line in connections vector
         connections.push_back(item);
     }
 }
 
 void seqScene::ChangeConnectionLine(bool checked){
-    qDebug() << "update connection";
+    if(lastLine != nullptr)
+        lastLine->changeType();
 }
 
 void seqScene::RemoveConnectionLine(bool checked){
@@ -70,6 +88,6 @@ void seqScene::updateFocusList(QWidget *item){
 void seqScene::updateConnections(QWidget *item){
     for(int i = 0; i < connections.size(); i++){
         if (connections[i]->start == item || connections[i]->end == item)
-            connections[i]->setPosition(true);
+            connections[i]->setPosition();
     }
 }

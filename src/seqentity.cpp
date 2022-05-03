@@ -34,9 +34,10 @@ void SeqEntity::on_plusButton_clicked()
 
 void SeqEntity::on_minusButton_clicked()
 {
-    if(line->height() >= 60){
+    if(line->height() >= 120){
         line->setFixedHeight(line->height() - 60);
         this->resize(this->width(), this->height() - 60);
+        curScene->updateConnections(ui->line->parentWidget());
     }
 }
 

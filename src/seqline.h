@@ -36,9 +36,8 @@ public:
     /*
      * @name setPosition
      * @brief updates position of line and its markers
-     * @param move -> if setPosition was called by move event
     */
-    void setPosition(bool move);
+    void setPosition();
     /*
      * @name changeType
      * @brief changes type of line, displays correct marker and sets offsets
@@ -62,15 +61,16 @@ public:
     //position points for line
     int x1, x2, y1, y2;
     int type; //type of line
+    int mouseOffset;
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    int offset;
-    int curOffset;
-    int lineOffset;
+    int startOffset;
+    int endOffset;
+    int markerOffset;
     int rotate; //rotation for markers
 };
 
