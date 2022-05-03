@@ -272,5 +272,17 @@ void MainWindow::on_actionClass_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
+    delete classScene;
+    classScene = new Scene(ui->graphicsView);
+    ui->graphicsView->setScene(classScene);
+    ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->graphicsView->setFixedSize(1920,1080);
+    classScene->setSceneRect(0,0,1920,1080);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
+    connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
+    connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
+    connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
+    connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
 }
