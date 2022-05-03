@@ -23,6 +23,7 @@ SOURCES += \
     cpp/method.cpp \
     scene.cpp \
     seqentity.cpp \
+    seqline.cpp \
     seqscene.cpp
 
 HEADERS += \
@@ -36,6 +37,7 @@ HEADERS += \
     line.h \
     scene.h \
     seqentity.h \
+    seqline.h \
     seqscene.h
 
 FORMS += \

@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsPolygonItem>
+#include "seqline.h"
 
 class SeqEntity;
 
@@ -22,6 +23,7 @@ public:
 
     std::vector<SeqEntity*> entities;
     std::vector<QWidget*> focusList;
+    std::vector<SeqLine*> connections;
 
 public slots:
     void SpawnEntity(bool checked);
