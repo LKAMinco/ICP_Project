@@ -82,6 +82,7 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+    on_actionNew_triggered();
     //TODO vytvorit vzdy pri otváraní novu scenu
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen","Uml editor files (*.json)");
     QFile file(file_path);
@@ -285,4 +286,5 @@ void MainWindow::on_actionNew_triggered()
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
+    file_path = "";
 }
