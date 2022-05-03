@@ -15,6 +15,7 @@ SeqLine::SeqLine(QWidget *parent){
     mouseOffset = 100;
     markerOffset = 0;
     this->setZValue(1);
+    box = nullptr;
 }
 
 SeqLine::~SeqLine(){
@@ -32,7 +33,7 @@ void SeqLine::setPoints(SeqEntity *first, SeqEntity *last){
     }
 }
 
-void SeqLine::setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGraphicsPolygonItem *b1, QGraphicsPolygonItem *b2){
+void SeqLine::setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGraphicsPolygonItem *b1, QGraphicsPolygonItem *b2, QComboBox *cbox){
     full = fu;
     arrow = ar;
     blue1 = b1;
@@ -40,6 +41,7 @@ void SeqLine::setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGr
 
     full->setVisible(true);
     arrow->setVisible(false);
+    box = cbox;
 }
 
 void SeqLine::setPosition(){
@@ -93,6 +95,8 @@ void SeqLine::setPosition(){
         blue1->setPos(x1 - 3,y1 + 24);
         blue2->setPos(x2 + 3,y2 + 24);
     }
+    box->move((x2 + x1)/2 - box->width()/2, (y1 + y2)/2 - 35);
+
 }
 
 //Function handles mouse press event -> selects entity

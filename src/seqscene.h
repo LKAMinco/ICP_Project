@@ -6,6 +6,7 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsPolygonItem>
 #include "seqline.h"
+#include <QComboBox>
 
 class SeqEntity;
 

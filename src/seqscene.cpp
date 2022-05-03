@@ -38,10 +38,14 @@ void seqScene::SpawnConnectionLine(bool checked){
         blue1P->setZValue(1);
         blue2P->setZValue(1);
 
+        QComboBox *box = new QComboBox();
+        this->addWidget(box);
+        box->addItem("");
+
         SeqLine *item = new SeqLine();
         //sets all pointers in line object
         item->setPoints(dynamic_cast<SeqEntity*>(focusList[0]), dynamic_cast<SeqEntity*>(focusList[1]));
-        item->setMarkers(fullP, arrowP, blue1P, blue2P);
+        item->setMarkers(fullP, arrowP, blue1P, blue2P, box);
         this->addItem(item);
         item->setPosition();
 

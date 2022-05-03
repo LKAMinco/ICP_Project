@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QComboBox>
 
 class SeqEntity;
 
@@ -30,9 +31,9 @@ public:
      * @brief sets pointers to 3 markers
      * @param ag -> marker for aggregation line
      * @param co -> marker for composition line
-     * @param ge -> marker for generalization line
+     * @param ge -> marker for generalization line /TODO REWORK THIS COMMENT
     */
-    void setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGraphicsPolygonItem *b1, QGraphicsPolygonItem *b2);
+    void setMarkers(QGraphicsPolygonItem *fu, QGraphicsPolygonItem *ar, QGraphicsPolygonItem *b1, QGraphicsPolygonItem *b2, QComboBox *cbox);
     /*
      * @name setPosition
      * @brief updates position of line and its markers
@@ -62,6 +63,7 @@ public:
     int x1, x2, y1, y2;
     int type; //type of line
     int mouseOffset;
+    QComboBox *box;
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
