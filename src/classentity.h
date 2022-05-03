@@ -76,7 +76,7 @@ protected:
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
 
-private slots:
+public slots:
     void on_add_method_clicked();
 
     void on_add_attrib_clicked();

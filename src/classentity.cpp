@@ -95,14 +95,6 @@ void ClassEntity::on_add_method_clicked(){
 
 void ClassEntity::on_remove_method_clicked()
 {
-    QString s1 =
-        QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen",
-            "Uml editor files (*.json)");
-
-    /*QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                               "Untitled",
-                               tr("Uml editor files (*.json)"));*/
-    qDebug() << s1;
 }
 
 void ClassEntity::on_add_attrib_clicked()
@@ -193,7 +185,7 @@ void ClassEntity::on_add_attrib_clicked()
 
 void ClassEntity::updateValue(const QString &text){ //TODO premenovat na update entity values a pridat update hodnôt v poli
     QObject* obj = sender();
-    qDebug() << text;
+    //qDebug() << text;
     //TODO remove
     /*for(unsigned int i = 0; i < entity_lines.size();i++){
         entity_lines[i]->line_edit->setStyleSheet(QStringLiteral("background-color: rgb(38, 0, 255);"));

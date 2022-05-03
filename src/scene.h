@@ -37,6 +37,8 @@ public:
     std::vector<ClassEntity*> entities;
     std::vector<Line*> connections;
     Line *lastLine;
+        //vector of 2 last selected entities
+    std::vector<QWidget*> focusList;
 
 public slots:
     void SpawnEntity(bool checked);
@@ -44,9 +46,6 @@ public slots:
     void ChangeConnectionLine(bool checked);
     void RemoveEntity(bool checked);
     void RemoveConnectionLine(bool checked);
-
-private:
-    std::vector<QWidget*> focusList; //vector of 2 last selected entities
 
 };
 

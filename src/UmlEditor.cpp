@@ -63,8 +63,6 @@ void MainWindow::on_actionSave_triggered()
         QTextStream out(&file);
         out << genJson();
     }
-
-
 }
 
 void MainWindow::on_actionSave_as_triggered()
@@ -84,6 +82,7 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+    //TODO vytvorit vzdy pri otváraní novu scenu
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen","Uml editor files (*.json)");
     QFile file(file_path);
     file.open(QIODevice::ReadOnly|QIODevice::Text);
@@ -95,7 +94,71 @@ void MainWindow::on_actionOpen_triggered()
         qDebug() << "Parse failed";
     }
     QJsonObject main_obj = doc.object();
-    qDebug() << main_obj;
+    QJsonArray windows = main_obj.value("windows").toArray();
+    foreach(const QJsonValue & val, windows){
+        classScene->SpawnEntity(false);
+        int x = val.toObject().value("g_x").toInt();
+        int y = val.toObject().value("g_y").toInt();
+        classScene->entities.back()->class_title->setText(val.toObject().value("class_name").toString());
+        classScene->entities.back()->move(x,y);
+        QJsonArray lines = val.toObject().value("lines").toArray();
+        int i = -1;
+        foreach(const QJsonValue & val2, lines){
+            i++;
+            if(i <= val.toObject().value("index_of_last_attrib").toInt()){
+                classScene->entities.back()->on_add_attrib_clicked();
+                auto text = val2.toObject().value("visBox_value").toString();
+                int index = classScene->entities.back()->entity_lines.back()->box_visiblity->findText(text);
+                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(index);
+                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
+                text = val2.toObject().value("boxType_value").toString();
+                index = classScene->entities.back()->entity_lines.back()->box_type->findText(text);
+                classScene->entities.back()->entity_lines.back()->box_type->setCurrentIndex(index);
+            }
+            else{
+                classScene->entities.back()->on_add_method_clicked();
+                auto text = val2.toObject().value("visBox_value").toString();
+                int index = classScene->entities.back()->entity_lines.back()->box_visiblity->findText(text);
+                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(index);
+                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
+            }
+        }
+    }
+    QJsonArray connections = main_obj.value("connections").toArray();
+    foreach(const QJsonValue & val, connections){
+        for(auto* item :classScene->entities){
+            auto item_name = item->class_title->text();
+            auto find_name = val.toObject().value("start_name").toString();
+            if(!QString::compare(item_name, find_name, Qt::CaseSensitive)){
+                classScene->updateFocusList(item);
+                break;
+            }
+            else
+                qDebug() << "aaaaa hladam";
+        }
+        for(auto* item :classScene->entities){
+            auto item_name = item->class_title->text();
+            auto find_name = val.toObject().value("end_name").toString();
+            if(!QString::compare(item_name, find_name, Qt::CaseSensitive)){
+                classScene->updateFocusList(item);
+                break;
+            }
+            else
+                qDebug() << "aaaaa hladam";
+        }
+        classScene->SpawnConnectionLine(false);
+        if(val.toObject().value("line_type").toInt() == 0)
+            classScene->connections.back()->type = 4;
+        else
+            classScene->connections.back()->type = val.toObject().value("line_type").toInt()-1;
+        classScene->lastLine = classScene->connections.back();
+        classScene->ChangeConnectionLine(false);
+        for(auto* item2 : classScene->focusList){
+            item2->setStyleSheet("QFrame { border: 4px solid black }");
+        }
+        classScene->focusList.clear();
+        classScene->lastLine = nullptr;
+    }
 }
 
 QString MainWindow::genJson(){
@@ -141,7 +204,7 @@ QString MainWindow::genJson(){
 
     QJsonObject main_obj;
     main_obj.insert("windows", arr);
-    main_obj.insert("connectionsns",arr3);
+    main_obj.insert("connections",arr3);
     doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }
@@ -201,4 +264,9 @@ void MainWindow::on_actionClass_triggered()
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+
 }
