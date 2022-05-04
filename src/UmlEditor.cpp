@@ -219,11 +219,14 @@ QString MainWindow::genJson(){
                         {"height",item->line->height()}
                                       })));
         }
+        arr4.append((QJsonObject({
+                    {"seq_scene",arr2}
+                                  })));
     }
     QJsonObject main_obj;
     main_obj.insert("windows", arr);
     main_obj.insert("connections",arr3);
-    main_obj.insert("seq_scenes",arr3);
+    main_obj.insert("seq_scenes",arr4);
     doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }
