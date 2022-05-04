@@ -26,7 +26,12 @@ void Scene::SpawnEntity(bool checked){
     entities.push_back(element);
     element->setObjectName("entity" + QString::number(num++));
 
-    info->CreateEntity(element->objectName());
+    QString text;
+    foreach(auto *child, element->children()){
+        if(child->objectName() == "title")
+            text = qobject_cast<QLineEdit*>(child)->text();
+    }
+    info->CreateEntity(element->objectName(), text);
 }
 
 //Creates new connection and its markers
@@ -134,8 +139,8 @@ void Scene::updateData(QString objName, QString contentName, QString elemName){
     info->UpdateEntity(objName, contentName, elemName);
 }
 
-void Scene::createMethodData(QString objName, QString elemName){
-    info->CreateMethod(objName, elemName);
+void Scene::createMethodData(QString objName, QString elemName, QString content){
+    info->CreateMethod(objName, elemName, content);
 }
 void Scene::removeMethodData(QString objName, QString elemName){
     info->RemoveMethod(objName, elemName);

@@ -92,7 +92,7 @@ void ClassEntity::on_add_method_clicked(){
     entity_lines.push_back(new_line);
     current_num_of_lines++;
 
-    curScene->createMethodData(this->objectName(), line_edit->objectName());
+    curScene->createMethodData(this->objectName(), line_edit->objectName(), line_edit->text());
 }
 
 void ClassEntity::on_remove_method_clicked()

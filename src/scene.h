@@ -37,7 +37,7 @@ public:
     void updateConnections(QWidget *item);
 
     void updateData(QString objName, QString contentName, QString elemName);
-    void createMethodData(QString objName, QString elemName);
+    void createMethodData(QString objName, QString elemName, QString content);
     void removeMethodData(QString objName, QString elemName);
 
     std::vector<ClassEntity*> entities;

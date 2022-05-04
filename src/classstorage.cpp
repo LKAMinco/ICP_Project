@@ -27,8 +27,9 @@ ClassStorage::ClassStorage(MainWindow *win){
     window = win;
 }
 
-void ClassStorage::CreateEntity(QString objName){
+void ClassStorage::CreateEntity(QString objName, QString content){
     EntityStorage *item = new EntityStorage(objName);
+    item->content = content;
     entities.push_back(item);
 
     updateSeq();
@@ -48,6 +49,7 @@ void ClassStorage::UpdateEntity(QString objName, QString contentName, QString el
     }
 
     updateSeq();
+    updateSeqLine();
 }
 
 void ClassStorage::RemoveEntity(QString objName){
@@ -62,13 +64,15 @@ void ClassStorage::RemoveEntity(QString objName){
     updateSeq();
 }
 
-void ClassStorage::CreateMethod(QString objName, QString elemName){
+void ClassStorage::CreateMethod(QString objName, QString elemName, QString content){
     foreach(EntityStorage *entity, entities){
         if(entity->objectName == objName){
             MethodStorage *item = new MethodStorage(elemName);
+            item->content = content;
             entity->methods.push_back(item);
         }
     }
+    updateSeqLine();
 }
 void ClassStorage::RemoveMethod(QString objName, QString elemName){
     foreach(EntityStorage *entity, entities){
@@ -82,6 +86,7 @@ void ClassStorage::RemoveMethod(QString objName, QString elemName){
             }
         }
     }
+    updateSeqLine();
 }
 
 void ClassStorage::updateSeq(){

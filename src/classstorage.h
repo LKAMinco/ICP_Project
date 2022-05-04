@@ -32,10 +32,10 @@ public:
     ClassStorage(MainWindow *win);
     //~ClassStorage();
 
-    void CreateEntity(QString objName);
+    void CreateEntity(QString objName, QString content);
     void UpdateEntity(QString objName, QString contentName, QString elemName);
     void RemoveEntity(QString objName);
-    void CreateMethod(QString objName, QString elemName);
+    void CreateMethod(QString objName, QString elemName, QString content);
     void RemoveMethod(QString objName, QString elemName);
     void updateSeq();
     void updateSeqLine();
