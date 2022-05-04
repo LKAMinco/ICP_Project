@@ -26,6 +26,7 @@ public:
 
     seqScene *curScene;
     QFrame *line;
+    QComboBox *box;
 
 private slots:
     void on_plusButton_clicked();

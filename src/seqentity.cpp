@@ -15,7 +15,7 @@ SeqEntity::SeqEntity(QWidget *parent) :
     }
     this->move(QCursor::pos().x(),QCursor::pos().y());
     this->setMouseTracking(true);
-
+    this->box = ui->comboBox;
     setColor(Qt::gray);
     ui->comboBox->addItem("");
     /*
