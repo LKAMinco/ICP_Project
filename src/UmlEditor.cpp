@@ -1,6 +1,7 @@
 #include "UmlEditor.h"
 #include "ui_UmlEditor.h"
 #include "classentity.h"
+#include "seqentity.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -168,13 +169,11 @@ void MainWindow::on_actionOpen_triggered()
 
 QString MainWindow::genJson(){
     QJsonDocument doc;
-    QJsonArray arr,arr3;
+    QJsonArray arr,arr3,arr4;
     QJsonObject windows;
     QJsonObject connections;
     for(auto* item : classScene->entities){
         QJsonArray arr2;
-        qDebug() << item->class_title->text();
-        //qDebug () << item->entity_lines << "\n\n";
         int i = -1;
         for(auto * item2 : item->entity_lines){
             i++;
@@ -197,8 +196,8 @@ QString MainWindow::genJson(){
                     {"class_name",item->class_title->text()},
                     {"g_x", item->pos().x()},
                     {"g_y",item->pos().y()},
-                    {"g_h",item->geometry().height()},
-                    {"g_w",item->geometry().width()},
+                    //{"g_h",item->geometry().height()},
+                    //{"g_w",item->geometry().width()},
                     {"index_of_last_attrib", item->index_of_last_attrib},
                     {"lines", arr2}
                     }));
@@ -210,10 +209,21 @@ QString MainWindow::genJson(){
                     {"line_type", item->type}
                                   })));
     }
-
+    for(auto* scene: seqList){
+        QJsonArray arr2;
+        for(auto* item:scene->entities){
+            arr2.append((QJsonObject({
+                        {"g_x",item->pos().x()},
+                        {"g_x",item->pos().y()},
+                        {"box_value",item->box->currentText()},
+                        {"height",item->line->height()}
+                                      })));
+        }
+    }
     QJsonObject main_obj;
     main_obj.insert("windows", arr);
     main_obj.insert("connections",arr3);
+    main_obj.insert("seq_scenes",arr3);
     doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }

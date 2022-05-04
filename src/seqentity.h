@@ -27,6 +27,8 @@ public:
     seqScene *curScene;
     QFrame *line;
     Ui::SeqEntity *ui;
+    QComboBox *box;
+
 
 private slots:
     void on_plusButton_clicked();
