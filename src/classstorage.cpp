@@ -103,5 +103,5 @@ void ClassStorage::updateSeqLine(){
             item->updateData(this);
         }
     }
-}*/
+}
 

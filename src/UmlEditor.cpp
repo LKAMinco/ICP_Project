@@ -88,7 +88,6 @@ void MainWindow::on_actionSave_as_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     on_actionNew_triggered();
-    //TODO vytvorit vzdy pri otváraní novu scenu
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen","Uml editor files (*.json)");
     QFile file(file_path);
     file.open(QIODevice::ReadOnly|QIODevice::Text);
@@ -113,7 +112,7 @@ void MainWindow::on_actionOpen_triggered()
             i++;
             if(i <= val.toObject().value("index_of_last_attrib").toInt()){
                 classScene->entities.back()->on_add_attrib_clicked();
-                auto text = val2.toObject().value("visBox_value").toString();
+                auto text = val2.toObject().value("visBox_value").toString();//TODO prerobit na ukladanie current index a nacítavanie indexu
                 int index = classScene->entities.back()->entity_lines.back()->box_visiblity->findText(text);
                 classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(index);
                 classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
@@ -169,7 +168,7 @@ void MainWindow::on_actionOpen_triggered()
 
 QString MainWindow::genJson(){
     QJsonDocument doc;
-    QJsonArray arr,arr3,arr4;
+    QJsonArray arr,arr3,arr5;
     QJsonObject windows;
     QJsonObject connections;
     for(auto* item : classScene->entities){
@@ -210,23 +209,33 @@ QString MainWindow::genJson(){
                                   })));
     }
     for(auto* scene: seqList){
-        QJsonArray arr2;
+        QJsonArray arr2,arr4;
         for(auto* item:scene->entities){
             arr2.append((QJsonObject({
                         {"g_x",item->pos().x()},
-                        {"g_x",item->pos().y()},
+                        {"g_y",item->pos().y()},
                         {"box_value",item->box->currentText()},
                         {"height",item->line->height()}
                                       })));
         }
-        arr4.append((QJsonObject({
-                    {"seq_scene",arr2}
+        for(auto* item:scene->connections){
+            arr4.append((QJsonObject({
+                        {"start_name",item->start->objectName()},
+                        {"end_name",item->end->objectName()},
+                        {"box_value",item->box->currentIndex()},
+                        {"type",item->type},
+                        {"mouse_offset",item->mouseOffset}
+                                      })));
+        }
+        arr5.append((QJsonObject({
+                    {"entities",arr2},
+                    {"connections",arr4}
                                   })));
     }
     QJsonObject main_obj;
     main_obj.insert("windows", arr);
     main_obj.insert("connections",arr3);
-    main_obj.insert("seq_scenes",arr4);
+    main_obj.insert("seq_scenes",arr5);
     doc.setObject(main_obj);
     return doc.toJson(QJsonDocument::Indented);
 }

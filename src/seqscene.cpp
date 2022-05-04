@@ -11,10 +11,12 @@ seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
 }
 
 void seqScene::SpawnEntity(bool checked){
+    static int num = 0;
     SeqEntity *item = new SeqEntity();
     this->addWidget(item);
     item->updateScene(this);
     entities.push_back(item);
+    item->setObjectName("seq_entity" + QString::number(num++));
 }
 
 void seqScene::SpawnConnectionLine(bool checked){
