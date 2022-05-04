@@ -92,9 +92,9 @@ void ClassStorage::updateSeq(){
     }
 }
 
-void ClassStorage::updateSeq(){
+void ClassStorage::updateSeqLine(){
     foreach(seqScene *scene , window->seqList){
-        foreach (SeqLine *item, scene->entities) {
+        foreach (SeqLine *item, scene->connections) {
             item->updateData(this);
         }
     }

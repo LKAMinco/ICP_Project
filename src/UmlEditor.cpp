@@ -300,6 +300,7 @@ void MainWindow::on_actionClass_triggered()
 void MainWindow::on_actionNew_triggered()
 {
     delete classScene;
+    delete info;
     classScene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(classScene);
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -313,6 +314,9 @@ void MainWindow::on_actionNew_triggered()
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
     file_path = "";
+
+    info = new ClassStorage(this);
+    classScene->info = info;
 }
 
 void MainWindow::on_actionSwitch_Seq_Left_triggered()

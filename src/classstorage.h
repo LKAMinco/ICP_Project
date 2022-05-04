@@ -30,7 +30,7 @@ class ClassStorage
 {
 public:
     ClassStorage(MainWindow *win);
-    ~ClassStorage();
+    //~ClassStorage();
 
     void CreateEntity(QString objName);
     void UpdateEntity(QString objName, QString contentName, QString elemName);

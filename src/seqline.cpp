@@ -1,6 +1,7 @@
 #include "seqline.h"
 #include <QDebug>
 #include "seqentity.h"
+#include "classstorage.h"
 
 SeqLine::SeqLine(QWidget *parent){
     x1 = 0;
@@ -164,5 +165,37 @@ void SeqLine::deleteMarkers(){
 }
 
 void SeqLine::updateData(ClassStorage *info){
-    //start
+    foreach (EntityStorage *entity, info->entities) {
+        if(entity->content == start->box->itemText(start->box->currentIndex())){
+            qDebug() << "test";
+        }
+    }
+
+    /*
+    if(ui->comboBox->count() < info->entities.size() + 1){
+        ui->comboBox->addItem(info->entities.back()->content);
+    }
+    else if(ui->comboBox->count() == info->entities.size() + 1){
+        for(int i = 0; i < info->entities.size(); i++){
+            if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
+                ui->comboBox->setItemText(i + 1, info->entities[i]->content);
+                break;
+            }
+        }
+    }
+    else{
+        for(int i = 0; i < info->entities.size(); i++){
+            if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
+                if(ui->comboBox->currentIndex() == i + 1)
+                    ui->comboBox->setCurrentIndex(0);
+                ui->comboBox->removeItem(i + 1);
+            }
+        }
+        if(ui->comboBox->count() != info->entities.size() + 1){
+            if(ui->comboBox->currentIndex() == ui->comboBox->count() - 1)
+                ui->comboBox->setCurrentIndex(0);
+            ui->comboBox->removeItem(ui->comboBox->count() - 1);
+        }
+    }
+*/
 }
