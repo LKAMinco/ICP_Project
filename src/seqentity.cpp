@@ -68,6 +68,7 @@ void SeqEntity::setColor(Qt::GlobalColor color){
 
 void SeqEntity::updateScene(seqScene *scene){
     this->curScene = scene;
+    connect(this->box, &QComboBox::currentTextChanged , curScene, &seqScene::updateDataLines);
 }
 
 void SeqEntity::updateData(ClassStorage *info){

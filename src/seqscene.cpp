@@ -121,3 +121,11 @@ void seqScene::updateConnections(QWidget *item){
             connections[i]->setPosition();
     }
 }
+
+void seqScene::updateDataLines(const QString &text){
+    QObject* obj = sender();
+    foreach(SeqLine *line, connections){
+        if(line->start->objectName() == obj->parent()->parent()->objectName())
+            line->insertAllData(info);
+    }
+}

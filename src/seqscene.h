@@ -37,6 +37,7 @@ public slots:
     void ChangeConnectionLine(bool checked);
     void RemoveEntity(bool checked);
     void RemoveConnectionLine(bool checked);
+    void updateDataLines(const QString &text);
 };
 
 #endif // SEQSCENE_H

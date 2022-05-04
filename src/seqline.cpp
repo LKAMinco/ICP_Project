@@ -200,8 +200,9 @@ void SeqLine::updateData(ClassStorage *info){
 }
 
 void SeqLine::insertAllData(ClassStorage *info){
+    box->setCurrentIndex(0);
     for(int i = 1; i < box->count(); i++)
-        box->removeItem(i);
+        box->removeItem(i--);
 
     foreach(EntityStorage *item, info->entities){
         if(item->content == start->box->currentText()){
