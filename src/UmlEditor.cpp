@@ -112,19 +112,13 @@ void MainWindow::on_actionOpen_triggered()
             i++;
             if(i <= val.toObject().value("index_of_last_attrib").toInt()){
                 classScene->entities.back()->on_add_attrib_clicked();
-                auto text = val2.toObject().value("visBox_value").toString();//TODO prerobit na ukladanie current index a nacítavanie indexu
-                int index = classScene->entities.back()->entity_lines.back()->box_visiblity->findText(text);
-                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(index);
+                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
                 classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
-                text = val2.toObject().value("boxType_value").toString();
-                index = classScene->entities.back()->entity_lines.back()->box_type->findText(text);
-                classScene->entities.back()->entity_lines.back()->box_type->setCurrentIndex(index);
+                classScene->entities.back()->entity_lines.back()->box_type->setCurrentIndex(val2.toObject().value("boxType_value").toInt());
             }
             else{
                 classScene->entities.back()->on_add_method_clicked();
-                auto text = val2.toObject().value("visBox_value").toString();
-                int index = classScene->entities.back()->entity_lines.back()->box_visiblity->findText(text);
-                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(index);
+                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
                 classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
             }
         }
@@ -178,15 +172,15 @@ QString MainWindow::genJson(){
             i++;
             if(i <= item->index_of_last_attrib){
                 arr2.append((QJsonObject({
-                    {"visBox_value",item2->box_visiblity->currentText()},
+                    {"visBox_value",item2->box_visiblity->currentIndex()},
                     {"lineEdit_value",item2->line_edit->text()},
-                    {"boxType_value",item2->box_type->currentText()}
+                    {"boxType_value",item2->box_type->currentIndex()}
                                          })));
             }
             else
             {
                 arr2.append((QJsonObject({
-                    {"visBox_value",item2->box_visiblity->currentText()},
+                    {"visBox_value",item2->box_visiblity->currentIndex()},
                     {"lineEdit_value",item2->line_edit->text()},
                                           })));
             }
@@ -212,9 +206,10 @@ QString MainWindow::genJson(){
         QJsonArray arr2,arr4;
         for(auto* item:scene->entities){
             arr2.append((QJsonObject({
+                        {"window_name",item->objectName()},
                         {"g_x",item->pos().x()},
                         {"g_y",item->pos().y()},
-                        {"box_value",item->box->currentText()},
+                        {"box_value",item->box->currentIndex()},
                         {"height",item->line->height()}
                                       })));
         }
@@ -312,6 +307,9 @@ void MainWindow::on_actionClass_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
+    if(activeSeq)
+        return;
+
     delete classScene;
     delete info;
     classScene = new Scene(ui->graphicsView);

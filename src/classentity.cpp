@@ -58,6 +58,7 @@ void ClassEntity::on_add_method_clicked(){
     vis_box->addItem(QString());
     vis_box->setObjectName(QString::fromStdString("visBox_"+line_name));
     vis_box->setGeometry(QRect(4, current_height, 40, 20));
+    vis_box->setStyleSheet("QFrame { border: 1px solid black }");
 
     vis_box->setItemText(0, QApplication::translate("MainWindow", "+", nullptr));
     vis_box->setItemText(1, QApplication::translate("MainWindow", "-", nullptr));
@@ -136,7 +137,7 @@ void ClassEntity::on_add_attrib_clicked()
     vis_box->setItemText(1, QApplication::translate("MainWindow", PRIVATE, nullptr));
     vis_box->setItemText(2, QApplication::translate("MainWindow", PROTECTED, nullptr));
     vis_box->setItemText(3, QApplication::translate("MainWindow", PACKAGE, nullptr));
-    vis_box->setStyleSheet(QStringLiteral("selection-background-color: rgb(100, 100, 100);"));
+        vis_box->setStyleSheet("QFrame { border: 1px solid black }");
     vis_box->show();
 
     line_edit = new QLineEdit(this);
@@ -159,7 +160,7 @@ void ClassEntity::on_add_attrib_clicked()
     type_box->setItemText(2, QApplication::translate("MainWindow", "float", nullptr));
     type_box->setItemText(3, QApplication::translate("MainWindow", "char", nullptr));
     type_box->setItemText(4, QApplication::translate("MainWindow", "string", nullptr));
-    type_box->setStyleSheet(QStringLiteral("selection-background-color: rgb(100, 100, 100);"));
+    type_box->setStyleSheet("QFrame { border: 1px solid black }");
     type_box->show();
 
     push_button = new QPushButton(this);
