@@ -97,31 +97,33 @@ void MainWindow::on_actionOpen_triggered()
     QJsonDocument doc = QJsonDocument::fromJson(data, &errorPtr);
     if (doc.isNull()) {
         qDebug() << "Parse failed";
+        return;
     }
     QJsonObject main_obj = doc.object();
     QJsonArray windows = main_obj.value("windows").toArray();
     foreach(const QJsonValue & val, windows){
         classScene->SpawnEntity(false);
+        auto* entity = classScene->entities.back();
         int x = val.toObject().value("g_x").toInt();
         int y = val.toObject().value("g_y").toInt();
-        classScene->entities.back()->class_title->setText(val.toObject().value("class_name").toString());
-        info->UpdateEntity(classScene->entities.back()->objectName(), classScene->entities.back()->class_title->text(), "title");
-        classScene->entities.back()->move(x,y);
+        entity->class_title->setText(val.toObject().value("class_name").toString());
+        info->UpdateEntity(entity->objectName(), entity->class_title->text(), "title");
+        entity->move(x,y);
         QJsonArray lines = val.toObject().value("lines").toArray();
         int i = -1;
         foreach(const QJsonValue & val2, lines){
             i++;
             if(i <= val.toObject().value("index_of_last_attrib").toInt()){
-                classScene->entities.back()->on_add_attrib_clicked();
-                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
-                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
-                classScene->entities.back()->entity_lines.back()->box_type->setCurrentIndex(val2.toObject().value("boxType_value").toInt());
+                entity->on_add_attrib_clicked();
+                entity->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
+                entity->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
+                entity->entity_lines.back()->box_type->setCurrentIndex(val2.toObject().value("boxType_value").toInt());
             }
             else{
-                classScene->entities.back()->on_add_method_clicked();
-                classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
-                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString()); //TODO
-                info->UpdateEntity(classScene->entities.back()->objectName(), classScene->entities.back()->entity_lines.back()->line_edit->text(), classScene->entities.back()->entity_lines.back()->line_edit->objectName());
+                entity->on_add_method_clicked();
+                entity->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
+                entity->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString()); //TODO
+                info->UpdateEntity(entity->objectName(), entity->entity_lines.back()->line_edit->text(), entity->entity_lines.back()->line_edit->objectName());
             }
         }
     }
@@ -149,7 +151,7 @@ void MainWindow::on_actionOpen_triggered()
         }
         classScene->SpawnConnectionLine(false);
         if(val.toObject().value("line_type").toInt() == 0)
-            classScene->connections.back()->type = 4;
+            classScene->connections.back()->type = 3;
         else
             classScene->connections.back()->type = val.toObject().value("line_type").toInt()-1;
         classScene->lastLine = classScene->connections.back();
@@ -159,6 +161,61 @@ void MainWindow::on_actionOpen_triggered()
         }
         classScene->focusList.clear();
         classScene->lastLine = nullptr;
+    }
+    QJsonArray seq_scenes = main_obj.value("seq_scenes").toArray();
+    foreach(const QJsonValue & val, seq_scenes){
+        QJsonArray entities = val.toObject().value("entities").toArray();
+        on_actionAdd_triggered();
+        foreach(const QJsonValue &val2, entities){
+            seqList.back()->SpawnEntity(false);
+            int x = val2.toObject().value("g_x").toInt();
+            int y = val2.toObject().value("g_y").toInt();
+            seqList.back()->entities.back()->move(x,y);
+            auto text = val2.toObject().value("box_value").toString();
+            int index = seqList.back()->entities.back()->box->findText(text);
+            seqList.back()->entities.back()->box->setCurrentIndex(index);
+            int height = val2.toObject().value("height").toInt();
+            int width = seqList.back()->entities.back()->width();
+            seqList.back()->entities.back()->resize(width,seqList.back()->entities.back()->height() + height - 120);
+            seqList.back()->entities.back()->line->setFixedHeight(height);
+            qDebug() << seqList.back()->entities.back()->objectName();
+        }
+        QJsonArray connections = val.toObject().value("connections").toArray();
+        foreach(const QJsonValue &val2, connections){
+            for(auto* item :seqList.back()->entities){
+                auto item_name = item->objectName();
+                auto find_name = val2.toObject().value("start_name").toString();
+                if(!QString::compare(item_name, find_name, Qt::CaseSensitive)){
+                    seqList.back()->updateFocusList(item);
+                    break;
+                }
+                else
+                    qDebug() << "bbbbb hladam";
+            }
+            for(auto* item :seqList.back()->entities){
+                auto item_name = item->objectName();
+                auto find_name = val2.toObject().value("end_name").toString();
+                if(!QString::compare(item_name, find_name, Qt::CaseSensitive)){
+                    seqList.back()->updateFocusList(item);
+                    break;
+                }
+                else
+                    qDebug() << "bbbbb hladam";
+            }
+            seqList.back()->SpawnConnectionLine(false);
+            auto text = val2.toObject().value("box_value").toString();
+            int index = seqList.back()->connections.back()->box->findText(text);
+            seqList.back()->connections.back()->box->setCurrentIndex(index);
+            if(val2.toObject().value("type").toInt() == 0)
+                seqList.back()->connections.back()->type = 3;
+            else
+                seqList.back()->connections.back()->type = val2.toObject().value("type").toInt()-1;
+            seqList.back()->lastLine = seqList.back()->connections.back();
+            qDebug() << seqList.back()->connections.back()->type;
+            seqList.back()->ChangeConnectionLine(false);
+            seqList.back()->connections.back()->mouseOffset = val2.toObject().value("mouse_offset").toInt();
+            seqList.back()->connections.back()->setPosition();
+        }
     }
 }
 
@@ -211,7 +268,7 @@ QString MainWindow::genJson(){
                         {"window_name",item->objectName()},
                         {"g_x",item->pos().x()},
                         {"g_y",item->pos().y()},
-                        {"box_value",item->box->currentIndex()},
+                        {"box_value",item->box->currentText()},
                         {"height",item->line->height()}
                                       })));
         }
@@ -219,7 +276,7 @@ QString MainWindow::genJson(){
             arr4.append((QJsonObject({
                         {"start_name",item->start->objectName()},
                         {"end_name",item->end->objectName()},
-                        {"box_value",item->box->currentIndex()},
+                        {"box_value",item->box->currentText()},
                         {"type",item->type},
                         {"mouse_offset",item->mouseOffset}
                                       })));
