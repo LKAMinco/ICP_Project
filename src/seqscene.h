@@ -7,6 +7,7 @@
 #include <QGraphicsPolygonItem>
 #include "seqline.h"
 #include <QComboBox>
+#include "classstorage.h"
 
 class SeqEntity;
 
@@ -28,6 +29,7 @@ public:
     std::vector<SeqLine*> connections;
 
     SeqLine *lastLine;
+    ClassStorage *info;
 
 public slots:
     void SpawnEntity(bool checked);

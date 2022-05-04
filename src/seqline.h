@@ -57,6 +57,7 @@ public:
     */
     void deleteMarkers();
     void updateData(ClassStorage *info);
+    void insertAllData(ClassStorage *info);
 
     SeqEntity *start;
     SeqEntity *end;

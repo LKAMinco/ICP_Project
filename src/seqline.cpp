@@ -135,21 +135,25 @@ void SeqLine::changeType(){
             full->setVisible(true);
             arrow->setVisible(false);
             this->setPen(QPen(Qt::red, 3, Qt::SolidLine));
+            box->setVisible(true);
             break;
         case 1:
             full->setVisible(false);
             arrow->setVisible(true);
             this->setPen(QPen(Qt::red, 3, Qt::SolidLine));
+            box->setVisible(true);
             break;
         case 2:
             full->setVisible(false);
             arrow->setVisible(true);
             this->setPen(QPen(Qt::red, 3, Qt::DashLine));
+            box->setVisible(true);
             break;
         case 3:
             full->setVisible(false);
             arrow->setVisible(true);
             this->setPen(QPen(Qt::red, 3, Qt::DashLine));
+            box->setVisible(false);
             break;
         default:
             break;
@@ -162,6 +166,7 @@ void SeqLine::deleteMarkers(){
     delete arrow;
     delete blue1;
     delete blue2;
+    delete box;
 }
 
 void SeqLine::updateData(ClassStorage *info){
@@ -190,6 +195,20 @@ void SeqLine::updateData(ClassStorage *info){
                     box->removeItem(box->count() - 1);
                 }
             }
+        }
+    }
+}
+
+void SeqLine::insertAllData(ClassStorage *info){
+    for(int i = 1; i < box->count(); i++)
+        box->removeItem(i);
+
+    foreach(EntityStorage *item, info->entities){
+        if(item->content == start->box->currentText()){
+            foreach(MethodStorage *elem, item->methods){
+                box->addItem(elem->content);
+            }
+            break;
         }
     }
 }

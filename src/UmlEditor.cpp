@@ -246,6 +246,7 @@ void MainWindow::on_actionAdd_triggered()
     seqScene *diagram = new seqScene(ui->graphicsView);
     diagram->setSceneRect(0,0,1920,1080);
     seqList.push_back(diagram);
+    diagram->info = info;
 }
 
 void MainWindow::on_actionRemove_triggered()

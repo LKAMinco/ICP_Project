@@ -23,16 +23,16 @@ public:
     void setColor(Qt::GlobalColor color);
     void updateScene(seqScene *scene);
     void updateData(ClassStorage *info);
-    void insertAllData(ClassStorage *info);
 
     seqScene *curScene;
     QFrame *line;
+<<<<<<< HEAD
     Ui::SeqEntity *ui;
+=======
     QComboBox *box;
+>>>>>>> 85d9cf3b9c9acde67fe7ecbe61bdd67d51c05c5e
 
-
-private slots:
-    void on_plusButton_clicked();
+private slots:    void on_plusButton_clicked();
     void on_minusButton_clicked();
 
 protected:

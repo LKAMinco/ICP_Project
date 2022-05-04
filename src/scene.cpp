@@ -41,6 +41,13 @@ void Scene::SpawnConnectionLine(bool checked){
         if (focusList[0] == focusList[1])
             return;
 
+        foreach(Line *item, connections){
+            if(item->start == dynamic_cast<ClassEntity*>(focusList[0]) && item->end == dynamic_cast<ClassEntity*>(focusList[1]))
+                return;
+            if(item->start == dynamic_cast<ClassEntity*>(focusList[1]) && item->end == dynamic_cast<ClassEntity*>(focusList[0]))
+                return;
+        }
+
         //brush for marker's fill
         QBrush brush;
         brush.setColor(Qt::white);
@@ -117,6 +124,7 @@ void Scene::RemoveEntity(bool checked){
                 if(lastLine == connections[i])
                     lastLine = nullptr;
                 auto *delItem = connections[i];
+                connections[i]->deleteMarkers();
                 connections.erase(connections.begin() + i);
                 delete delItem;
                 i--;

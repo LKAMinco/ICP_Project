@@ -97,3 +97,9 @@ void SeqEntity::updateData(ClassStorage *info){
         }
     }
 }
+
+void SeqEntity::insertAllData(ClassStorage *info){
+    foreach(EntityStorage *item, info->entities){
+        ui->comboBox->addItem(item->content);
+    }
+}
