@@ -7,6 +7,7 @@
 #include <QComboBox>
 
 class SeqEntity;
+class ClassStorage;
 
 class SeqLine : public QGraphicsLineItem, public QWidget
 {
@@ -55,6 +56,7 @@ public:
      * @brief deletes all three markers of this line from scene
     */
     void deleteMarkers();
+    void updateData(ClassStorage *info);
 
     SeqEntity *start;
     SeqEntity *end;

@@ -26,6 +26,7 @@ public:
 
     seqScene *curScene;
     QFrame *line;
+    Ui::SeqEntity *ui;
 
 private slots:
     void on_plusButton_clicked();
@@ -36,7 +37,6 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
 
 private:
-    Ui::SeqEntity *ui;
     QPoint offset;
 };
 

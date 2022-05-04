@@ -3,6 +3,7 @@
 #include "UmlEditor.h"
 #include "seqscene.h"
 #include "seqentity.h"
+#include "seqline.h"
 
 MethodStorage::MethodStorage(QString objName){
     objectName = objName;
@@ -34,13 +35,18 @@ void ClassStorage::CreateEntity(QString objName){
 }
 
 void ClassStorage::UpdateEntity(QString objName, QString contentName, QString elemName){
-    for(int i = 0; i < entities.size(); i++){
-        if(entities[i]->objectName == objName)
+    foreach(EntityStorage *entity, entities){
+        if(entity->objectName == objName)
             if(elemName == "title")
-                entities[i]->content = contentName;
+                entity->content = contentName;
+            else{
+                foreach(MethodStorage *method, entity->methods){
+                    if (method->objectName == elemName)
+                        method->content = contentName;
+                }
+            }
     }
 
-    qDebug() << entities[0]->content << " <- title";
     updateSeq();
 }
 
@@ -56,9 +62,39 @@ void ClassStorage::RemoveEntity(QString objName){
     updateSeq();
 }
 
+void ClassStorage::CreateMethod(QString objName, QString elemName){
+    foreach(EntityStorage *entity, entities){
+        if(entity->objectName == objName){
+            MethodStorage *item = new MethodStorage(elemName);
+            entity->methods.push_back(item);
+        }
+    }
+}
+void ClassStorage::RemoveMethod(QString objName, QString elemName){
+    foreach(EntityStorage *entity, entities){
+        if(entity->objectName == objName){
+            for(int i = 0; i < entity->methods.size(); i++){
+                if (entity->methods[i]->objectName == elemName){
+                    MethodStorage *tmp = entity->methods[i];
+                    entity->methods.erase(entity->methods.begin() + i);
+                    delete tmp;
+                }
+            }
+        }
+    }
+}
+
 void ClassStorage::updateSeq(){
     foreach(seqScene *scene , window->seqList){
         foreach (SeqEntity *item, scene->entities) {
+            item->updateData(this);
+        }
+    }
+}
+
+void ClassStorage::updateSeq(){
+    foreach(seqScene *scene , window->seqList){
+        foreach (SeqLine *item, scene->entities) {
             item->updateData(this);
         }
     }

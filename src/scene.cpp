@@ -133,3 +133,10 @@ void Scene::RemoveEntity(bool checked){
 void Scene::updateData(QString objName, QString contentName, QString elemName){
     info->UpdateEntity(objName, contentName, elemName);
 }
+
+void Scene::createMethodData(QString objName, QString elemName){
+    info->CreateMethod(objName, elemName);
+}
+void Scene::removeMethodData(QString objName, QString elemName){
+    info->RemoveMethod(objName, elemName);
+}

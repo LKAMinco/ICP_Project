@@ -91,6 +91,8 @@ void ClassEntity::on_add_method_clicked(){
     //connect(pushButton,&QPushButton::clicked,pushButton,&QPushButton::close);
     entity_lines.push_back(new_line);
     current_num_of_lines++;
+
+    curScene->createMethodData(this->objectName(), line_edit->objectName());
 }
 
 void ClassEntity::on_remove_method_clicked()
@@ -228,8 +230,9 @@ void ClassEntity::removeLine(){
             entity_lines[i]->entity_height -= 20;
             entity_lines[i]->line_edit->move(44,entity_lines[i]->entity_height);
             entity_lines[i]->box_visiblity->move(4,entity_lines[i]->entity_height);
-            if(entity_lines[i]->is_attrib)
+            if(entity_lines[i]->is_attrib){
                 entity_lines[i]->box_type->move(184,entity_lines[i]->entity_height);
+            }
             if(entity_lines[i]->btn != nullptr)
                 entity_lines[i]->btn->move(254,entity_lines[i]->entity_height);
         }
@@ -237,6 +240,7 @@ void ClassEntity::removeLine(){
         current_height == 54 ? current_height = 54:current_height-=20;
         current_height > 202 ?this->resize(278, current_height+24):this->resize(278, 222);
     }
+    curScene->removeMethodData(this->objectName(), QString::fromStdString(result));
     delete tmp;
     delete obj;
 }

@@ -162,3 +162,7 @@ void SeqLine::deleteMarkers(){
     delete blue1;
     delete blue2;
 }
+
+void SeqLine::updateData(ClassStorage *info){
+    //start
+}

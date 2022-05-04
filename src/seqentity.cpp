@@ -18,9 +18,6 @@ SeqEntity::SeqEntity(QWidget *parent) :
 
     setColor(Qt::gray);
     ui->comboBox->addItem("");
-    /*
-    ui->comboBox->addItem("asd");
-    ui->comboBox->setCurrentIndex(1);*/
 }
 
 SeqEntity::~SeqEntity()
