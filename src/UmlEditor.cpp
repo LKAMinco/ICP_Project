@@ -105,6 +105,7 @@ void MainWindow::on_actionOpen_triggered()
         int x = val.toObject().value("g_x").toInt();
         int y = val.toObject().value("g_y").toInt();
         classScene->entities.back()->class_title->setText(val.toObject().value("class_name").toString());
+        info->UpdateEntity(classScene->entities.back()->objectName(), classScene->entities.back()->class_title->text(), "title");
         classScene->entities.back()->move(x,y);
         QJsonArray lines = val.toObject().value("lines").toArray();
         int i = -1;
@@ -119,7 +120,8 @@ void MainWindow::on_actionOpen_triggered()
             else{
                 classScene->entities.back()->on_add_method_clicked();
                 classScene->entities.back()->entity_lines.back()->box_visiblity->setCurrentIndex(val2.toObject().value("visBox_value").toInt());
-                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString());
+                classScene->entities.back()->entity_lines.back()->line_edit->setText(val2.toObject().value("lineEdit_value").toString()); //TODO
+                info->UpdateEntity(classScene->entities.back()->objectName(), classScene->entities.back()->entity_lines.back()->line_edit->text(), classScene->entities.back()->entity_lines.back()->line_edit->objectName());
             }
         }
     }
