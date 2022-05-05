@@ -115,7 +115,7 @@ void seqScene::RemoveEntity(bool checked){
             }
         }
 
-        /removes entity
+        //removes entity
         for(int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
 

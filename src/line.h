@@ -44,7 +44,7 @@ public:
      * @brief sets pointers to 2 entities, both represent start & end points of line
      * @param first - start point for line
      * @param last - end point for line
-    */*
+    */
     void setPoints(ClassEntity *first, ClassEntity *last);
     /**
      * @name setMarkers
