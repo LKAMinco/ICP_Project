@@ -1,9 +1,17 @@
+/**
+ * ICP Project 2022 
+ * @file UmlEditor.cpp
+ * @brief implementation of methods in main window class
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #include "UmlEditor.h"
 #include "ui_UmlEditor.h"
 #include "classentity.h"
 #include "seqentity.h"
 
-
+//Constructor
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -33,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     removeConnect = menu->addAction("Remove Connection");
     connect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
-
+    
     seqList.clear();
     seqIndex = 0;
     activeSeq = false;
@@ -42,12 +50,13 @@ MainWindow::MainWindow(QWidget *parent)
     classScene->info = info;
 }
 
+//Destructor
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-//Spawns context menu on mouse's location
+//Function spawns context menu on mouse's location
 void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
 {
     if(ui->graphicsView->itemAt(pos)){
@@ -56,6 +65,7 @@ void MainWindow::on_graphicsView_customContextMenuRequested(const QPoint &pos)
     menu->exec(ui->graphicsView->mapToGlobal(pos));
 }
 
+//Funcions saves data, if path to savefile exists, otherwise calls 'save as'
 void MainWindow::on_actionSave_triggered()
 {
     if(!QString::compare(file_path, "", Qt::CaseSensitive)){
@@ -70,6 +80,7 @@ void MainWindow::on_actionSave_triggered()
     }
 }
 
+//Function saves data to file
 void MainWindow::on_actionSave_as_triggered()
 {
     std::regex e ("(\\..+)");
@@ -294,15 +305,16 @@ QString MainWindow::genJson(){
     return doc.toJson(QJsonDocument::Indented);
 }
 
+//Function creates new sequence scene
 void MainWindow::on_actionAdd_triggered()
 {
-    //TODO add sequence diagram
     seqScene *diagram = new seqScene(ui->graphicsView);
-    diagram->setSceneRect(0,0,1920,1080);
+    diagram->setSceneRect(0,0,1920,1080); //sets size
     seqList.push_back(diagram);
     diagram->info = info;
 }
 
+//Function removes active sequence scene
 void MainWindow::on_actionRemove_triggered()
 {
     //TODO remove sequence diagram
@@ -312,6 +324,8 @@ void MainWindow::on_actionRemove_triggered()
         seqScene *tmp = seqList[seqIndex];
         seqList.erase(seqList.begin() + seqIndex);
         delete tmp;
+        //switches to different sequence scene
+        //switches to class scene if there are not any sequence scenes
         if(seqList.size() == 0){
             on_actionClass_triggered();
         }
@@ -322,19 +336,22 @@ void MainWindow::on_actionRemove_triggered()
     }
 }
 
+//Function switches window to sequence scene
 void MainWindow::on_actionSeq1_triggered()
 {
-    //TODO switch to seq
+    //checks if any sequence scene exist
     if(seqList.size() == 0)
         return;
     ui->graphicsView->setScene(seqList[seqIndex]);
 
+    //disconnects context menu from class scene
     disconnect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     disconnect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
     disconnect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
     disconnect(removeClass, &QAction::triggered, classScene, &Scene::RemoveEntity);
     disconnect(removeConnect, &QAction::triggered, classScene, &Scene::RemoveConnectionLine);
 
+    //connects context menu to sequence scene
     connect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
     connect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
     connect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
@@ -344,17 +361,19 @@ void MainWindow::on_actionSeq1_triggered()
     activeSeq = true;
 }
 
+//Function switches window to class scene
 void MainWindow::on_actionClass_triggered()
 {
-    //TODO switch to class
     ui->graphicsView->setScene(classScene);
 
+    //disconnects context menu from sequence scene
     disconnect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
     disconnect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
     disconnect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
     disconnect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
     disconnect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
 
+    //connects context menu to class scene
     connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
@@ -364,13 +383,16 @@ void MainWindow::on_actionClass_triggered()
     activeSeq = false;
 }
 
+//Function resets all scenes
 void MainWindow::on_actionNew_triggered()
 {
+    //TODO finish this function
     if(activeSeq)
         return;
-
+    //deletes all existing data
     delete classScene;
     delete info;
+    //creates new scene
     classScene = new Scene(ui->graphicsView);
     ui->graphicsView->setScene(classScene);
     ui->graphicsView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -378,6 +400,7 @@ void MainWindow::on_actionNew_triggered()
     classScene->setSceneRect(0,0,1920,1080);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    //connects new class scene to context menu
     connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
     connect(changeLine, &QAction::triggered, classScene, &Scene::ChangeConnectionLine);
@@ -389,16 +412,20 @@ void MainWindow::on_actionNew_triggered()
     classScene->info = info;
 }
 
+//Function changes active sequence scene to previous
 void MainWindow::on_actionSwitch_Seq_Left_triggered()
-{
+{   
+    //does nothing if there is only one existing scene or class scene is active
     if((seqList.size() <= 1) || (!activeSeq))
         return;
+    //disconnects context menu from current sequence scene
     disconnect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
     disconnect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
     disconnect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
     disconnect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
     disconnect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
 
+    //changes current sequence scene index
     seqIndex--;
     if(seqIndex < 0)
         seqIndex = seqList.size() - 1;
@@ -406,16 +433,20 @@ void MainWindow::on_actionSwitch_Seq_Left_triggered()
     on_actionSeq1_triggered();
 }
 
+//Function changes active sequence scene to next
 void MainWindow::on_actionSwitch_Seq_Right_triggered()
 {
+    //does nothing if there is only one existing scene or class scene is active
     if((seqList.size() <= 1) || (!activeSeq))
         return;
+    //disconnects context menu from current sequence scene
     disconnect(spawnClass, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnEntity);
     disconnect(spawnConnect, &QAction::triggered, seqList[seqIndex], &seqScene::SpawnConnectionLine);
     disconnect(changeLine, &QAction::triggered, seqList[seqIndex], &seqScene::ChangeConnectionLine);
     disconnect(removeClass, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveEntity);
     disconnect(removeConnect, &QAction::triggered, seqList[seqIndex], &seqScene::RemoveConnectionLine);
 
+    //changes current sequence scene index
     seqIndex++;
     seqIndex = seqIndex % seqList.size();
 

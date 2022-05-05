@@ -1,3 +1,11 @@
+/**
+ * ICP Project 2022 
+ * @file line.h
+ * @brief header file for lines in class diagram
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #ifndef LINE_H
 #define LINE_H
 
@@ -12,7 +20,7 @@
 
 
 class ClassEntity;
-/*
+/**
  * @class Line
  * @brief class for lines in class diagram
 */
@@ -20,46 +28,49 @@ class Line : public QGraphicsLineItem, public QWidget
 {
     //Q_OBJECT
 public:
-    /*
-     * @name Line constructor
+    /**
+     * @name Line
+     * @brief constructor
+     * @param parent 
     */
     explicit Line(QWidget *parent = nullptr);
-    /*
-     * @name Line destructor
+    /**
+     * @name Line
+     * @brief destructor
     */
     ~Line();
-    /*
+    /**
      * @name setPoints
      * @brief sets pointers to 2 entities, both represent start & end points of line
-     * @param first -> start point for line
-     * @param last -> end point for line
-    */
+     * @param first - start point for line
+     * @param last - end point for line
+    */*
     void setPoints(ClassEntity *first, ClassEntity *last);
-    /*
+    /**
      * @name setMarkers
      * @brief sets pointers to 3 markers
-     * @param ag -> marker for aggregation line
-     * @param co -> marker for composition line
-     * @param ge -> marker for generalization line
+     * @param ag - marker for aggregation line
+     * @param co - marker for composition line
+     * @param ge - marker for generalization line
     */
     void setMarkers(QGraphicsPolygonItem *ag, QGraphicsPolygonItem *co, QGraphicsPolygonItem *ge);
-    /*
+    /**
      * @name setPosition
      * @brief updates position of line and its markers
     */
     void setPosition();
-    /*
+    /**
      * @name changeType
      * @brief changes type of line, displays correct marker and sets offsets
     */
     void changeType();
-    /*
+    /**
      * @name changeColor
      * @brief changes color of the line and its marker
      * @param color
     */
     void changeColor(Qt::GlobalColor color);
-    /*
+    /**
      * @name deleteMarkers
      * @brief deletes all three markers of this line from scene
     */
@@ -73,6 +84,10 @@ public:
     int type; //type of line
 
 protected:
+    /**
+     * @name mousePressEvent
+     * @param event 
+    */
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:

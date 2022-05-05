@@ -1,3 +1,11 @@
+/**
+ * ICP Project 2022 
+ * @file classentity.h
+ * @brief header file for entity in class diagram
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #ifndef CLASSENTITY_H
 #define CLASSENTITY_H
 
@@ -6,7 +14,7 @@
 #define PROTECTED "#"
 #define PACKAGE "~"
 
-//TODO pozret či treba naozaj všetky knižnice
+//TODO pozret či treba naozaj všetky knižnice | lol to si skontroluj sam
 #include <QFrame>
 #include <string>
 #include <iostream>
@@ -29,7 +37,7 @@ class EntityLine: public QFrame{
 public:
     std::string window_name = "";
     bool is_attrib = false;
-    //std::string type = "bool";
+    //std::string type = "bool"; //TODO remove these comments ?
     //std::string visiblity = "+";
     int entity_height = 0;
     //std::string name = "";
@@ -44,7 +52,7 @@ namespace Ui {
 class ClassEntity;
 }
 
-/*
+/**
  * @class ClassEntity
  * @brief class for entities in class diagram
 */
@@ -53,18 +61,20 @@ class ClassEntity : public QFrame
     Q_OBJECT
 
 public:
-    /*
-     * @name ClassEntity constructor
+    /**
+     * @name ClassEntity
+     * @brief constructor
     */
     explicit ClassEntity(QWidget *parent = nullptr);
-    /*
-     * @name ClassEntity destructor
+    /**
+     * @name ClassEntity
+     * @brief destructor
     */
     ~ClassEntity();
-    /*
+    /**
      * @name updateScene
      * @brief sets pointer to active scene
-     * @param active class diagram scene
+     * @param scene - active class diagram scene
     */
     void updateScene(Scene *scene);
     Scene *curScene;
@@ -73,18 +83,27 @@ public:
     QLineEdit* class_title;
 
 protected:
+    /**
+     * @name mousePressEvent
+     * @param event 
+    */
     virtual void mousePressEvent(QMouseEvent *event);
+    /**
+     * @name mouseMoveEvent
+     * @param event 
+    */
     virtual void mouseMoveEvent(QMouseEvent *event);
 
 public slots:
+    //add method button
     void on_add_method_clicked();
-
+    //add attribute buttom
     void on_add_attrib_clicked();
-
+    //this function is called, when some text in entity changes
     void updateValue(const QString &text);
-
+    //remove method button, TODO - where is remove attribute button ?
     void on_remove_method_clicked();
-
+    //remove attribute button ? TODO
     void removeLine();
 
 private:

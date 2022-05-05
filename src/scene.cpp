@@ -1,9 +1,18 @@
+/**
+ * ICP Project 2022 
+ * @file scene.p
+ * @brief implementation of metods in scene class
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #include "scene.h"
 #include <QDebug>
 #include <QLineEdit>
 #include "classentity.h"
 #include "classstorage.h"
 
+//Scene constructor
 Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 {
     entities.clear();
@@ -12,29 +21,34 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
     lastLine = nullptr;
 }
 
-//Creates new entity and stores its pointer in entities vector
+//Function creates new entity and stores its pointer in entities vector
 void Scene::SpawnEntity(bool checked){
     static int num = 0;
     ClassEntity *element = new ClassEntity();
+
+    //settings for entity ui element
     element->setFrameShape(QFrame::Box);
     element->setFrameShadow(QFrame::Plain);
     element->setLineWidth(4);
     element->updateScene(this);
+
+    //spawns item in scene
     QGraphicsProxyWidget *item = addWidget(element);
     item->setZValue(1);
     item->setParent(this);
     entities.push_back(element);
     element->setObjectName("entity" + QString::number(num++));
-
+    
     QString text;
     foreach(auto *child, element->children()){
         if(child->objectName() == "title")
             text = qobject_cast<QLineEdit*>(child)->text();
     }
+    //Creates object to store data in ClassStorage
     info->CreateEntity(element->objectName(), text);
 }
 
-//Creates new connection and its markers
+//Function creates new connection and its markers
 void Scene::SpawnConnectionLine(bool checked){
     //there must be two entities selected before you can create line
     if (focusList.size() == 2){
@@ -77,9 +91,12 @@ void Scene::SpawnConnectionLine(bool checked){
 
 //Function updates last selected entities
 void Scene::updateFocusList(QWidget *item){
+    //also marks last two selected entities by changing their color
     item->setStyleSheet("QFrame { border: 4px solid lightgreen }");
     focusList.push_back(item);
+
     if (focusList.size() > 2){
+        //if more than 2 entities should be selected, deselects first entity
         focusList[0]->setStyleSheet("QFrame { border: 4px solid black }");
         focusList.erase(focusList.begin());
     }
@@ -105,6 +122,7 @@ void Scene::ChangeConnectionLine(bool checked){
 void Scene::RemoveConnectionLine(bool checked){
     if (lastLine != nullptr){
         for(int i = 0; i < connections.size(); i++){
+
             if (connections[i] == lastLine)
                 connections.erase(connections.begin() + i);
         }
@@ -121,6 +139,7 @@ void Scene::RemoveEntity(bool checked){
         //function also removes all lines, that are connected to the entity, which is being removed
         for(int i = 0; i < connections.size(); i++){
             if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
+
                 if(lastLine == connections[i])
                     lastLine = nullptr;
                 auto *delItem = connections[i];
@@ -131,8 +150,10 @@ void Scene::RemoveEntity(bool checked){
             }
         }
 
+        //removes entity
         for(int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
+
                 info->RemoveEntity(entities[i]->objectName());
                 entities.erase(entities.begin() + i);
             }

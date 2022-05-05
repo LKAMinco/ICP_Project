@@ -1,3 +1,11 @@
+/**
+ * ICP Project 2022 
+ * @file main.cpp
+ * @brief starts program
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #include "UmlEditor.h"
 
 #include <QApplication>

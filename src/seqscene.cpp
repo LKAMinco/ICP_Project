@@ -1,8 +1,16 @@
+/**
+ * ICP Project 2022 
+ * @file seqscene.cpp
+ * @brief implementation of metods in seqScene class
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #include "seqscene.h"
 #include <QDebug>
 #include "seqentity.h"
 
-
+//Constructor
 seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
 {
     entities.clear();
@@ -10,16 +18,22 @@ seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
     connections.clear();
 }
 
+//Function creates new entity and stores its pointer in entities vector
 void seqScene::SpawnEntity(bool checked){
     static int num = 0;
     SeqEntity *item = new SeqEntity();
+
+    //spawns item in scene
     this->addWidget(item);
     item->updateScene(this);
     entities.push_back(item);
+
     item->setObjectName("seq_entity" + QString::number(num++));
+    //inserts data to entity
     item->insertAllData(info);
 }
 
+//Function creates new connection and its markers
 void seqScene::SpawnConnectionLine(bool checked){
     //there must be two entities selected before you can create line
     if (focusList.size() == 2){
@@ -36,11 +50,13 @@ void seqScene::SpawnConnectionLine(bool checked){
         QGraphicsPolygonItem *blue1P = addPolygon(blue, QPen(Qt::blue, 2), QBrush(Qt::blue));
         QGraphicsPolygonItem *blue2P = addPolygon(blue, QPen(Qt::blue, 2), QBrush(Qt::blue));
 
+        //sets z values of all markers
         fullP->setZValue(2);
         arrowP->setZValue(2);
         blue1P->setZValue(1);
         blue2P->setZValue(1);
 
+        //creates combobox for connection line
         QComboBox *box = new QComboBox();
         auto *newBox = this->addWidget(box);
         box->addItem("");
@@ -59,23 +75,28 @@ void seqScene::SpawnConnectionLine(bool checked){
     }
 }
 
+//Function changes type of connection line
 void seqScene::ChangeConnectionLine(bool checked){
     if(lastLine != nullptr)
         lastLine->changeType();
 }
 
+//Function removes connection line from scene
 void seqScene::RemoveConnectionLine(bool checked){
     if (lastLine != nullptr){
         for(int i = 0; i < connections.size(); i++){
+
             if (connections[i] == lastLine)
                 connections.erase(connections.begin() + i);
         }
+
         lastLine->deleteMarkers();
         delete lastLine;
     }
     lastLine = nullptr;
 }
 
+//Function removes entity from scene
 void seqScene::RemoveEntity(bool checked){
     //entity must be selected before removal
     qDebug() << focusList.size();
@@ -83,6 +104,7 @@ void seqScene::RemoveEntity(bool checked){
         //function also removes all lines, that are connected to the entity, which is being removed
         for(int i = 0; i < connections.size(); i++){
             if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
+
                 if(lastLine == connections[i])
                     lastLine = nullptr;
                 auto *delItem = connections[i];
@@ -92,8 +114,11 @@ void seqScene::RemoveEntity(bool checked){
                 i--;
             }
         }
+
+        /removes entity
         for(int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
+
                 entities.erase(entities.begin() + i);
             }
         }
@@ -105,9 +130,11 @@ void seqScene::RemoveEntity(bool checked){
 
 //Function updates last selected entities
 void seqScene::updateFocusList(QWidget *item){
+    //also marks last two selected entities by changing their color
     qobject_cast<SeqEntity*>(item)->setColor(Qt::red);
     focusList.push_back(item);
     if (focusList.size() > 2){
+        //if more than 2 entities should be selected, deselects first entity
         qobject_cast<SeqEntity*>(focusList[0])->setColor(Qt::black);
         focusList.erase(focusList.begin());
     }
@@ -122,6 +149,7 @@ void seqScene::updateConnections(QWidget *item){
     }
 }
 
+//Function updates data in lines when enity's class is changed
 void seqScene::updateDataLines(const QString &text){
     QObject* obj = sender();
     foreach(SeqLine *line, connections){

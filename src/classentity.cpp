@@ -1,3 +1,11 @@
+/**
+ * ICP Project 2022 
+ * @file classentity.cpp
+ * @brief implementation of methods in ClassEntity class
+ * @author Jakub Julius Smykal (xsmyka01)
+ * @author Milan Hrabovsky (xhrabo15)
+ */
+
 #include "classentity.h"
 #include "ui_classentity.h"
 #include "UmlEditor.h"
