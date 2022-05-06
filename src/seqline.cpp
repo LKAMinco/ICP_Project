@@ -204,7 +204,7 @@ void SeqLine::deleteMarkers(){
 //Function updates data in entity from ClassStorage
 void SeqLine::updateData(ClassStorage *info){
     foreach (EntityStorage *entity, info->entities) { //finds selecte class
-        if(entity->content == start->box->itemText(start->box->currentIndex())){
+        if(entity->content == end->box->itemText(end->box->currentIndex())){
 
             //new method was added
             if(box->count() < entity->methods.size() + 1){
@@ -247,7 +247,7 @@ void SeqLine::insertAllData(ClassStorage *info){
         box->removeItem(i--);
 
     foreach(EntityStorage *item, info->entities){
-        if(item->content == start->box->currentText()){
+        if(item->content == end->box->currentText()){
             foreach(MethodStorage *elem, item->methods){
                 box->addItem(elem->content);
             }

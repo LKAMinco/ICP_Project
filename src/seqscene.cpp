@@ -153,7 +153,7 @@ void seqScene::updateConnections(QWidget *item){
 void seqScene::updateDataLines(const QString &text){
     QObject* obj = sender();
     foreach(SeqLine *line, connections){
-        if(line->start->objectName() == obj->parent()->parent()->objectName())
+        if(line->end->objectName() == obj->parent()->parent()->objectName())
             line->insertAllData(info);
     }
 }
