@@ -77,6 +77,8 @@ void SeqEntity::mouseMoveEvent(QMouseEvent *event){
 void SeqEntity::setColor(Qt::GlobalColor color){
     if (color == Qt::red)
         line->setStyleSheet("background-color: red");
+    else if (color == Qt::green)
+        line->setStyleSheet("background-color: lightgreen");
     else
         line->setStyleSheet("background-color: lightgray");
 }

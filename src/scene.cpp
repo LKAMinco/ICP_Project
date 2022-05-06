@@ -19,11 +19,11 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
     focusList.clear();
     connections.clear();
     lastLine = nullptr;
+    spawnCount = 0;
 }
 
 //Function creates new entity and stores its pointer in entities vector
 void Scene::SpawnEntity(bool checked){
-    static int num = 0;
     ClassEntity *element = new ClassEntity();
 
     //settings for entity ui element
@@ -37,7 +37,7 @@ void Scene::SpawnEntity(bool checked){
     item->setZValue(1);
     item->setParent(this);
     entities.push_back(element);
-    element->setObjectName("entity" + QString::number(num++));
+    element->setObjectName("entity" + QString::number(spawnCount++));
     
     QString text;
     foreach(auto *child, element->children()){

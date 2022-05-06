@@ -78,6 +78,7 @@ public:
     std::vector<QWidget*> focusList;
     //pointer to data storage
     ClassStorage *info;
+    int spawnCount;
 
 public slots:
     /**

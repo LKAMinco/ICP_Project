@@ -52,6 +52,7 @@ public:
 
     SeqLine *lastLine;
     ClassStorage *info;
+    int spawnSeqCount;
 
 public slots:
     /**

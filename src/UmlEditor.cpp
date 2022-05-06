@@ -319,8 +319,6 @@ void MainWindow::on_actionRemove_triggered()
 {
     //TODO remove sequence diagram
     if(seqList.size() != 0){
-        if (!activeSeq)
-            return;
         seqScene *tmp = seqList[seqIndex];
         seqList.erase(seqList.begin() + seqIndex);
         delete tmp;
@@ -386,9 +384,6 @@ void MainWindow::on_actionClass_triggered()
 //Function resets all scenes
 void MainWindow::on_actionNew_triggered()
 {
-    //TODO finish this function
-    if(activeSeq)
-        return;
     //deletes all existing data
     delete classScene;
     delete info;
@@ -400,6 +395,9 @@ void MainWindow::on_actionNew_triggered()
     classScene->setSceneRect(0,0,1920,1080);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
+    while(seqList.size() > 0)
+        on_actionRemove_triggered();
+
     //connects new class scene to context menu
     connect(spawnClass, &QAction::triggered, classScene, &Scene::SpawnEntity);
     connect(spawnConnect, &QAction::triggered, classScene, &Scene::SpawnConnectionLine);
@@ -410,6 +408,7 @@ void MainWindow::on_actionNew_triggered()
 
     info = new ClassStorage(this);
     classScene->info = info;
+    ui->graphicsView->setScene(classScene);
 }
 
 //Function changes active sequence scene to previous

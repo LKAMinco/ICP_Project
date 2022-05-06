@@ -16,11 +16,11 @@ seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
     entities.clear();
     focusList.clear();
     connections.clear();
+    spawnSeqCount = 0;
 }
 
 //Function creates new entity and stores its pointer in entities vector
 void seqScene::SpawnEntity(bool checked){
-    static int num = 0;
     SeqEntity *item = new SeqEntity();
 
     //spawns item in scene
@@ -28,7 +28,7 @@ void seqScene::SpawnEntity(bool checked){
     item->updateScene(this);
     entities.push_back(item);
 
-    item->setObjectName("seq_entity" + QString::number(num++));
+    item->setObjectName("seq_entity" + QString::number(spawnSeqCount++));
     //inserts data to entity
     item->insertAllData(info);
 }
@@ -131,7 +131,7 @@ void seqScene::RemoveEntity(bool checked){
 //Function updates last selected entities
 void seqScene::updateFocusList(QWidget *item){
     //also marks last two selected entities by changing their color
-    qobject_cast<SeqEntity*>(item)->setColor(Qt::red);
+    qobject_cast<SeqEntity*>(item)->setColor(Qt::green);
     focusList.push_back(item);
     if (focusList.size() > 2){
         //if more than 2 entities should be selected, deselects first entity
