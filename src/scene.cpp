@@ -1,6 +1,6 @@
 /**
  * ICP Project 2022 
- * @file scene.p
+ * @file scene.cpp
  * @brief implementation of metods in scene class
  * @author Jakub Julius Smykal (xsmyka01)
  * @author Milan Hrabovsky (xhrabo15)
