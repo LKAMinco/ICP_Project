@@ -39,3 +39,4 @@ Missing functionality:
 - missing warning when deleting class entity, that is being used in sequence diagram
 - missing 'save as' context window when opening/creating new file
 - size of lifeline in sequence diagram cannot be changed
+- does not support unary relationships
