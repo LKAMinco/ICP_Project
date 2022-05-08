@@ -176,6 +176,7 @@ void MainWindow::on_actionOpen_triggered() {
         foreach(
         const QJsonValue &val2, entities){
             seqList.back()->SpawnEntity(false);
+            seqList.back()->entities.back()->setObjectName(val2.toObject().value("window_name").toString());
             int x = val2.toObject().value("g_x").toInt();
             int y = val2.toObject().value("g_y").toInt();
             seqList.back()->entities.back()->move(x, y);
@@ -222,6 +223,7 @@ void MainWindow::on_actionOpen_triggered() {
             seqList.back()->ChangeConnectionLine(false);
             seqList.back()->connections.back()->mouseOffset = val2.toObject().value("mouse_offset").toInt();
             seqList.back()->connections.back()->setPosition();
+            seqList.back()->connections.back()->changeColor(Qt::black);
         }
     }
 }

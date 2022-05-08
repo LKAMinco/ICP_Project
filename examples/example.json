@@ -1,0 +1,227 @@
+{
+    "connections": [
+        {
+            "end_name": "AAA",
+            "line_type": 3,
+            "start_name": "BBB"
+        },
+        {
+            "end_name": "CCC",
+            "line_type": 0,
+            "start_name": "BBB"
+        },
+        {
+            "end_name": "DDD",
+            "line_type": 1,
+            "start_name": "BBB"
+        }
+    ],
+    "seq_scenes": [
+        {
+            "connections": [
+                {
+                    "box_value": "create",
+                    "end_name": "seq_entity1",
+                    "mouse_offset": 100,
+                    "start_name": "seq_entity0",
+                    "type": 0
+                },
+                {
+                    "box_value": "notify()",
+                    "end_name": "seq_entity2",
+                    "mouse_offset": 100,
+                    "start_name": "seq_entity1",
+                    "type": 0
+                },
+                {
+                    "box_value": "notify()",
+                    "end_name": "seq_entity2",
+                    "mouse_offset": 318,
+                    "start_name": "seq_entity0",
+                    "type": 0
+                },
+                {
+                    "box_value": "print()",
+                    "end_name": "seq_entity3",
+                    "mouse_offset": 177,
+                    "start_name": "seq_entity2",
+                    "type": 2
+                },
+                {
+                    "box_value": "",
+                    "end_name": "seq_entity3",
+                    "mouse_offset": 223,
+                    "start_name": "seq_entity2",
+                    "type": 3
+                }
+            ],
+            "entities": [
+                {
+                    "box_value": "DDD",
+                    "g_x": 168,
+                    "g_y": 145,
+                    "height": 300,
+                    "window_name": "seq_entity0"
+                },
+                {
+                    "box_value": "AAA",
+                    "g_x": 573,
+                    "g_y": 181,
+                    "height": 120,
+                    "window_name": "seq_entity1"
+                },
+                {
+                    "box_value": "BBB",
+                    "g_x": 903,
+                    "g_y": 152,
+                    "height": 300,
+                    "window_name": "seq_entity2"
+                },
+                {
+                    "box_value": "CCC",
+                    "g_x": 1307,
+                    "g_y": 153,
+                    "height": 300,
+                    "window_name": "seq_entity3"
+                }
+            ]
+        },
+        {
+            "connections": [
+                {
+                    "box_value": "clearData()",
+                    "end_name": "seq_entity2",
+                    "mouse_offset": 162,
+                    "start_name": "seq_entity3",
+                    "type": 0
+                },
+                {
+                    "box_value": "print()",
+                    "end_name": "seq_entity4",
+                    "mouse_offset": 271,
+                    "start_name": "seq_entity3",
+                    "type": 2
+                },
+                {
+                    "box_value": "",
+                    "end_name": "seq_entity4",
+                    "mouse_offset": 315,
+                    "start_name": "seq_entity3",
+                    "type": 3
+                }
+            ],
+            "entities": [
+                {
+                    "box_value": "DDD",
+                    "g_x": 722,
+                    "g_y": 182,
+                    "height": 120,
+                    "window_name": "seq_entity2"
+                },
+                {
+                    "box_value": "BBB",
+                    "g_x": 219,
+                    "g_y": 179,
+                    "height": 300,
+                    "window_name": "seq_entity3"
+                },
+                {
+                    "box_value": "CCC",
+                    "g_x": 943,
+                    "g_y": 181,
+                    "height": 300,
+                    "window_name": "seq_entity4"
+                }
+            ]
+        }
+    ],
+    "windows": [
+        {
+            "class_name": "AAA",
+            "g_x": 239,
+            "g_y": 315,
+            "index_of_last_attrib": 1,
+            "lines": [
+                {
+                    "boxType_value": 4,
+                    "lineEdit_value": "name",
+                    "visBox_value": 0
+                },
+                {
+                    "boxType_value": 4,
+                    "lineEdit_value": "data",
+                    "visBox_value": 0
+                },
+                {
+                    "lineEdit_value": "create",
+                    "visBox_value": 0
+                },
+                {
+                    "lineEdit_value": "insert",
+                    "visBox_value": 0
+                }
+            ]
+        },
+        {
+            "class_name": "BBB",
+            "g_x": 710,
+            "g_y": 316,
+            "index_of_last_attrib": 0,
+            "lines": [
+                {
+                    "boxType_value": 0,
+                    "lineEdit_value": "isActive",
+                    "visBox_value": 0
+                },
+                {
+                    "lineEdit_value": "notify()",
+                    "visBox_value": 0
+                }
+            ]
+        },
+        {
+            "class_name": "CCC",
+            "g_x": 1129,
+            "g_y": 131,
+            "index_of_last_attrib": 1,
+            "lines": [
+                {
+                    "boxType_value": 4,
+                    "lineEdit_value": "output",
+                    "visBox_value": 0
+                },
+                {
+                    "boxType_value": 1,
+                    "lineEdit_value": "length",
+                    "visBox_value": 0
+                },
+                {
+                    "lineEdit_value": "print()",
+                    "visBox_value": 0
+                }
+            ]
+        },
+        {
+            "class_name": "DDD",
+            "g_x": 1133,
+            "g_y": 501,
+            "index_of_last_attrib": 1,
+            "lines": [
+                {
+                    "boxType_value": 0,
+                    "lineEdit_value": "isNotified",
+                    "visBox_value": 0
+                },
+                {
+                    "boxType_value": 4,
+                    "lineEdit_value": "data",
+                    "visBox_value": 0
+                },
+                {
+                    "lineEdit_value": "clearData()",
+                    "visBox_value": 0
+                }
+            ]
+        }
+    ]
+}

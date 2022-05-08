@@ -17,11 +17,6 @@ SOURCES += \
     line.cpp \
     main.cpp \
     UmlEditor.cpp \
-    cpp/attribute.cpp \
-    cpp/class.cpp \
-    cpp/entity.cpp \
-    cpp/erconnect.cpp \
-    cpp/method.cpp \
     scene.cpp \
     seqentity.cpp \
     seqline.cpp \
@@ -31,11 +26,6 @@ HEADERS += \
     UmlEditor.h \
     classentity.h \
     classstorage.h \
-    cpp/attribute.h \
-    cpp/class.h \
-    cpp/entity.h \
-    cpp/erconnect.h \
-    cpp/method.h \
     line.h \
     scene.h \
     seqentity.h \

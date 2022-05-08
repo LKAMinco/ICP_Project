@@ -146,7 +146,10 @@ void SeqLine::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
 //Function changes color of the line and its markers
 void SeqLine::changeColor(Qt::GlobalColor color){
-    this->setPen(QPen(color, 3));
+    if(type > 1)
+        this->setPen(QPen(color, 3, Qt::DashLine));
+    else
+        this->setPen(QPen(color, 3, Qt::SolidLine));
     full->setPen(QPen(color, 3));
     full->setBrush(QBrush(color));
     arrow->setPen(QPen(color, 3));

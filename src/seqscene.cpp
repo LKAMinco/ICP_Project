@@ -17,6 +17,7 @@ seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
     focusList.clear();
     connections.clear();
     spawnSeqCount = 0;
+    lastLine = nullptr;
 }
 
 //Function creates new entity and stores its pointer in entities vector
@@ -60,6 +61,7 @@ void seqScene::SpawnConnectionLine(bool checked){
         QComboBox *box = new QComboBox();
         auto *newBox = this->addWidget(box);
         box->addItem("");
+        box->resize(box->width() + 20, box->height());
         newBox->setZValue(2);
 
         SeqLine *item = new SeqLine();
