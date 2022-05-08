@@ -10,7 +10,7 @@
 #include "classentity.h"
 
 //Line constructor
-Line::Line(QWidget *parent)
+Line::Line()
 {
     x1 = 0;
     x2 = 0;

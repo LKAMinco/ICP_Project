@@ -47,6 +47,7 @@ void ClassEntity::updateScene(Scene *scene) {
 
 void ClassEntity::on_add_method_clicked() {
     current_height += 20;
+    //resize current frame for correct height
     if (current_height + 20 - 4 > 222) {
         this->resize(278, current_height + 24);
     }
@@ -57,6 +58,7 @@ void ClassEntity::on_add_method_clicked() {
     QPushButton *push_button;
     EntityLine *new_line = new EntityLine;
 
+    //spawns combo box for visiblity
     vis_box = new QComboBox(this);
     vis_box->addItem(QString());
     vis_box->addItem(QString());
@@ -65,19 +67,19 @@ void ClassEntity::on_add_method_clicked() {
     vis_box->setObjectName(QString::fromStdString("visBox_" + line_name));
     vis_box->setGeometry(QRect(4, current_height, 40, 20));
     vis_box->setStyleSheet("QFrame { border: 1px solid black }");
-
+    //set values to visiblity box
     vis_box->setItemText(0, QApplication::translate("MainWindow", "+", nullptr));
     vis_box->setItemText(1, QApplication::translate("MainWindow", "-", nullptr));
     vis_box->setItemText(2, QApplication::translate("MainWindow", "#", nullptr));
     vis_box->setItemText(3, QApplication::translate("MainWindow", "~", nullptr));
     vis_box->show();
-
+    //spanws line for method name
     line_edit = new QLineEdit(this);
     line_edit->setObjectName(QString::fromStdString(line_name));
     line_edit->setGeometry(QRect(44, current_height, 210, 20));
     line_edit->setFrame(true);
     line_edit->show();
-
+    //spawns button for remove current method
     push_button = new QPushButton(this);
     push_button->setObjectName(QString::fromStdString("btn_" + line_name));
     push_button->setGeometry(QRect(254, current_height, 20, 20));
@@ -95,19 +97,17 @@ void ClassEntity::on_add_method_clicked() {
     connect(line_edit, &QLineEdit::textEdited, this, &ClassEntity::updateValue);
     connect(vis_box, &QComboBox::currentTextChanged, this, &ClassEntity::updateValue);
     connect(push_button, &QPushButton::clicked, this, &ClassEntity::removeLine);
-    //connect(pushButton,&QPushButton::clicked,pushButton,&QPushButton::close);
     entity_lines.push_back(new_line);
     current_num_of_lines++;
 
     curScene->createMethodData(this->objectName(), line_edit->objectName(), line_edit->text());
 }
 
-void ClassEntity::on_remove_method_clicked() {
-}
 
 void ClassEntity::on_add_attrib_clicked() {
     int height;
     current_height += 20;
+    //resize current frame for correct height
     if (current_height + 20 - 4 > 222) {
         this->resize(278, current_height + 24);
     }
@@ -120,6 +120,7 @@ void ClassEntity::on_add_attrib_clicked() {
     EntityLine *new_line = new EntityLine;
     EntityLine *tmp = new EntityLine;
     entity_lines.push_back(tmp);
+    //moves all methods one line down, so the attribute can be spawned in correct position
     for (int i = entity_lines.size() - 2; i > index_of_last_attrib; i--) {
         entity_lines[i]->entity_height += 20;
         entity_lines[i]->line_edit->move(44, entity_lines[i]->entity_height);
@@ -129,6 +130,7 @@ void ClassEntity::on_add_attrib_clicked() {
     }
     index_of_last_attrib == -1 ? height = 74 : height = entity_lines[index_of_last_attrib]->entity_height + 20;
     index_of_last_attrib++;
+    //spanws box for visiblity
     vis_box = new QComboBox(this);
     vis_box->addItem(QString());
     vis_box->addItem(QString());
@@ -143,13 +145,13 @@ void ClassEntity::on_add_attrib_clicked() {
     vis_box->setItemText(3, QApplication::translate("MainWindow", PACKAGE, nullptr));
     vis_box->setStyleSheet("QFrame { border: 1px solid black }");
     vis_box->show();
-
+    //spanws line for attribute name
     line_edit = new QLineEdit(this);
     line_edit->setObjectName(QString::fromStdString(line_name));
     line_edit->setGeometry(QRect(44, height, 140, 20));
     line_edit->setFrame(true);
     line_edit->show();
-
+    //spanws box for type of attribute
     type_box = new QComboBox(this);
     type_box->addItem(QString());
     type_box->addItem(QString());
@@ -166,7 +168,7 @@ void ClassEntity::on_add_attrib_clicked() {
     type_box->setItemText(4, QApplication::translate("MainWindow", "string", nullptr));
     type_box->setStyleSheet("QFrame { border: 1px solid black }");
     type_box->show();
-
+    //spawns button for remove current attribute
     push_button = new QPushButton(this);
     push_button->setObjectName(QString::fromStdString("btn_" + line_name));
     push_button->setGeometry(QRect(254, height, 20, 20));
@@ -191,18 +193,13 @@ void ClassEntity::on_add_attrib_clicked() {
 }
 
 void
-ClassEntity::updateValue(const QString &text) { //TODO premenovat na update entity values a pridat update hodnôt v poli
+ClassEntity::updateValue(const QString &text) {
     QObject *obj = sender();
-    //qDebug() << text;
-    //TODO remove
-    /*for(unsigned int i = 0; i < entity_lines.size();i++){
-        entity_lines[i]->line_edit->setStyleSheet(QStringLiteral("background-color: rgb(38, 0, 255);"));
-    }*/
 
     curScene->updateData(this->objectName(), text, obj->objectName());
 }
 
-
+//remove current line of method or attribute
 void ClassEntity::removeLine() {
     EntityLine *tmp = new EntityLine;
     int index = -1;
@@ -211,6 +208,7 @@ void ClassEntity::removeLine() {
     std::string result;
     std::regex e("(?:btn_)");
     std::regex_replace(std::back_inserter(result), name.begin(), name.end(), e, "$2");
+    //finds index of line which has to be deleted
     for (unsigned int i = 0; i < entity_lines.size(); i++) {
         if (result == entity_lines[i]->window_name) {
             index = i;
@@ -221,7 +219,6 @@ void ClassEntity::removeLine() {
             break;
         }
     }
-    //TODO pozriet leak memory
     if (current_num_of_lines != 0) {
         entity_lines.back() = tmp;
         delete entity_lines.back()->line_edit;
@@ -230,8 +227,8 @@ void ClassEntity::removeLine() {
             delete entity_lines.back()->box_type;
             index_of_last_attrib--;
         }
-        //delete entity_lines.back()->btn;
         entity_lines.pop_back();
+        //updates positions of lines so there is no space after deleting line
         for (unsigned int i = index; i < entity_lines.size(); i++) {
             entity_lines[i]->entity_height -= 20;
             entity_lines[i]->line_edit->move(44, entity_lines[i]->entity_height);
@@ -249,10 +246,6 @@ void ClassEntity::removeLine() {
     curScene->removeMethodData(this->objectName(), QString::fromStdString(result));
     delete tmp;
     delete obj;
-}
-
-void ClassEntity::updateOrder() {
-
 }
 
 

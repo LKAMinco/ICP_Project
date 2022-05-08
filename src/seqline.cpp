@@ -12,7 +12,7 @@
 #include "classstorage.h"
 
 //Constructor
-SeqLine::SeqLine(QWidget *parent){
+SeqLine::SeqLine(){
     x1 = 0;
     x2 = 0;
     y1 = 0;
@@ -210,12 +210,12 @@ void SeqLine::updateData(ClassStorage *info){
         if(entity->content == end->box->itemText(end->box->currentIndex())){
 
             //new method was added
-            if(box->count() < entity->methods.size() + 1){
+            if((unsigned int)box->count() < entity->methods.size() + 1){
                 box->addItem(entity->methods.back()->content);
             }
             //method name was changed
-            else if(box->count() == entity->methods.size() + 1){
-                for(int i = 0; i < entity->methods.size(); i++){
+            else if((unsigned int)box->count() == entity->methods.size() + 1){
+                for(unsigned int i = 0; i < entity->methods.size(); i++){
                     if(box->itemText(i + 1) != entity->methods[i]->content){
                         box->setItemText(i + 1, entity->methods[i]->content);
                         break;
@@ -224,14 +224,14 @@ void SeqLine::updateData(ClassStorage *info){
             }
             //method was removed
             else{
-                for(int i = 0; i < entity->methods.size(); i++){
+                for(unsigned int i = 0; i < entity->methods.size(); i++){
                     //if method that is being removed was currently selected, remove selection
-                    if(box->currentIndex() == i + 1)
+                    if((unsigned int)box->currentIndex() == i + 1)
                         box->setCurrentIndex(0);
                     box->removeItem(i + 1);
                 }
                 //last method was removed
-                if(box->count() != entity->methods.size() + 1){
+                if((unsigned int)box->count() != entity->methods.size() + 1){
                     //if class that is being removed was currently selected, remove selection
                     if(box->currentIndex() == box->count() - 1)
                         box->setCurrentIndex(0);

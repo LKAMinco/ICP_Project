@@ -32,6 +32,11 @@
 #include <QGraphicsSceneMouseEvent>
 #include "scene.h"
 
+
+/**
+ * @class EntityLine
+ * @brief class for one line in entity in class diagram
+*/
 class EntityLine: public QFrame{
     Q_OBJECT
 public:
@@ -101,9 +106,7 @@ public slots:
     void on_add_attrib_clicked();
     //this function is called, when some text in entity changes
     void updateValue(const QString &text);
-    //remove method button, TODO - where is remove attribute button ?
-    void on_remove_method_clicked();
-    //remove attribute button ? TODO
+    //remove attribute or method button
     void removeLine();
 
 private:
@@ -115,7 +118,6 @@ private:
     std::string line_name = "";
     QWidget *last_focus;
 
-    void updateOrder();
 };
 
 #endif // CLASSENTITY_H

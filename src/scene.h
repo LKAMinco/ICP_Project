@@ -86,31 +86,31 @@ public slots:
      * @brief Slot to spawn entity in class diagram
      * @param checked
     */
-    void SpawnEntity(bool checked);
+    void SpawnEntity();
     /**
      * @name SpawnConnectionLine
      * @brief Slot to spawn connectin in class diagram
      * @param checked
     */
-    void SpawnConnectionLine(bool checked);
+    void SpawnConnectionLine();
     /**
      * @name ChangeConnectionLine
      * @brief Slot to change type of connection in class diagram
      * @param checked
     */
-    void ChangeConnectionLine(bool checked);
+    void ChangeConnectionLine();
     /**
      * @name RemoveEntity
      * @brief Slot to remove entity in class diagram
      * @param checked
     */
-    void RemoveEntity(bool checked);
+    void RemoveEntity();
     /**
      * @name RemoveConnectionLine
      * @brief Slot to remove connection in class diagram
      * @param checked
     */
-    void RemoveConnectionLine(bool checked);
+    void RemoveConnectionLine();
 
 };
 

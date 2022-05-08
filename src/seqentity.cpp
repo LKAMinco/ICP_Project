@@ -92,12 +92,12 @@ void SeqEntity::updateScene(seqScene *scene){
 //Function updates data in entity from ClassStorage
 void SeqEntity::updateData(ClassStorage *info){
     //new class was added
-    if(ui->comboBox->count() < info->entities.size() + 1){
+    if((unsigned int)ui->comboBox->count() < info->entities.size() + 1){
         ui->comboBox->addItem(info->entities.back()->content);
     }
     //class name was changed
-    else if(ui->comboBox->count() == info->entities.size() + 1){
-        for(int i = 0; i < info->entities.size(); i++){
+    else if((unsigned int)ui->comboBox->count() == info->entities.size() + 1){
+        for(unsigned int i = 0; i < info->entities.size(); i++){
             if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
                 ui->comboBox->setItemText(i + 1, info->entities[i]->content);
                 break;
@@ -106,16 +106,16 @@ void SeqEntity::updateData(ClassStorage *info){
     }
     //class was removed
     else{
-        for(int i = 0; i < info->entities.size(); i++){
+        for(unsigned int i = 0; i < info->entities.size(); i++){
             if(ui->comboBox->itemText(i + 1) != info->entities[i]->content){
                 //if class that is being removed was currently selected, remove selection
-                if(ui->comboBox->currentIndex() == i + 1)
+                if((unsigned int)ui->comboBox->currentIndex() == i + 1)
                     ui->comboBox->setCurrentIndex(0);
                 ui->comboBox->removeItem(i + 1);
             }
         }
         //last class was removed
-        if(ui->comboBox->count() != info->entities.size() + 1){
+        if((unsigned int)ui->comboBox->count() != info->entities.size() + 1){
             //if class that is being removed was currently selected, remove selection
             if(ui->comboBox->currentIndex() == ui->comboBox->count() - 1)
                 ui->comboBox->setCurrentIndex(0);

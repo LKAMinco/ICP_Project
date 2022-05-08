@@ -60,37 +60,37 @@ public slots:
      * @brief Slot to spawn entity in sequence diagram
      * @param checked
     */
-    void SpawnEntity(bool checked);
+    void SpawnEntity();
     /**
      * @name SpawnConnectionLine
      * @brief Slot to spawn connectin in sequence diagram
      * @param checked
     */
-    void SpawnConnectionLine(bool checked);
+    void SpawnConnectionLine();
     /**
      * @name ChangeConnectionLine
      * @brief Slot to change type of connection in sequence diagram
      * @param checked
     */
-    void ChangeConnectionLine(bool checked);
+    void ChangeConnectionLine();
     /**
      * @name RemoveEntity
      * @brief Slot to remove entity in sequence diagram
      * @param checked
     */
-    void RemoveEntity(bool checked);
+    void RemoveEntity();
     /**
      * @name RemoveConnectionLine
      * @brief Slot to remove connection in sequence diagram
      * @param checked
     */
-    void RemoveConnectionLine(bool checked);
+    void RemoveConnectionLine();
     /**
      * @name updateDataLines
      * @brief Slot to update data in connectinos, where entity's class is changed
      * @param text
     */
-    void updateDataLines(const QString &text);
+    void updateDataLines();
 };
 
 #endif // SEQSCENE_H

@@ -51,7 +51,7 @@ void ClassStorage::CreateEntity(QString objName, QString content){
 //Fucntion updates data about enities and their methods
 void ClassStorage::UpdateEntity(QString objName, QString contentName, QString elemName){
     foreach(EntityStorage *entity, entities){
-        if(entity->objectName == objName)
+        if(entity->objectName == objName){
             //only ui element for class name is named title
             if(elemName == "title")
                 entity->content = contentName;
@@ -61,6 +61,7 @@ void ClassStorage::UpdateEntity(QString objName, QString contentName, QString el
                         method->content = contentName;
                 }
             }
+        }
     }
     //updates info for sequence diagrams
     updateSeq();
@@ -69,7 +70,7 @@ void ClassStorage::UpdateEntity(QString objName, QString contentName, QString el
 
 //Function removes entity from data storage
 void ClassStorage::RemoveEntity(QString objName){
-    for(int i = 0; i < entities.size(); i++){
+    for(unsigned int i = 0; i < entities.size(); i++){
         if(entities[i]->objectName == objName){
             EntityStorage *tmp = entities[i];
             entities.erase(entities.begin() + i);
@@ -101,7 +102,7 @@ void ClassStorage::RemoveMethod(QString objName, QString elemName){
     foreach(EntityStorage *entity, entities){
         if(entity->objectName == objName){
 
-            for(int i = 0; i < entity->methods.size(); i++){
+            for(unsigned int i = 0; i < entity->methods.size(); i++){
 
                 if (entity->methods[i]->objectName == elemName){
                     MethodStorage *tmp = entity->methods[i];

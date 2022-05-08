@@ -23,7 +23,7 @@ Scene::Scene(QObject *parent) : QGraphicsScene(parent)
 }
 
 //Function creates new entity and stores its pointer in entities vector
-void Scene::SpawnEntity(bool checked){
+void Scene::SpawnEntity(){
     ClassEntity *element = new ClassEntity();
 
     //settings for entity ui element
@@ -49,7 +49,7 @@ void Scene::SpawnEntity(bool checked){
 }
 
 //Function creates new connection and its markers
-void Scene::SpawnConnectionLine(bool checked){
+void Scene::SpawnConnectionLine(){
     //there must be two entities selected before you can create line
     if (focusList.size() == 2){
         if (focusList[0] == focusList[1])
@@ -105,23 +105,23 @@ void Scene::updateFocusList(QWidget *item){
 
 //Function updates last selected connection line
 void Scene::updateConnections(QWidget *item){
-    for(int i = 0; i < connections.size(); i++){
+    for(unsigned int i = 0; i < connections.size(); i++){
         if (connections[i]->start == item || connections[i]->end == item)
             connections[i]->setPosition();
     }
 }
 
 //Function changes type of connection line
-void Scene::ChangeConnectionLine(bool checked){
+void Scene::ChangeConnectionLine(){
     if (lastLine != nullptr){
         lastLine->changeType();
     }
 }
 
 //Function removes connection line from scene
-void Scene::RemoveConnectionLine(bool checked){
+void Scene::RemoveConnectionLine(){
     if (lastLine != nullptr){
-        for(int i = 0; i < connections.size(); i++){
+        for(unsigned int i = 0; i < connections.size(); i++){
 
             if (connections[i] == lastLine)
                 connections.erase(connections.begin() + i);
@@ -133,11 +133,11 @@ void Scene::RemoveConnectionLine(bool checked){
 }
 
 //Function removes entity from scene
-void Scene::RemoveEntity(bool checked){
+void Scene::RemoveEntity(){
     //entity must be selected before removal
     if(focusList.size() != 0){
         //function also removes all lines, that are connected to the entity, which is being removed
-        for(int i = 0; i < connections.size(); i++){
+        for(unsigned int i = 0; i < connections.size(); i++){
             if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
 
                 if(lastLine == connections[i])
@@ -151,7 +151,7 @@ void Scene::RemoveEntity(bool checked){
         }
 
         //removes entity
-        for(int i = 0; i < entities.size(); i++){
+        for(unsigned int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
 
                 info->RemoveEntity(entities[i]->objectName());

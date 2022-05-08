@@ -33,7 +33,7 @@ public:
      * @brief constructor
      * @param parent 
     */
-    explicit Line(QWidget *parent = nullptr);
+    explicit Line();
     /**
      * @name Line
      * @brief destructor

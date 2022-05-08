@@ -28,7 +28,7 @@ public:
      * @name SeqLine
      * @brief constructor
     */
-    explicit SeqLine(QWidget *parent = nullptr);
+    explicit SeqLine();
     /**
      * @name SeqLine
      * @brief destructor

@@ -21,7 +21,7 @@ seqScene::seqScene(QObject *parent) : QGraphicsScene(parent)
 }
 
 //Function creates new entity and stores its pointer in entities vector
-void seqScene::SpawnEntity(bool checked){
+void seqScene::SpawnEntity(){
     SeqEntity *item = new SeqEntity();
 
     //spawns item in scene
@@ -35,7 +35,7 @@ void seqScene::SpawnEntity(bool checked){
 }
 
 //Function creates new connection and its markers
-void seqScene::SpawnConnectionLine(bool checked){
+void seqScene::SpawnConnectionLine(){
     //there must be two entities selected before you can create line
     if (focusList.size() == 2){
         if (focusList[0] == focusList[1])
@@ -78,15 +78,15 @@ void seqScene::SpawnConnectionLine(bool checked){
 }
 
 //Function changes type of connection line
-void seqScene::ChangeConnectionLine(bool checked){
+void seqScene::ChangeConnectionLine(){
     if(lastLine != nullptr)
         lastLine->changeType();
 }
 
 //Function removes connection line from scene
-void seqScene::RemoveConnectionLine(bool checked){
+void seqScene::RemoveConnectionLine(){
     if (lastLine != nullptr){
-        for(int i = 0; i < connections.size(); i++){
+        for(unsigned int i = 0; i < connections.size(); i++){
 
             if (connections[i] == lastLine)
                 connections.erase(connections.begin() + i);
@@ -99,12 +99,12 @@ void seqScene::RemoveConnectionLine(bool checked){
 }
 
 //Function removes entity from scene
-void seqScene::RemoveEntity(bool checked){
+void seqScene::RemoveEntity(){
     //entity must be selected before removal
     qDebug() << focusList.size();
     if(focusList.size() != 0){
         //function also removes all lines, that are connected to the entity, which is being removed
-        for(int i = 0; i < connections.size(); i++){
+        for(unsigned int i = 0; i < connections.size(); i++){
             if (connections[i]->start == focusList[focusList.size() - 1] || connections[i]->end == focusList[focusList.size() - 1]){
 
                 if(lastLine == connections[i])
@@ -118,7 +118,7 @@ void seqScene::RemoveEntity(bool checked){
         }
 
         //removes entity
-        for(int i = 0; i < entities.size(); i++){
+        for(unsigned int i = 0; i < entities.size(); i++){
             if (entities[i]->pos() == focusList[focusList.size() - 1]->pos()){
 
                 entities.erase(entities.begin() + i);
@@ -145,14 +145,14 @@ void seqScene::updateFocusList(QWidget *item){
 
 //Function updates last selected connection line
 void seqScene::updateConnections(QWidget *item){
-    for(int i = 0; i < connections.size(); i++){
+    for(unsigned int i = 0; i < connections.size(); i++){
         if (connections[i]->start == item || connections[i]->end == item)
             connections[i]->setPosition();
     }
 }
 
 //Function updates data in lines when enity's class is changed
-void seqScene::updateDataLines(const QString &text){
+void seqScene::updateDataLines(){
     QObject* obj = sender();
     foreach(SeqLine *line, connections){
         if(line->end->objectName() == obj->parent()->parent()->objectName())

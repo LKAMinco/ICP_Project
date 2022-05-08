@@ -88,8 +88,11 @@ void MainWindow::on_actionSave_as_triggered() {
     out << genJson();
 }
 
+//Function opens new file
 void MainWindow::on_actionOpen_triggered() {
+    //clears the scene before opening new file, to remove current data
     on_actionNew_triggered();
+    //gets file path from open dialog
     file_path = QFileDialog::getOpenFileName(this, "Open a file", "directoryToOpen", "Uml editor files (*.json)");
     QFile file(file_path);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -102,21 +105,27 @@ void MainWindow::on_actionOpen_triggered() {
         return;
     }
     QJsonObject main_obj = doc.object();
+    //parse data from file into array
     QJsonArray windows = main_obj.value("windows").toArray();
     foreach(
     const QJsonValue &val, windows){
-        classScene->SpawnEntity(false);
+        classScene->SpawnEntity();
         auto *entity = classScene->entities.back();
         int x = val.toObject().value("g_x").toInt();
         int y = val.toObject().value("g_y").toInt();
+        //sets title for entity window
         entity->class_title->setText(val.toObject().value("class_name").toString());
         info->UpdateEntity(entity->objectName(), entity->class_title->text(), "title");
+        //update position of entity window
         entity->move(x, y);
+        //parse lines in entity window from .json file
         QJsonArray lines = val.toObject().value("lines").toArray();
         int i = -1;
         foreach(
+        //first spanws attribute and then when index of last attribut is reached, spawns methods
         const QJsonValue &val2, lines){
             i++;
+
             if (i <= val.toObject().value("index_of_last_attrib").toInt()) {
                 entity->on_add_attrib_clicked();
                 entity->entity_lines.back()->box_visiblity->setCurrentIndex(
@@ -128,54 +137,57 @@ void MainWindow::on_actionOpen_triggered() {
                 entity->entity_lines.back()->box_visiblity->setCurrentIndex(
                         val2.toObject().value("visBox_value").toInt());
                 entity->entity_lines.back()->line_edit->setText(
-                        val2.toObject().value("lineEdit_value").toString()); //TODO
+                        val2.toObject().value("lineEdit_value").toString());
                 info->UpdateEntity(entity->objectName(), entity->entity_lines.back()->line_edit->text(),
                                    entity->entity_lines.back()->line_edit->objectName());
             }
         }
     }
+    //parse connections between class entities
     QJsonArray connections = main_obj.value("connections").toArray();
     foreach(
     const QJsonValue &val, connections){
+        //findes where connections starts
         for (auto *item: classScene->entities) {
             auto item_name = item->class_title->text();
             auto find_name = val.toObject().value("start_name").toString();
             if (!QString::compare(item_name, find_name, Qt::CaseSensitive)) {
                 classScene->updateFocusList(item);
                 break;
-            } //else
-            //qDebug() << "aaaaa hladam";
+            }
         }
+        //findes where connection ends
         for (auto *item: classScene->entities) {
             auto item_name = item->class_title->text();
             auto find_name = val.toObject().value("end_name").toString();
             if (!QString::compare(item_name, find_name, Qt::CaseSensitive)) {
                 classScene->updateFocusList(item);
                 break;
-            } //else
-            //qDebug() << "aaaaa hladam";
+            }
         }
-        classScene->SpawnConnectionLine(false);
+        classScene->SpawnConnectionLine();
         if (val.toObject().value("line_type").toInt() == 0)
             classScene->connections.back()->type = 3;
         else
             classScene->connections.back()->type = val.toObject().value("line_type").toInt() - 1;
         classScene->lastLine = classScene->connections.back();
-        classScene->ChangeConnectionLine(false);
+        classScene->ChangeConnectionLine();
         for (auto *item2: classScene->focusList) {
             item2->setStyleSheet("QFrame { border: 4px solid black }");
         }
         classScene->focusList.clear();
         classScene->lastLine = nullptr;
     }
+    //parse all sequence scenes
     QJsonArray seq_scenes = main_obj.value("seq_scenes").toArray();
     foreach(
     const QJsonValue &val, seq_scenes){
+        //parse entities in sequence scene
         QJsonArray entities = val.toObject().value("entities").toArray();
         on_actionAdd_triggered();
         foreach(
         const QJsonValue &val2, entities){
-            seqList.back()->SpawnEntity(false);
+            seqList.back()->SpawnEntity();
             seqList.back()->entities.back()->setObjectName(val2.toObject().value("window_name").toString());
             int x = val2.toObject().value("g_x").toInt();
             int y = val2.toObject().value("g_y").toInt();
@@ -187,30 +199,31 @@ void MainWindow::on_actionOpen_triggered() {
             int width = seqList.back()->entities.back()->width();
             seqList.back()->entities.back()->resize(width, seqList.back()->entities.back()->height() + height - 120);
             seqList.back()->entities.back()->line->setFixedHeight(height);
-            qDebug() << seqList.back()->entities.back()->objectName();
+            //qDebug() << seqList.back()->entities.back()->objectName();
         }
+        //parse connection lines in sequence scene
         QJsonArray connections = val.toObject().value("connections").toArray();
         foreach(
         const QJsonValue &val2, connections){
+            //findes entity where connection starts
             for (auto *item: seqList.back()->entities) {
                 auto item_name = item->objectName();
                 auto find_name = val2.toObject().value("start_name").toString();
                 if (!QString::compare(item_name, find_name, Qt::CaseSensitive)) {
                     seqList.back()->updateFocusList(item);
                     break;
-                } else
-                    qDebug() << "bbbbb hladam";
+                }
             }
+            //findes entity where connection ends
             for (auto *item: seqList.back()->entities) {
                 auto item_name = item->objectName();
                 auto find_name = val2.toObject().value("end_name").toString();
                 if (!QString::compare(item_name, find_name, Qt::CaseSensitive)) {
                     seqList.back()->updateFocusList(item);
                     break;
-                } else
-                    qDebug() << "bbbbb hladam";
+                }
             }
-            seqList.back()->SpawnConnectionLine(false);
+            seqList.back()->SpawnConnectionLine();
             auto text = val2.toObject().value("box_value").toString();
             int index = seqList.back()->connections.back()->box->findText(text);
             seqList.back()->connections.back()->box->setCurrentIndex(index);
@@ -219,8 +232,8 @@ void MainWindow::on_actionOpen_triggered() {
             else
                 seqList.back()->connections.back()->type = val2.toObject().value("type").toInt() - 1;
             seqList.back()->lastLine = seqList.back()->connections.back();
-            qDebug() << seqList.back()->connections.back()->type;
-            seqList.back()->ChangeConnectionLine(false);
+            //qDebug() << seqList.back()->connections.back()->type;
+            seqList.back()->ChangeConnectionLine();
             seqList.back()->connections.back()->mouseOffset = val2.toObject().value("mouse_offset").toInt();
             seqList.back()->connections.back()->setPosition();
             seqList.back()->connections.back()->changeColor(Qt::black);
@@ -228,6 +241,7 @@ void MainWindow::on_actionOpen_triggered() {
     }
 }
 
+//Function generate .json file from current data in editor
 QString MainWindow::genJson() {
     QJsonDocument doc;
     QJsonArray arr, arr3, arr5;
@@ -255,8 +269,6 @@ QString MainWindow::genJson() {
                                        {"class_name",           item->class_title->text()},
                                        {"g_x",                  item->pos().x()},
                                        {"g_y",                  item->pos().y()},
-                                       //{"g_h",item->geometry().height()},
-                                       //{"g_w",item->geometry().width()},
                                        {"index_of_last_attrib", item->index_of_last_attrib},
                                        {"lines",                arr2}
                                }));

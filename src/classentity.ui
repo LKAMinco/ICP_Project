@@ -79,27 +79,6 @@
     <string>AddAttrib</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="remove_method">
-   <property name="geometry">
-    <rect>
-     <x>104</x>
-     <y>4</y>
-     <width>50</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>6</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(176, 28, 31);</string>
-   </property>
-   <property name="text">
-    <string>RmMethod</string>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="enabled">
     <bool>true</bool>
@@ -188,7 +167,6 @@
   <zorder>line_2</zorder>
   <zorder>line</zorder>
   <zorder>add_attrib</zorder>
-  <zorder>remove_method</zorder>
   <zorder>add_method</zorder>
  </widget>
  <resources/>
